@@ -6,6 +6,8 @@ export {
 export {
     ADD_POINT,
     REMOVE_POINT,
+    CLEAR_ROUTE,
     addPoint,
-    removePoint
+    removePoint,
+    clearRoute
 } from './route';

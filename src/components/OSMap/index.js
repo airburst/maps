@@ -55,6 +55,8 @@ export default class OsMap extends Component {
 
         this.centreAndSetMapEvents();
 
+        this.draw();
+
         // Route subscriptions
         // this.route.track$.subscribe((v) => {
         //     this.draw(v);
@@ -71,7 +73,7 @@ export default class OsMap extends Component {
         this.centreMap({ lat, lon, zoom, northing, easting });
         let evt = this.osMap.events;
         evt.remove('dblclick');
-        evt.register('touchmove', this.osMap, () => { 
+        evt.register('touchmove', this.osMap, () => {
             this.setState({ isMoving: true });
         });
         evt.register('touchend', this.osMap, this.touchPoint);
@@ -163,41 +165,29 @@ export default class OsMap extends Component {
         }
     };
 
-    draw(track) {
-        this.path = this.convertRouteToOsFormat(track);
+    draw() {
+        // let routeFeature = new this.ol.Feature.Vector(
+        //     new this.ol.Geometry.LineString(this.path), null, {
+        //         strokeColor: 'red',
+        //         strokeWidth: 4,
+        //         strokeOpacity: 0.7
+        //     }
+        // );
 
-        // Plot route layer
-        let routeFeature = new this.ol.Feature.Vector(
-            new this.ol.Geometry.LineString(this.path), null, {
-                strokeColor: 'red',
-                strokeWidth: 4,
-                strokeOpacity: 0.7
-            }
-        );
-
-        // Plot waypoints layer
-        let waypointsFeature = [];
-        track.forEach((s) => {
-            if (s.waypoint !== null) {
-                waypointsFeature.push(
-                    new this.ol.Feature.Vector(this.convertToOsMapPoint(s.waypoint))
-                );
-            }
+        let waypointsFeature = this.props.route.waypoints.map(w => {
+            return new this.ol.Feature.Vector(this.convertToOsMapPoint(w));
         });
 
         // Plot route markers layer
-        let markersFeature = [];
-        // this.store.getState().markers.forEach((m) => {
-        //     markersFeature.push(this.addMarker(m, 'dist/assets/images/map-marker.png'));
-        // });
+        // let markersFeature = [];
 
         // Replace existing layers
         this.pointVectorLayer.destroyFeatures();
         this.pointVectorLayer.addFeatures(waypointsFeature);
-        this.lineVectorLayer.destroyFeatures();
-        this.lineVectorLayer.addFeatures([routeFeature]);
-        this.markerVectorLayer.destroyFeatures();
-        this.markerVectorLayer.addFeatures(markersFeature);
+        // this.lineVectorLayer.destroyFeatures();
+        // this.lineVectorLayer.addFeatures([routeFeature]);
+        // this.markerVectorLayer.destroyFeatures();
+        // this.markerVectorLayer.addFeatures(markersFeature);
     };
 
     // updateDistance(track) {
@@ -278,6 +268,10 @@ export default class OsMap extends Component {
 
     componentDidMount() {
         this.init();
+    }
+
+    componentDidUpdate() {
+        this.draw();
     }
 
 }

@@ -15,6 +15,7 @@ export default class App extends Component {
 						northing={168721}
 						easting={385480}
 						zoom={8}
+						route={this.props.route}
 						addPoint={this.props.addPoint} />
 				)}
 			</div>

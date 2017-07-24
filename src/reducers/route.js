@@ -1,6 +1,7 @@
 import { 
   ADD_POINT,
-  REMOVE_POINT
+  REMOVE_POINT,
+  CLEAR_ROUTE
 } from '../actions';
 
 const initialSettings = {
@@ -19,6 +20,9 @@ const route = (state = initialSettings, action) => {
       return Object.assign({}, state, { 
         waypoints: [...state.waypoints].slice(0, state.waypoints.length - 1)
       });
+
+    case CLEAR_ROUTE:
+      return Object.assign({}, state, { waypoints: [] });
 
     default:
       return state;

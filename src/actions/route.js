@@ -1,5 +1,6 @@
 export const ADD_POINT = 'ADD_POINT';
 export const REMOVE_POINT = 'REMOVE_POINT';
+export const CLEAR_ROUTE = 'CLEAR_ROUTE';
 
 export const addPoint = (point) => {
   return {
@@ -12,5 +13,11 @@ export const removePoint = (point) => {
   return {
     type: REMOVE_POINT,
     payload: point
+  };
+}
+
+export const clearRoute = () => {
+  return {
+    type: CLEAR_ROUTE
   };
 }
