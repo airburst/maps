@@ -1,11 +1,14 @@
 import { 
   ADD_POINT,
   REMOVE_POINT,
-  CLEAR_ROUTE
+  CLEAR_ROUTE,
+  SET_MODE
 } from '../actions';
 
 const initialSettings = {
-  waypoints: []
+  waypoints: [],
+  path: [],
+  mode: 'WALK'
 };
 
 const route = (state = initialSettings, action) => {
@@ -23,6 +26,9 @@ const route = (state = initialSettings, action) => {
 
     case CLEAR_ROUTE:
       return Object.assign({}, state, { waypoints: [] });
+
+    case SET_MODE:
+      return Object.assign({}, state, { mode: action.payload });
 
     default:
       return state;
