@@ -105,9 +105,9 @@ export default class OsMap extends Component {
         }
     };
 
-    addWayPointToMap(e, pt) {
+    addWayPointToMap = (e, pt) => {
         let p = this.convertToLatLng(pt);
-console.log(p)
+        this.props.addPoint(p);
         // this.store.dispatch({
         //     type: ADD_SEGMENT,
         //     payload: { waypoint: { lat: p.lat, lon: p.lon, ele: 0 }, track: [], hasElevationData: false }

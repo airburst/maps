@@ -1,10 +1,16 @@
-import { ADD_POINT } from '../actions/route';
+import { ADD_POINT } from '../actions';
 
-const route = (state = [], action) => {
+const initialSettings = {
+  waypoints: []
+};
+
+const route = (state = initialSettings, action) => {
   switch (action.type) {
 
     case ADD_POINT:
-      return action.payload;
+      return Object.assign({}, state, { 
+        waypoints: [...state.waypoints].concat(action.payload)
+      });
 
     default:
       return state;

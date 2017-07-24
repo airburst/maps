@@ -1,7 +1,8 @@
-export const TOGGLE_OPEN_ITEMS = 'TOGGLE_OPEN_ITEMS';
+export const OS_SCRIPT_LOADED = 'OS_SCRIPT_LOADED';
+export const GOOGLE_SCRIPT_LOADED = 'GOOGLE_SCRIPT_LOADED';
 
-export const toggleOpenItems = () => {
-  return {
-    type: TOGGLE_OPEN_ITEMS
-  };
-}
+// export const osScriptLoaded = () => {
+//   return {
+//     type: OS_SCRIPT_LOADED
+//   };
+// }

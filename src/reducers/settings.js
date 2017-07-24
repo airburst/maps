@@ -1,16 +1,21 @@
 import {
-  TOGGLE_OPEN_ITEMS
-} from '../actions/settings';
+  OS_SCRIPT_LOADED,
+  GOOGLE_SCRIPT_LOADED
+} from '../actions';
 
 const initialSettings = {
-  filterOpenRecords: true
+  osScriptLoaded: false,
+  googleScriptLoaded: false
 };
 
-export default function settings(state = initialSettings, action) {
+export default (state = initialSettings, action) => {
   switch (action.type) {
 
-    case TOGGLE_OPEN_ITEMS:
-      return Object.assign({}, state, { filterOpenRecords: !state.filterOpenRecords });
+    case OS_SCRIPT_LOADED:
+      return Object.assign({}, state, { osScriptLoaded: true });
+
+    case GOOGLE_SCRIPT_LOADED:
+      return Object.assign({}, state, { googleScriptLoaded: true });
 
     default:
       return state;
