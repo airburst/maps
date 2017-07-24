@@ -147,17 +147,17 @@ export default class OsMap extends Component {
     };
 
     convertToLatLng(point) {
-        let ll = this.gridProjection.getLonLatFromMapPoint(point);
-        return { lat: ll.lat, lon: ll.lon };
+        const { lat, lon } = this.gridProjection.getLonLatFromMapPoint(point);
+        return { lat, lon };
     };
 
     centreMap(options) {
         if (options) {
-            let { lat, lon, zoom, northing, easting } = options;
-            let mp, p;
+            const { lat, lon, zoom, northing, easting } = options;
+            let mp;
             if (lat) {
-                p = this.convertToOsMapPoint({ lat, lon });
-                mp = new this.os.MapPoint(p.x, p.y);
+                const { x, y} = this.convertToOsMapPoint({ lat, lon });
+                mp = new this.os.MapPoint(x, y);
             } else {
                 mp = new this.os.MapPoint(easting, northing);
             }

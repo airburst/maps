@@ -2,13 +2,13 @@ import {
   ADD_POINT,
   REMOVE_POINT,
   CLEAR_ROUTE,
-  SET_MODE
+  TOGGLE_FOLLOWS_ROADS
 } from '../actions';
 
 const initialSettings = {
   waypoints: [],
   path: [],
-  mode: 'WALK'
+  followsRoads: false
 };
 
 const route = (state = initialSettings, action) => {
@@ -27,8 +27,8 @@ const route = (state = initialSettings, action) => {
     case CLEAR_ROUTE:
       return Object.assign({}, state, { waypoints: [] });
 
-    case SET_MODE:
-      return Object.assign({}, state, { mode: action.payload });
+    case TOGGLE_FOLLOWS_ROADS:
+      return Object.assign({}, state, { followsRoads: !state.followsRoads });
 
     default:
       return state;

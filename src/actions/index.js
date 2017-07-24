@@ -7,10 +7,9 @@ export {
     ADD_POINT,
     REMOVE_POINT,
     CLEAR_ROUTE,
-    SET_MODE,
+    TOGGLE_FOLLOWS_ROADS,
     addPoint,
     removePoint,
     clearRoute,
-    setModeToBike,
-    setModeToWalk
+    toggleFollowsRoads,
 } from './route';
