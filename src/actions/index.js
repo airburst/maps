@@ -7,9 +7,11 @@ export {
     ADD_POINT,
     REMOVE_POINT,
     CLEAR_ROUTE,
+    ADD_TRACK,
     TOGGLE_FOLLOWS_ROADS,
     addPoint,
     removePoint,
     clearRoute,
+    addTrack,
     toggleFollowsRoads,
 } from './route';

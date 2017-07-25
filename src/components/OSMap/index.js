@@ -108,23 +108,20 @@ export default class OsMap extends Component {
     };
 
     addWayPointToMap = (e, pt) => {
-        let p = this.convertToLatLng(pt);
+        const p = this.convertToLatLng(pt);
+        const { waypoints, followsRoads } = this.props.route;
+        const lastWaypoint = waypoints.slice(-1);
         this.props.addPoint(p);
-        // this.store.dispatch({
-        //     type: ADD_SEGMENT,
-        //     payload: { waypoint: { lat: p.lat, lon: p.lon, ele: 0 }, track: [], hasElevationData: false }
-        // });
-
-        // Get value from Observable
-        // let track = this.store.getState().track,
-        //     roadMode = this.store.getState().details.followsRoads;
+        if (waypoints.length > 0) { 
+            this.props.addTrack([...lastWaypoint, p]); 
+        }
 
         // if (track.length > 1) {
         //     let fp = track[track.length - 2].waypoint,
         //         tp = track[track.length - 1].waypoint;
         //     if (roadMode) {
-        //         let from = this.directionsService.convertToGoogleMapPoint(fp),
-        //             to = this.directionsService.convertToGoogleMapPoint(tp);
+        //         let from = this.convertToGoogleMapPoint(fp),
+        //             to = this.convertToGoogleMapPoint(tp);
 
         //         this.directionsService.getRouteBetween(from, to)
         //             .then((response) => {
@@ -148,7 +145,12 @@ export default class OsMap extends Component {
 
     convertToLatLng(point) {
         const { lat, lon } = this.gridProjection.getLonLatFromMapPoint(point);
-        return { lat, lon };
+        const g = this.convertToGoogleMapPoint({ lat, lon });
+        return { lat, lon, g };
+    };
+
+    convertToGoogleMapPoint(point) {
+        return new window.google.maps.LatLng(point.lat, point.lon);
     };
 
     centreMap(options) {
@@ -156,7 +158,7 @@ export default class OsMap extends Component {
             const { lat, lon, zoom, northing, easting } = options;
             let mp;
             if (lat) {
-                const { x, y} = this.convertToOsMapPoint({ lat, lon });
+                const { x, y } = this.convertToOsMapPoint({ lat, lon });
                 mp = new this.os.MapPoint(x, y);
             } else {
                 mp = new this.os.MapPoint(easting, northing);
