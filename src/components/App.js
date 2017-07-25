@@ -17,7 +17,7 @@ export default class App extends Component {
 						zoom={8}
 						route={this.props.route}
 						addPoint={this.props.addPoint}
-						addTrack={this.props.addTrack} />
+						addTrack={this.props.addTrackAndGetElevation} />
 				)}
 			</div>
 		);

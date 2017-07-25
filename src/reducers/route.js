@@ -3,12 +3,14 @@ import {
   REMOVE_POINT,
   CLEAR_ROUTE,
   ADD_TRACK,
+  ADD_ELEVATION,
   TOGGLE_FOLLOWS_ROADS
 } from '../actions';
 
 const initialSettings = {
   waypoints: [],
   track: [],
+  elevation: [],
   followsRoads: false
 };
 
@@ -18,21 +20,27 @@ const route = (state = initialSettings, action) => {
 
     case ADD_POINT:
       return Object.assign({}, state, {
-        waypoints: [...state.waypoints].concat(action.payload)
+        waypoints: [...state.waypoints, action.payload]
       });
 
     case REMOVE_POINT:
       return Object.assign({}, state, {
         waypoints: [...state.waypoints].slice(0, state.waypoints.length - 1),
-        track: [...state.track].slice(0, state.track.length - 1)
+        track: [...state.track].slice(0, state.track.length - 1),
+        elevation: [...state.elevation].slice(0, state.elevation.length - 1),
       });
 
     case CLEAR_ROUTE:
-      return Object.assign({}, state, { waypoints: [], track: [] });
+      return Object.assign({}, state, { waypoints: [], track: [], elevation: [] });
 
     case ADD_TRACK:
       return Object.assign({}, state, {
-        track: [...state.track].concat([action.payload])
+        track: [...state.track, action.payload]
+      });
+
+    case ADD_ELEVATION:
+      return Object.assign({}, state, {
+        elevation: [...state.elevation, action.payload]
       });
 
     case TOGGLE_FOLLOWS_ROADS:

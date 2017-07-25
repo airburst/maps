@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-// import {DirectionsService} from '../google/directions.service';
-// import {ADD_SEGMENT, UPDATE_SEGMENT, REMOVE_LAST_SEGMENT, CLEAR_TRACK} from '../reducers/track';
-// import {UPDATE_DETAILS} from '../reducers/details';
-
-export const flatten = array => [].concat.apply([], array);
+import { flatten } from '../../services/utils';
 
 export default class OsMap extends Component {
 
@@ -111,11 +107,13 @@ export default class OsMap extends Component {
 
     addWayPointToMap = (e, pt) => {
         const p = this.convertToLatLng(pt);
-        const { waypoints, followsRoads } = this.props.route;
+        const { waypoints } = this.props.route;
         const lastWaypoint = waypoints.slice(-1);
         this.props.addPoint(p);
         if (waypoints.length > 0) {
+            // walk mode: resample and add linear points
             this.props.addTrack([...lastWaypoint, p]);
+            // bike mode: get directions
         }
 
         // if (track.length > 1) {
