@@ -23,11 +23,12 @@ const route = (state = initialSettings, action) => {
 
     case REMOVE_POINT:
       return Object.assign({}, state, {
-        waypoints: [...state.waypoints].slice(0, state.waypoints.length - 1)
+        waypoints: [...state.waypoints].slice(0, state.waypoints.length - 1),
+        track: [...state.track].slice(0, state.track.length - 1)
       });
 
     case CLEAR_ROUTE:
-      return Object.assign({}, state, { waypoints: [] });
+      return Object.assign({}, state, { waypoints: [], track: [] });
 
     case ADD_TRACK:
       return Object.assign({}, state, {

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 // import {ADD_SEGMENT, UPDATE_SEGMENT, REMOVE_LAST_SEGMENT, CLEAR_TRACK} from '../reducers/track';
 // import {UPDATE_DETAILS} from '../reducers/details';
 
+export const flatten = array => [].concat.apply([], array);
+
 export default class OsMap extends Component {
 
     constructor(props) {
@@ -112,8 +114,8 @@ export default class OsMap extends Component {
         const { waypoints, followsRoads } = this.props.route;
         const lastWaypoint = waypoints.slice(-1);
         this.props.addPoint(p);
-        if (waypoints.length > 0) { 
-            this.props.addTrack([...lastWaypoint, p]); 
+        if (waypoints.length > 0) {
+            this.props.addTrack([...lastWaypoint, p]);
         }
 
         // if (track.length > 1) {
@@ -168,28 +170,42 @@ export default class OsMap extends Component {
     };
 
     draw() {
-        // let routeFeature = new this.ol.Feature.Vector(
-        //     new this.ol.Geometry.LineString(this.path), null, {
-        //         strokeColor: 'red',
-        //         strokeWidth: 4,
-        //         strokeOpacity: 0.7
-        //     }
-        // );
+        const { waypoints, track } = this.props.route;
+        const path = this.convertRouteToOsFormat(track);
+        const routeFeature = new this.ol.Feature.Vector(
+            new this.ol.Geometry.LineString(path), null, {
+                strokeColor: 'red',
+                strokeWidth: 4,
+                strokeOpacity: 0.7
+            }
+        );
 
-        let waypointsFeature = this.props.route.waypoints.map(w => {
+        const waypointsFeature = waypoints.map(w => {
             return new this.ol.Feature.Vector(this.convertToOsMapPoint(w));
         });
 
         // Plot route markers layer
         // let markersFeature = [];
 
-        // Replace existing layers
         this.pointVectorLayer.destroyFeatures();
         this.pointVectorLayer.addFeatures(waypointsFeature);
-        // this.lineVectorLayer.destroyFeatures();
-        // this.lineVectorLayer.addFeatures([routeFeature]);
+        this.lineVectorLayer.destroyFeatures();
+        this.lineVectorLayer.addFeatures([routeFeature]);
         // this.markerVectorLayer.destroyFeatures();
         // this.markerVectorLayer.addFeatures(markersFeature);
+    };
+
+    convertRouteToOsFormat(track) {
+        const path = track.map(segment => {
+            return segment.map(point => this.convertToOsMapPoint(point))
+        });
+        return flatten(path);
+    }
+
+    convertToOsMapPoint(point) {
+        let mp = new this.ol.LonLat(point.lon, point.lat),
+            mapPoint = this.gridProjection.getMapPointFromLonLat(mp);
+        return new this.ol.Geometry.Point(mapPoint.lon, mapPoint.lat);
     };
 
     // updateDistance(track) {
@@ -199,22 +215,6 @@ export default class OsMap extends Component {
     //         payload: { distance: dist }
     //     });
     // }
-
-    convertRouteToOsFormat(track) {
-        let path = [];
-        track.forEach((segment) => {
-            segment.track.forEach((point) => {
-                path.push(this.convertToOsMapPoint(point));
-            });
-        });
-        return path;
-    }
-
-    convertToOsMapPoint(point) {
-        let mp = new this.ol.LonLat(point.lon, point.lat),
-            mapPoint = this.gridProjection.getMapPointFromLonLat(mp);
-        return new this.ol.Geometry.Point(mapPoint.lon, mapPoint.lat);
-    };
 
     addMarker(marker, image) {
         return new this.ol.Feature.Vector(
