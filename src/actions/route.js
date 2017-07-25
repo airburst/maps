@@ -31,12 +31,23 @@ export const addTrack = (track) => {
   };
 }
 
+export const UPDATE_TRACK = 'UPDATE_TRACK';
+export const updateTrack = (track) => {
+  return {
+    type: UPDATE_TRACK,
+    payload: track
+  };
+}
+
 export const addTrackAndGetElevation = (track) => {
   return dispatch => {
     dispatch(addTrack(track));
     const ele = new ElevationService();
     ele.getElevationData(track)
-      .then(elevation => dispatch(addElevation(elevation)))
+      .then(({ elevation, track }) => {
+        dispatch(addElevation(elevation));
+        if(track) { dispatch(updateTrack(track)); }
+      })
       .catch(err => console.log('Error fetching elevation data', err));
   }
 }
@@ -55,4 +66,3 @@ export const addElevation = (elevation) => {
     payload: elevation
   };
 }
-

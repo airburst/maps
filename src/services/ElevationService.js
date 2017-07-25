@@ -2,12 +2,12 @@ import { flatten, chunk } from './utils';
 
 export default class ElevationService {
 
-    constructor(followsRoads = true) {
+    constructor(followsRoads = false) {
         this.followsRoads = followsRoads;
         this.results = [];
         this.elevator = new window.google.maps.ElevationService();
         this.status = window.google.maps.ElevationStatus;
-        this.sampleSize = 200;
+        this.sampleSize = 40;
         this.throttle = 2000;   // 2 seconds
     };
 
@@ -31,15 +31,15 @@ export default class ElevationService {
         });
 
         return Promise.all(elevationPromises)
-            .then(response => flatten(response).map(e => Math.floor(e.elevation)))
+            .then(response => {
+                const data = flatten(response);
+                return {
+                    elevation: data.map(e => Math.floor(e.elevation)),
+                    track: this.followsRoads ? null : this.extractTrack(data)
+                }
+            })
             .catch(error => console.log(error));
     }
-
-    extractTrackFromElevationResponse(response) {
-        return response.map(p => {
-            return { lat: p.location.lat(), lon: p.location.lng() }
-        });
-    };
 
     convertToGoogleRoute(points) {
         return points.map(point => {
@@ -50,10 +50,8 @@ export default class ElevationService {
     elevation(delay, path) {
         return new Promise((resolve, reject) => {
             if (path.length <= 1) { reject('No elevation requested: no path'); }
-            const data = {
-                path,
-                samples: ((path.length < this.sampleSize) && this.followsRoads) ? path.length : this.sampleSize
-            };
+            const samples = (this.followsRoads && path.length < this.sampleSize) ? path.length : this.sampleSize;
+            const data = { path, samples };
             setTimeout(() => {
                 this.elevator.getElevationAlongPath(data, (results, status) => {
                     if (status === this.status.OK) {
@@ -63,6 +61,12 @@ export default class ElevationService {
                     reject('Google Elevation service was not available. Please try again. ' + status);
                 });
             }, delay);
+        });
+    };
+
+    extractTrack(response) {
+        return response.map(p => {
+            return { lat: p.location.lat(), lon: p.location.lng() }
         });
     };
 

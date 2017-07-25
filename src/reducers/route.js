@@ -3,6 +3,7 @@ import {
   REMOVE_POINT,
   CLEAR_ROUTE,
   ADD_TRACK,
+  UPDATE_TRACK,
   ADD_ELEVATION,
   TOGGLE_FOLLOWS_ROADS
 } from '../actions';
@@ -36,6 +37,12 @@ const route = (state = initialSettings, action) => {
     case ADD_TRACK:
       return Object.assign({}, state, {
         track: [...state.track, action.payload]
+      });
+
+    case UPDATE_TRACK:
+      const t = [...state.track].slice(0, state.track.length - 1);
+      return Object.assign({}, state, {
+        track: [...t, action.payload]
       });
 
     case ADD_ELEVATION:
