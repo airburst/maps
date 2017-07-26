@@ -4,12 +4,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import ScriptLoader from './services/ScriptLoader';
 import AppContainer from './containers/AppContainer';
 // import registerServiceWorker from './registerServiceWorker';
-import theme from './theme';
-// import './index.css';
 
 const store = configureStore();
 const osMapUrl = 'http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=A73F02BD5E3B3B3AE0405F0AC8602805';
@@ -32,7 +29,7 @@ injectTapEventPlugin();
 
 ReactDOM.render(
     <Provider store={store}>
-        <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+        <MuiThemeProvider>
             <AppContainer />
         </MuiThemeProvider>
     </Provider>,

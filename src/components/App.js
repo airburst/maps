@@ -9,9 +9,15 @@ export default class App extends Component {
 
 	render() {
 		const { osScriptLoaded } = this.props.settings;
+		const hasTrack = this.props.route.waypoints.length > 0;
 		return (
 			<div role="main" id="main">
-				<Header />
+				<Header
+					hasTrack={hasTrack}
+					followsRoads={this.props.route.followsRoads}
+					toggleFollowsRoads={this.props.toggleFollowsRoads}
+					removePoint={this.props.removePoint}
+					clearRoute={this.props.clearRoute} />
 				{!osScriptLoaded ? <Loading /> : (
 					<OsMap
 						northing={168721}
@@ -27,9 +33,7 @@ export default class App extends Component {
 	}
 }
 
-// eastings":385480,"northings":168721
-
 /*<OsMap
-					lat={51.417319}
-					lon={-2.210189}
-					zoom={8} />*/
+	lat={51.417319}
+	lon={-2.210189}
+	zoom={8} />*/

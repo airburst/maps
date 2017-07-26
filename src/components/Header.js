@@ -9,28 +9,73 @@ import BikeIcon from 'material-ui/svg-icons/maps/directions-bike';
 import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+import { indigo500, white } from 'material-ui/styles/colors';
+
+const toolbarStyle = {
+    backgroundColor: indigo500
+}
+
+const handleClick = (text, e) => {
+    alert('Need to handle ' + text);
+}
 
 export default class Header extends Component {
 
     render() {
         return (
             <header className="header">
-                <Toolbar>
-                    <ToolbarGroup firstChild={true}>
-                        <ToolbarTitle text="Options" />
-                        <IconButton><SearchIcon /></IconButton>
+                <Toolbar style={toolbarStyle}>
+                    <ToolbarGroup>
+                        <IconButton><SearchIcon color={white} /></IconButton>
                     </ToolbarGroup>
                     <ToolbarGroup>
-                        <IconButton><BikeIcon /></IconButton>
-                        <IconButton><WalkIcon /></IconButton>
-                        <IconButton><CloseIcon /></IconButton>
-                        <IconButton><UndoIcon /></IconButton>
-                        <IconButton><SaveIcon /></IconButton>
-                        <IconButton><DownloadIcon /></IconButton>
-                        <IconButton><UploadIcon /></IconButton>
+                        {
+                            this.props.followsRoads ?
+                                <IconButton>
+                                    <BikeIcon
+                                        onClick={this.props.toggleFollowsRoads}
+                                        color={white} />
+                                </IconButton> :
+                                <IconButton>
+                                    <WalkIcon
+                                        onClick={this.props.toggleFollowsRoads}
+                                        color={white} />
+                                </IconButton>
+                        }
+                        {
+                            this.props.hasTrack ? (
+                                <div>
+                                    <IconButton>
+                                        <CloseIcon
+                                            onClick={this.props.clearRoute}
+                                            color={white} />
+                                    </IconButton>
+                                    <IconButton>
+                                        <UndoIcon
+                                            onClick={this.props.removePoint}
+                                            color={white} />
+                                    </IconButton>
+                                    <IconButton>
+                                        <SaveIcon
+                                            onClick={handleClick.bind(this, 'save')}
+                                            color={white} />
+                                    </IconButton>
+                                    <IconButton>
+                                        <DownloadIcon
+                                            onClick={handleClick.bind(this, 'download')}
+                                            color={white} />
+                                    </IconButton>
+                                </div>
+                            ) : <div />
+                        }
+
+                        <IconButton>
+                            <UploadIcon
+                                onClick={handleClick.bind(this, 'upload')}
+                                color={white} />
+                        </IconButton>
                     </ToolbarGroup>
                 </Toolbar>
-                />
             </header>
         );
 
