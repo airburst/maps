@@ -7,8 +7,8 @@ export default class DirectionsService {
     getRouteBetween(from, to) {
         return new Promise((resolve, reject) => {
             this.service.route({
-                origin: from,
-                destination: to,
+                origin: this.convertToGoogleMapPoint(from),
+                destination: this.convertToGoogleMapPoint(to),
                 travelMode: window.google.maps.DirectionsTravelMode.BICYCLING
             }, (result, status) => {
                 if (status === window.google.maps.DirectionsStatus.OK) {
@@ -25,6 +25,10 @@ export default class DirectionsService {
                 });
             });
         });
-    };
+    }
+
+    convertToGoogleMapPoint(point) {
+        return new window.google.maps.LatLng(point.lat, point.lon);
+    }
 
 }

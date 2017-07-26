@@ -1,4 +1,5 @@
 import ElevationService from '../services/ElevationService';
+import DirectionsService from '../services/DirectionsService';
 
 export const ADD_POINT = 'ADD_POINT';
 export const addPoint = (point) => {
@@ -39,16 +40,29 @@ export const updateTrack = (track) => {
   };
 }
 
-export const addTrackAndGetElevation = (track) => {
+export const addTrackAndGetElevation = (track, followsRoads = false) => {
   return dispatch => {
-    dispatch(addTrack(track));
-    const ele = new ElevationService();
-    ele.getElevationData(track)
-      .then(({ elevation, track }) => {
-        dispatch(addElevation(elevation));
-        if(track) { dispatch(updateTrack(track)); }
-      })
-      .catch(err => console.log('Error fetching elevation data', err));
+    const ele = new ElevationService(followsRoads);
+    if (followsRoads) {
+      const dir = new DirectionsService();
+      dir.getRouteBetween(track[0], track[1])
+        .then(track => {
+          dispatch(addTrack(track));
+          ele.getElevationData(track)
+            .then(({ elevation }) => dispatch(addElevation(elevation)))
+            .catch(err => console.log('Error fetching elevation data', err));
+        })
+        .catch(err => console.log('Error fetching road directions', err));
+    } else {
+      dispatch(addTrack(track));
+      ele.getElevationData(track)
+        .then(({ elevation, track }) => {
+          dispatch(addElevation(elevation));
+          if (track) { dispatch(updateTrack(track)); }
+        })
+        .catch(err => console.log('Error fetching elevation data', err));
+    }
+
   }
 }
 

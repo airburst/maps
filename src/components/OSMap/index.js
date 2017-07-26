@@ -50,20 +50,8 @@ export default class OsMap extends Component {
             new this.os.Control.LargeMapControl(),
             position
         );
-
         this.centreAndSetMapEvents();
-
         this.draw();
-
-        // Route subscriptions
-        // this.route.track$.subscribe((v) => {
-        //     this.draw(v);
-        //     this.updateDistance(v);
-        // });
-
-        // this.route.details$.subscribe((v) => {
-        //     this.setSpot(v.selectedPointIndex);
-        // });
     };
 
     centreAndSetMapEvents = () => {
@@ -111,35 +99,8 @@ export default class OsMap extends Component {
         const lastWaypoint = waypoints.slice(-1);
         this.props.addPoint(p);
         if (waypoints.length > 0) {
-            // walk mode: resample and add linear points
-            this.props.addTrack([...lastWaypoint, p]);
-            // bike mode: get directions
+            this.props.addTrack([...lastWaypoint, p], this.props.followsRoads);
         }
-
-        // if (track.length > 1) {
-        //     let fp = track[track.length - 2].waypoint,
-        //         tp = track[track.length - 1].waypoint;
-        //     if (roadMode) {
-        //         let from = this.convertToGoogleMapPoint(fp),
-        //             to = this.convertToGoogleMapPoint(tp);
-
-        //         this.directionsService.getRouteBetween(from, to)
-        //             .then((response) => {
-        //                 this.store.dispatch({
-        //                     type: UPDATE_SEGMENT,
-        //                     payload: { id: uid, track: response }
-        //                 });
-        //             }, function(response) {
-        //                 console.error('Problem with directions service:', response)
-        //             });
-        //     } else {
-        //         // Walk mode: add the waypoint as a track point
-        //         this.store.dispatch({
-        //             type: UPDATE_SEGMENT,
-        //             payload: { id: uid, track: [fp, tp] }
-        //         });
-        //     }
-        // }
         this.ol.Event.stop(e);
     };
 
@@ -177,14 +138,11 @@ export default class OsMap extends Component {
                 strokeOpacity: 0.7
             }
         );
-
         const waypointsFeature = waypoints.map(w => {
             return new this.ol.Feature.Vector(this.convertToOsMapPoint(w));
         });
-
         // Plot route markers layer
         // let markersFeature = [];
-
         this.pointVectorLayer.destroyFeatures();
         this.pointVectorLayer.addFeatures(waypointsFeature);
         this.lineVectorLayer.destroyFeatures();
@@ -206,61 +164,53 @@ export default class OsMap extends Component {
         return new this.ol.Geometry.Point(mapPoint.lon, mapPoint.lat);
     };
 
-    // updateDistance(track) {
-    //     let dist = distance(track);
-    //     this.store.dispatch({
-    //         type: UPDATE_DETAILS,
-    //         payload: { distance: dist }
-    //     });
+    // addMarker(marker, image) {
+    //     return new this.ol.Feature.Vector(
+    //         this.convertToOsMapPoint(marker.point),   /* Geometry */
+    //         { description: marker.name },             /* Attributes */
+    //         {                                         /* Style */
+    //             label: marker.name,
+    //             labelAlign: 'l',
+    //             labelXOffset: 16,
+    //             labelYOffset: 32,
+    //             fontFamily: 'Arial',
+    //             fontColor: 'black',
+    //             fontSize: '0.7em',
+    //             externalGraphic: image,
+    //             graphicHeight: 32,
+    //             graphicWidth: 32,
+    //             graphicXOffset: -16,
+    //             graphicYOffset: -32
+    //         }
+    //     );
+    // };
+
+    // setSpot(index) {
+    //     if (index === -1) {
+    //         this.removeSpot();
+    //     } else {
+    //         this.addSpot(this.path[index]);
+    //     }
     // }
 
-    addMarker(marker, image) {
-        return new this.ol.Feature.Vector(
-            this.convertToOsMapPoint(marker.point),   /* Geometry */
-            { description: marker.name },             /* Attributes */
-            {                                         /* Style */
-                label: marker.name,
-                labelAlign: 'l',
-                labelXOffset: 16,
-                labelYOffset: 32,
-                fontFamily: 'Arial',
-                fontColor: 'black',
-                fontSize: '0.7em',
-                externalGraphic: image,
-                graphicHeight: 32,
-                graphicWidth: 32,
-                graphicXOffset: -16,
-                graphicYOffset: -32
-            }
-        );
-    };
+    // addSpot(mapPoint) {
+    //     var spot = new this.ol.Feature.Vector(
+    //         mapPoint, {},
+    //         {
+    //             externalGraphic: 'dist/assets/images/spot.png',
+    //             graphicHeight: 32,
+    //             graphicWidth: 32,
+    //             graphicXOffset: -16,
+    //             graphicYOffset: -16
+    //         }
+    //     );
+    //     this.removeSpot();
+    //     this.spotVectorLayer.addFeatures([spot]);
+    // };
 
-    setSpot(index) {
-        if (index === -1) {
-            this.removeSpot();
-        } else {
-            this.addSpot(this.path[index]);
-        }
-    }
-
-    addSpot(mapPoint) {
-        var spot = new this.ol.Feature.Vector(
-            mapPoint, {},
-            {
-                externalGraphic: 'dist/assets/images/spot.png',
-                graphicHeight: 32,
-                graphicWidth: 32,
-                graphicXOffset: -16,
-                graphicYOffset: -16
-            }
-        );
-        this.removeSpot();
-        this.spotVectorLayer.addFeatures([spot]);
-    };
-
-    removeSpot() {
-        this.spotVectorLayer.removeAllFeatures();
-    };
+    // removeSpot() {
+    //     this.spotVectorLayer.removeAllFeatures();
+    // };
 
     render() {
         return <div id="map-container"></div>;

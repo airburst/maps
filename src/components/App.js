@@ -22,10 +22,11 @@ export default class App extends Component {
 					<OsMap
 						northing={168721}
 						easting={385480}
-						zoom={8}
+						zoom={7}
 						route={this.props.route}
 						addPoint={this.props.addPoint}
-						addTrack={this.props.addTrackAndGetElevation} />
+						addTrack={this.props.addTrackAndGetElevation}
+						followsRoads={this.props.route.followsRoads} />
 				)}
 			</div>
 		);
