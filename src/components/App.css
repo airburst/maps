@@ -2,15 +2,26 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: Roboto;
+}
+
+#main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    height: 0vh;
+}
+
+#map-container {
+    height: 100vh; 
+    width: 100%;
+    transition: all 0.2s;
 }
 
 #map {
     height: 100%;
     width: 100%;
-}
-
-#map-container {
-    height: 100vh;
-    width: 100%;
-    transition: all 0.2s;
 }

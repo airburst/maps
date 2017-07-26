@@ -4,7 +4,6 @@ export default class ElevationService {
 
     constructor(followsRoads = false) {
         this.followsRoads = followsRoads;
-        this.results = [];
         this.elevator = new window.google.maps.ElevationService();
         this.status = window.google.maps.ElevationStatus;
         this.sampleSize = 40;
@@ -12,7 +11,6 @@ export default class ElevationService {
     };
 
     getElevationDataWithThrottle(segment) {
-        // this.clear();
         this.getElevationData(segment, true);
     }
 
@@ -79,17 +77,6 @@ export default class ElevationService {
     //         lastElevation = e;
     //     });
     //     return { ascent: Math.floor(ascent) };
-    // }
-
-    // clear() {
-    //     this.store.dispatch({ type: CLEAR_ELEVATION });
-    // }
-
-    // publishRecalcTime(duration) {
-    //     this.store.dispatch({
-    //         type: UPDATE_DETAILS,
-    //         payload: { recalculateTime: duration }
-    //     });
     // }
 
 }

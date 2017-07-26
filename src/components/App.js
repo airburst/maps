@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import MapContainer from './GoogleMap/Container';
 import Loading from './Loading';
+import Header from './Header';
 import OsMap from './OSMap';
 import './App.css';
 
@@ -10,6 +11,7 @@ export default class App extends Component {
 		const { osScriptLoaded } = this.props.settings;
 		return (
 			<div role="main" id="main">
+				<Header />
 				{!osScriptLoaded ? <Loading /> : (
 					<OsMap
 						northing={168721}
