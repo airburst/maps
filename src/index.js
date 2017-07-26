@@ -4,8 +4,10 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import ScriptLoader from './services/ScriptLoader';
 import AppContainer from './containers/AppContainer';
+import theme from './theme';
 // import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore();
@@ -29,7 +31,7 @@ injectTapEventPlugin();
 
 ReactDOM.render(
     <Provider store={store}>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
             <AppContainer />
         </MuiThemeProvider>
     </Provider>,

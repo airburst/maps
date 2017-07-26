@@ -27,7 +27,4 @@ export default class DirectionsService {
         });
     };
 
-    convertToGoogleMapPoint(point) {
-        return new window.google.maps.LatLng(point.lat, point.lon);
-    };
 }

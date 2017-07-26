@@ -2,6 +2,7 @@ import {
     indigo900, indigo700,
     red500,
     grey100, grey300, grey400, grey500,
+    blueGrey800,
     white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
 import { fade } from 'material-ui/utils/colorManipulator';
@@ -26,4 +27,8 @@ export default {
         clockCircleColor: fade(darkBlack, 0.07),
         shadowColor: fullBlack,
     },
+    toolbar: {
+        backgroundColor: blueGrey800,
+        textColor: white
+    }
 };

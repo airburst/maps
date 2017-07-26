@@ -8,12 +8,8 @@ import UndoIcon from 'material-ui/svg-icons/content/undo';
 import BikeIcon from 'material-ui/svg-icons/maps/directions-bike';
 import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
 import SearchIcon from 'material-ui/svg-icons/action/search';
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
-import { indigo500, white } from 'material-ui/styles/colors';
-
-const toolbarStyle = {
-    backgroundColor: indigo500
-}
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import { white } from 'material-ui/styles/colors';
 
 const handleClick = (text, e) => {
     alert('Need to handle ' + text);
@@ -24,7 +20,7 @@ export default class Header extends Component {
     render() {
         return (
             <header className="header">
-                <Toolbar style={toolbarStyle}>
+                <Toolbar>
                     <ToolbarGroup>
                         <IconButton><SearchIcon color={white} /></IconButton>
                     </ToolbarGroup>
@@ -78,6 +74,5 @@ export default class Header extends Component {
                 </Toolbar>
             </header>
         );
-
     }
 }
