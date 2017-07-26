@@ -7,9 +7,9 @@ import SaveIcon from 'material-ui/svg-icons/content/save';
 import UndoIcon from 'material-ui/svg-icons/content/undo';
 import BikeIcon from 'material-ui/svg-icons/maps/directions-bike';
 import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
-import SearchIcon from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
+import SearchInput from './SearchInput';
 
 const handleClick = (text, e) => {
     alert('Need to handle ' + text);
@@ -22,7 +22,7 @@ export default class Header extends Component {
             <header className="header">
                 <Toolbar>
                     <ToolbarGroup>
-                        <IconButton><SearchIcon color={white} /></IconButton>
+                        <SearchInput />
                     </ToolbarGroup>
                     <ToolbarGroup>
                         {

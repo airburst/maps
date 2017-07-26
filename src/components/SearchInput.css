@@ -1,0 +1,19 @@
+.search-box {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: -16px;
+}
+
+.search-input {
+    height: 32px;
+    width: 352px;
+    border-radius: 3px;
+    border: 0px;
+    padding: 4px 8px;
+    font-family: Roboto;
+    font-size: 1.4em;
+}
+
+/* Media queries for mobile */
