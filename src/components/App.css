@@ -13,6 +13,7 @@ html, body {
 
 .header {
     height: 0vh;
+    z-index: 1000;
 }
 
 #map-container {
