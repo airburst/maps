@@ -11,6 +11,10 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
 import SearchContainer from '../containers/SearchContainer';
 
+const tooltipStyle = {
+    fontSize: '16px'
+};
+
 const handleClick = (text, e) => {
     alert('Need to handle ' + text);
 }
@@ -27,12 +31,16 @@ export default class Header extends Component {
                     <ToolbarGroup>
                         {
                             this.props.followsRoads ?
-                                <IconButton>
+                                <IconButton
+                                    tooltip="Route follows roads"
+                                    tooltipStyles={tooltipStyle} >
                                     <BikeIcon
                                         onClick={this.props.toggleFollowsRoads}
                                         color={white} />
                                 </IconButton> :
-                                <IconButton>
+                                <IconButton
+                                    tooltip="Point to point route"
+                                    tooltipStyles={tooltipStyle}>
                                     <WalkIcon
                                         onClick={this.props.toggleFollowsRoads}
                                         color={white} />
@@ -41,22 +49,30 @@ export default class Header extends Component {
                         {
                             this.props.hasTrack ? (
                                 <div>
-                                    <IconButton>
+                                    <IconButton
+                                        tooltip="Clear route"
+                                        tooltipStyles={tooltipStyle}>
                                         <CloseIcon
                                             onClick={this.props.clearRoute}
                                             color={white} />
                                     </IconButton>
-                                    <IconButton>
+                                    <IconButton
+                                        tooltip="Undo"
+                                        tooltipStyles={tooltipStyle}>
                                         <UndoIcon
                                             onClick={this.props.removePoint}
                                             color={white} />
                                     </IconButton>
-                                    <IconButton>
+                                    <IconButton
+                                        tooltip="Save"
+                                        tooltipStyles={tooltipStyle}>
                                         <SaveIcon
                                             onClick={handleClick.bind(this, 'save')}
                                             color={white} />
                                     </IconButton>
-                                    <IconButton>
+                                    <IconButton
+                                        tooltip="Import"
+                                        tooltipStyles={tooltipStyle}>
                                         <DownloadIcon
                                             onClick={handleClick.bind(this, 'download')}
                                             color={white} />
@@ -65,7 +81,9 @@ export default class Header extends Component {
                             ) : <div />
                         }
 
-                        <IconButton>
+                        <IconButton
+                            tooltip="Export"
+                            tooltipStyles={tooltipStyle}>
                             <UploadIcon
                                 onClick={handleClick.bind(this, 'upload')}
                                 color={white} />
