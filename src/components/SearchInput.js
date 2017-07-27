@@ -13,9 +13,15 @@ export default class SearchInput extends Component {
         }
     }
 
-    handleChange = (event) => this.setState({ searchText: event.target.value });
+    handleChange = (event) => {
+        this.setState({ searchText: event.target.value });
+        if (event.target.value.length > 3) {
+            this.props.searchPlace(event.target.value);
+        }
+    }
 
     render() {
+        console.log(this.props)
         return (
             <div className="search-box">
                 <input

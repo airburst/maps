@@ -20,3 +20,11 @@ export {
     toggleFollowsRoads,
     addElevation
 } from './route';
+
+export {
+    LOAD_SEARCH_RESULTS,
+    CLEAR_SEARCH_RESULTS,
+    searchPlace,
+    loadSearchResults,
+    clearSearchResults
+} from './search.js';

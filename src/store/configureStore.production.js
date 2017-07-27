@@ -4,8 +4,7 @@ import thunk from 'redux-thunk';
 // import { routerMiddleware } from 'react-router-redux';
 import reducer from '../reducers';
 
-const router = routerMiddleware(hashHistory);
-
+// const router = routerMiddleware(hashHistory);
 // const enhancer = applyMiddleware(thunk, router);
 const enhancer = applyMiddleware(thunk);
 
