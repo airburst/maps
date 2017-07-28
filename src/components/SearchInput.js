@@ -13,15 +13,18 @@ export default class SearchInput extends Component {
         }
     }
 
-    handleChange = (event) => {
+    handleChange = event => {
         this.setState({ searchText: event.target.value });
-        if (event.target.value.length > 3) {
-            this.props.searchPlace(event.target.value);
-        }
+        // if (event.target.value.length > 3) {
+        //     this.props.searchPlace(event.target.value);
+        // }
+    }
+
+    handleSearch = event => {
+        this.props.searchPlace(this.state.searchText);
     }
 
     render() {
-        console.log(this.props)
         return (
             <div className="search-box">
                 <input
@@ -29,7 +32,9 @@ export default class SearchInput extends Component {
                     placeholder="Search for postcode or place"
                     value={this.state.searchText}
                     onChange={this.handleChange} />
-                <IconButton><SearchIcon color={white} /></IconButton>
+                <IconButton onClick={this.handleSearch}>
+                    <SearchIcon color={white} />
+                </IconButton>
             </div>
         );
     }

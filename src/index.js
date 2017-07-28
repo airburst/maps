@@ -9,12 +9,14 @@ import ScriptLoader from './services/ScriptLoader';
 import AppContainer from './containers/AppContainer';
 import theme from './theme';
 // import registerServiceWorker from './registerServiceWorker';
+import { searchPlace } from './actions';
 
 const store = configureStore();
-const osMapUrl = 'http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=A73F02BD5E3B3B3AE0405F0AC8602805';
-const gMapUrl = 'http://maps.googleapis.com/maps/api/js?v=3.exp';
+const osMapUrl = 'https://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=A73F02BD5E3B3B3AE0405F0AC8602805&v=4.0.0';
+const gMapUrl = 'https://maps.googleapis.com/maps/api/js?v=3.exp';
 const scripts = [osMapUrl, gMapUrl];
 const scriptLoader = new ScriptLoader();
+
 
 const loadScripts = () => {
     const loadPromises = scripts.map(scriptLoader.load);
@@ -22,6 +24,7 @@ const loadScripts = () => {
         .then(() => {
             store.dispatch({ type: 'OS_SCRIPT_LOADED' });
             store.dispatch({ type: 'GOOGLE_SCRIPT_LOADED' });
+            store.dispatch(searchPlace('rejerrah'))
         })
         .catch(err => console.error('Script not found:', err));
 }

@@ -1,5 +1,4 @@
 import GeoCodeService from '../services/GeoCodeService';
-const geo = new GeoCodeService(process.env.GOOGLE_API_KEY);
 
 export const LOAD_SEARCH_RESULTS = 'LOAD_SEARCH_RESULTS';
 export const loadSearchResults = (results) => {
@@ -17,7 +16,5 @@ export const clearSearchResults = () => {
 }
 
 export const searchPlace = place => dispatch => {
-  geo.find(place)
-    .then(results => dispatch(loadSearchResults(results)))
-    .catch(err => console.log(err));
+  new GeoCodeService(dispatch).find(place);
 }
