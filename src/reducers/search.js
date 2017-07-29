@@ -4,7 +4,7 @@ import {
 } from '../actions';
 
 const initialSettings = {
-  searchResults: {}
+  searchResults: null
 };
 
 export default (state = initialSettings, { type, payload }) => {

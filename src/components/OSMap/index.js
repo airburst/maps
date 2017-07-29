@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchResults from '../SearchResults';
+import SearchResults from '../../containers/SearchResults';
 import { flatten } from '../../services/utils';
 
 export default class OsMap extends Component {
@@ -116,6 +116,7 @@ export default class OsMap extends Component {
 
     centreMap() {
         const { lat, lon, northing, easting } = this.props.coords;
+        console.log(lat, lon, northing, easting)                            //
         let mp;
         if (lat) {
             const { x, y } = this.convertToOsMapPoint({ lat, lon });
@@ -212,7 +213,7 @@ export default class OsMap extends Component {
 
     render() {
         return <div id="map-container">
-            <SearchResults results={this.props.searchResults} />
+            <SearchResults />
         </div>;
     }
 
