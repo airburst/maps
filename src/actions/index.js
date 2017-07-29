@@ -1,6 +1,9 @@
 export {
     OS_SCRIPT_LOADED,
-    GOOGLE_SCRIPT_LOADED
+    GOOGLE_SCRIPT_LOADED,
+    SET_COORDS,
+    SET_ZOOM,
+    setCoords
 } from './settings';
 
 export {

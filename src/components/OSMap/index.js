@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SearchResults from '../SearchResults';
 import { flatten } from '../../services/utils';
 
 export default class OsMap extends Component {
@@ -55,8 +56,7 @@ export default class OsMap extends Component {
     };
 
     centreAndSetMapEvents = () => {
-        let { lat, lon, zoom, northing, easting } = this.props;
-        this.centreMap({ lat, lon, zoom, northing, easting });
+        this.centreMap();
         let evt = this.osMap.events;
         evt.remove('dblclick');
         evt.register('touchmove', this.osMap, () => {
@@ -114,18 +114,16 @@ export default class OsMap extends Component {
         return new window.google.maps.LatLng(point.lat, point.lon);
     };
 
-    centreMap(options) {
-        if (options) {
-            const { lat, lon, zoom, northing, easting } = options;
-            let mp;
-            if (lat) {
-                const { x, y } = this.convertToOsMapPoint({ lat, lon });
-                mp = new this.os.MapPoint(x, y);
-            } else {
-                mp = new this.os.MapPoint(easting, northing);
-            }
-            this.osMap.setCenter(mp, zoom);
+    centreMap() {
+        const { lat, lon, northing, easting } = this.props.coords;
+        let mp;
+        if (lat) {
+            const { x, y } = this.convertToOsMapPoint({ lat, lon });
+            mp = new this.os.MapPoint(x, y);
+        } else {
+            mp = new this.os.MapPoint(easting, northing);
         }
+        this.osMap.setCenter(mp, this.props.zoom);
     };
 
     draw() {
@@ -213,7 +211,9 @@ export default class OsMap extends Component {
     // };
 
     render() {
-        return <div id="map-container"></div>;
+        return <div id="map-container">
+            <SearchResults results={this.props.searchResults} />
+        </div>;
     }
 
     componentDidMount() {

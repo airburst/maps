@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import { white } from 'material-ui/styles/colors';
-import './SearchInput.css';
+import './Search.css';
 
 export default class SearchInput extends Component {
 

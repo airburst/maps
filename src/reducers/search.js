@@ -4,7 +4,7 @@ import {
 } from '../actions';
 
 const initialSettings = {
-  searchResults: []
+  searchResults: {}
 };
 
 export default (state = initialSettings, { type, payload }) => {

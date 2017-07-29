@@ -9,14 +9,14 @@ export default class GeoCodeService {
     }
 
     find(place) {
-        this.postcode.getLonLat(place, (res) => {
-            if (!res) {
-                this.dispatch(null);
+        this.postcode.getLonLat(place, (loc) => {
+            if (!loc) {
+                this.dispatch({ type: 'noMatch', loc: null });
                 return;
             }
-            const eastVal = res.getEasting().toString();
+            const eastVal = loc.getEasting().toString();
             if (eastVal.length > 3) {
-                this.dispatch(res);
+                this.dispatch({ type: 'postcode', loc });
                 return;
             }   // valid match
             this.findPlace(place);
@@ -24,17 +24,13 @@ export default class GeoCodeService {
     }
 
     findPlace(place) {
-        this.gaz.getLocations(place, (res) => {
-            console.log('place results', res)
-            if (res.length > 1) {
-                this.dispatch(res);
+        const type = 'place';
+        this.gaz.getLocations(place, (loc) => {
+            if (loc.length > 0) {
+                this.dispatch({ type, loc });
                 return;
             }
-            if (res.length === 1) {
-                this.dispatch(res[0]);
-                return;
-            }
-            this.dispatch(null);
+            this.dispatch({ type: 'noMatch', loc: null });
             return;
         });
     }
