@@ -29,7 +29,6 @@ export default class GeoCodeService {
             const eastVal = loc.getEasting().toString();
             if (eastVal.length > 3) {
                 if (this.autoSet) {
-                    console.log('GeoCode - set postcode', loc)
                     this.setCentre(this.getCoords(loc));
                 } else {
                     this.loadResults({ type: 'postcode', loc: [loc] });
@@ -45,8 +44,7 @@ export default class GeoCodeService {
         this.gaz.getLocations(place, (loc) => {
             if (loc.length > 0) {
                 if (this.autoSet && this.oneSearchResult(loc)) {
-                    console.log('GeoCode - set postcode', loc[0])
-                    this.setCentre(this.getCoords(loc[0]));
+                    this.setCentre(this.getCoords(loc[0].location));
                 } else {
                     this.loadResults({ type, loc });
                 }
