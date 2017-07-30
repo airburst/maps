@@ -6,13 +6,6 @@ import './Search.css';
 
 export default class SearchInput extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            searchText: ''
-        }
-    }
-
     handleKeyPress = event => {
         if (event.key === 'Enter') { 
             this.handleSearch(); 
@@ -20,10 +13,11 @@ export default class SearchInput extends Component {
     }
 
     handleChange = event => {
-        this.setState({ searchText: event.target.value });
-        // if (event.target.value.length > 3) {
-        //     this.props.searchPlace(event.target.value);
-        // }
+        this.props.setSearchText(event.target.value);
+        // Autocomplete
+        if (event.target.value.length > 3) {
+            this.props.searchPlace(event.target.value);
+        }
     }
 
     handleSearch = () => {
@@ -36,7 +30,7 @@ export default class SearchInput extends Component {
                 <input
                     className="search-input"
                     placeholder="Search for postcode or place"
-                    value={this.state.searchText}
+                    value={this.props.searchText}
                     onKeyPress={this.handleKeyPress}
                     onChange={this.handleChange} />
                 <IconButton onClick={this.handleSearch}>
@@ -45,4 +39,5 @@ export default class SearchInput extends Component {
             </div>
         );
     }
+
 }

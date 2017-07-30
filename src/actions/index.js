@@ -3,7 +3,8 @@ export {
     GOOGLE_SCRIPT_LOADED,
     SET_COORDS,
     SET_ZOOM,
-    setCoords
+    setCoords,
+    setMapCentre
 } from './settings';
 
 export {
@@ -27,7 +28,10 @@ export {
 export {
     LOAD_SEARCH_RESULTS,
     CLEAR_SEARCH_RESULTS,
+    SET_SEARCH_TEXT,
     searchPlace,
     loadSearchResults,
-    clearSearchResults
+    clearSearchResults,
+    setSearchText,
+    resetSearch
 } from './search.js';

@@ -1,3 +1,4 @@
+import { resetSearch } from './index';
 export const OS_SCRIPT_LOADED = 'OS_SCRIPT_LOADED';
 export const GOOGLE_SCRIPT_LOADED = 'GOOGLE_SCRIPT_LOADED';
 export const SET_ZOOM = 'SET_ZOOM';
@@ -10,6 +11,7 @@ export const setCoords = coords => {
     };
 }
 
-// export const setMapCentre = coords => dispatch => {
-//     return dispatch(setCoords(coords));
-// }
+export const setMapCentre = coords => dispatch => {
+    dispatch(setCoords(coords));
+    dispatch(resetSearch());
+}

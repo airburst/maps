@@ -9,7 +9,7 @@ import BikeIcon from 'material-ui/svg-icons/maps/directions-bike';
 import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
-import SearchContainer from '../containers/SearchContainer';
+import SearchInput from '../containers/SearchInput';
 
 const tooltipStyle = {
     fontSize: '16px'
@@ -26,7 +26,7 @@ export default class Header extends Component {
             <header className="header">
                 <Toolbar>
                     <ToolbarGroup>
-                        <SearchContainer />
+                        <SearchInput />
                     </ToolbarGroup>
                     <ToolbarGroup>
                         {

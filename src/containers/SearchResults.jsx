@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setCoords } from '../actions';
+import { setMapCentre, resetSearch } from '../actions';
 import SearchResults from '../components/SearchResults';
 
 const mapStateToProps = ({ search }) => {
@@ -8,7 +8,7 @@ const mapStateToProps = ({ search }) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ setCoords }, dispatch);
+    return bindActionCreators({ setMapCentre, resetSearch }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

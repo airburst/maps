@@ -16,6 +16,12 @@ import './Search.css';
 // 	return { lat, lon };
 // }
 
+const resultsStyle = {
+    maxHeight: 440, 
+    overflowY: 'auto',
+    overflowX: 'hidden'
+};
+
 const ResultsList = props => {
     if (!props.searchResults) { return <div/>; }
     return props.searchResults.loc.map((item, key) => {
@@ -25,8 +31,8 @@ const ResultsList = props => {
             <div 
                 key={'result-' + key}
                 className="search-result"
-                onClick={() => props.setCoords({ northing: lat, easting: lon })}>
-                    {name}, {county}, {type}
+                onClick={() => props.setMapCentre({ northing: lat, easting: lon })}>
+                    {name}, {county}
             </div>
         );
     });
@@ -36,7 +42,10 @@ const SearchResults = props => {
 
     return !props.searchResults ? <div /> : (
         <div className="search-results-container">
-            <Paper className="search-results" zDepth={3}>
+            <Paper 
+                style={resultsStyle}
+                className="search-results" 
+                zDepth={3}>
                 {ResultsList(props)}
             </Paper>
         </div>

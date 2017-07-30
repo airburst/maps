@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { searchPlace } from '../actions';
+import { searchPlace, setSearchText } from '../actions';
 import SearchInput from '../components/SearchInput';
 
 const mapStateToProps = ({ search }) => {
@@ -8,7 +8,7 @@ const mapStateToProps = ({ search }) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ searchPlace }, dispatch);
+    return bindActionCreators({ searchPlace, setSearchText }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchInput);
