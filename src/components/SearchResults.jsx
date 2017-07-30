@@ -16,32 +16,29 @@ import './Search.css';
 // 	return { lat, lon };
 // }
 
-const ResultsList = results => {
-    if (!results) { return <div/>; }
-    return results && results.filter(r => r.type === 'place')
-        .map(item => {
-            const { name, county, type, location} = item.loc;
-            const { lat, lon } = location;
-            console.log(name, county, type, lat, lon)
-            return (
-                <div 
-                    className="search-result"
-                    onClick={this.props.setCoords({ lat, lon })}>
-                        {name}, {county}, {type}
-                </div>
-            );
-        });
+const ResultsList = props => {
+    console.log('search results', props.searchResults)
+    if (!props.searchResults) { return <div/>; }
+    return props.searchResults.loc.map((item, key) => {
+        const { name, county, type, location} = item;
+        const { lat, lon } = location;
+        return (
+            <div 
+                key={'result-' + key}
+                className="search-result"
+                onClick={() => props.setCoords({ lat, lon })}>
+                    {name}, {county}, {type}
+            </div>
+        );
+    });
 }
 
 const SearchResults = props => {
-    console.log('search results', props)
-    
-    const handleClick = event => console.log(event.target);
 
     return (
         <div className="search-results-container">
             <Paper className="search-results" zDepth={3}>
-                {ResultsList(props.searchResults)}
+                {ResultsList(props)}
             </Paper>
         </div>
     );
