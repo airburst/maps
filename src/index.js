@@ -13,10 +13,9 @@ import theme from './theme';
 
 const store = configureStore();
 const osMapUrl = 'https://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=A73F02BD5E3B3B3AE0405F0AC8602805&v=4.0.0';
-const gMapUrl = 'https://maps.googleapis.com/maps/api/js?v=3.exp';
+const gMapUrl = 'https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCdO3MslwXdEbrdHk9u3O0vRhysQu1mE18';
 const scripts = [osMapUrl, gMapUrl];
 const scriptLoader = new ScriptLoader();
-
 
 const loadScripts = () => {
     const loadPromises = scripts.map(scriptLoader.load);
