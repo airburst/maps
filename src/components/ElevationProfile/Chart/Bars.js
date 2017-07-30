@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import { scaleLinear } from 'd3-scale'
-import { interpolateLab } from 'd3-interpolate'
+import React, { Component } from 'react';
+import { scaleLinear } from 'd3-scale';
+import { interpolateLab } from 'd3-interpolate';
+import { blueGrey400 } from 'material-ui/styles/colors';
 
 export default class Bars extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class Bars extends Component {
 
         this.colorScale = scaleLinear()
             .domain([0, this.props.maxValue])
-            .range(['#F3E5F5', '#7B1FA2'])
+            .range([blueGrey400])
             .interpolate(interpolateLab)
     }
 
@@ -26,7 +27,7 @@ export default class Bars extends Component {
                     height={height - margins.bottom - scales.yScale(datum[1])}
                     width={xScale.bandwidth()}
                     fill={this.colorScale(datum[1])}
-                />,
+                />
             )
         )
 
