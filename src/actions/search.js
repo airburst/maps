@@ -1,4 +1,5 @@
 import GeoCodeService from '../services/GeoCodeService';
+// import { setMapCentre } from './index';
 
 export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
 export const setSearchText = (text) => {
@@ -15,6 +16,9 @@ export const loadSearchResults = (results) => {
     payload: results
   };
 }
+export const setSearchResults = place => dispatch => {
+  new GeoCodeService(dispatch).find(place);
+}
 
 export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 export const clearSearchResults = () => {
@@ -24,7 +28,11 @@ export const clearSearchResults = () => {
 }
 
 export const searchPlace = place => dispatch => {
-  new GeoCodeService(dispatch).find(place);
+  new GeoCodeService(dispatch, false).find(place);
+}
+
+export const searchAndSet = place => dispatch => {
+  new GeoCodeService(dispatch, true).find(place);
 }
 
 export const resetSearch = () => dispatch => {

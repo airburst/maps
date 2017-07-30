@@ -30,6 +30,7 @@ export {
     CLEAR_SEARCH_RESULTS,
     SET_SEARCH_TEXT,
     searchPlace,
+    searchAndSet,
     loadSearchResults,
     clearSearchResults,
     setSearchText,

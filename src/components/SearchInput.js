@@ -6,12 +6,6 @@ import './Search.css';
 
 export default class SearchInput extends Component {
 
-    handleKeyPress = event => {
-        if (event.key === 'Enter') { 
-            this.handleSearch(); 
-        }
-    }
-
     handleChange = event => {
         this.props.setSearchText(event.target.value);
         // Autocomplete
@@ -22,8 +16,14 @@ export default class SearchInput extends Component {
         }
     }
 
+    handleKeyPress = event => {
+        if (event.key === 'Enter') {
+            this.handleSearch();
+        }
+    }
+
     handleSearch = () => {
-        this.props.searchPlace(this.state.searchText);
+        this.props.searchAndSet(this.props.searchText);
     }
 
     render() {

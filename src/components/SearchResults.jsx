@@ -2,20 +2,6 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import './Search.css';
 
-// const oneSearchResult = ({ type, loc }) => {
-// 	if (!loc) { return false; }
-// 	const { lat, lon } = loc;
-// 	return (lat !== undefined )|| (loc.length && loc.length === 1);
-// }
-
-// const getLatLon = ({ loc }) => {
-// 	let { lat, lon } = loc;
-// 	if (lat === undefined) { 
-// 		let { lat, lon } = loc[0].location;
-// 	};
-// 	return { lat, lon };
-// }
-
 const resultsStyle = {
     maxHeight: 440, 
     overflowY: 'auto',
