@@ -13,6 +13,12 @@ export default class SearchInput extends Component {
         }
     }
 
+    handleKeyPress = event => {
+        if (event.key === 'Enter') { 
+            this.handleSearch(); 
+        }
+    }
+
     handleChange = event => {
         this.setState({ searchText: event.target.value });
         // if (event.target.value.length > 3) {
@@ -20,7 +26,7 @@ export default class SearchInput extends Component {
         // }
     }
 
-    handleSearch = event => {
+    handleSearch = () => {
         this.props.searchPlace(this.state.searchText);
     }
 
@@ -31,6 +37,7 @@ export default class SearchInput extends Component {
                     className="search-input"
                     placeholder="Search for postcode or place"
                     value={this.state.searchText}
+                    onKeyPress={this.handleKeyPress}
                     onChange={this.handleChange} />
                 <IconButton onClick={this.handleSearch}>
                     <SearchIcon color={white} />

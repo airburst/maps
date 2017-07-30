@@ -17,7 +17,6 @@ import './Search.css';
 // }
 
 const ResultsList = props => {
-    console.log('search results', props.searchResults)
     if (!props.searchResults) { return <div/>; }
     return props.searchResults.loc.map((item, key) => {
         const { name, county, type, location} = item;
@@ -26,7 +25,7 @@ const ResultsList = props => {
             <div 
                 key={'result-' + key}
                 className="search-result"
-                onClick={() => props.setCoords({ lat, lon })}>
+                onClick={() => props.setCoords({ northing: lat, easting: lon })}>
                     {name}, {county}, {type}
             </div>
         );
@@ -35,7 +34,7 @@ const ResultsList = props => {
 
 const SearchResults = props => {
 
-    return (
+    return !props.searchResults ? <div /> : (
         <div className="search-results-container">
             <Paper className="search-results" zDepth={3}>
                 {ResultsList(props)}

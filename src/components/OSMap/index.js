@@ -51,12 +51,11 @@ export default class OsMap extends Component {
             new this.os.Control.LargeMapControl(),
             position
         );
-        this.centreAndSetMapEvents();
-        this.draw();
+        this.addMapEvents();
     };
 
-    centreAndSetMapEvents = () => {
-        this.centreMap();
+    addMapEvents = () => {
+        // this.centreMap();
         let evt = this.osMap.events;
         evt.remove('dblclick');
         evt.register('touchmove', this.osMap, () => {
@@ -114,9 +113,8 @@ export default class OsMap extends Component {
         return new window.google.maps.LatLng(point.lat, point.lon);
     };
 
-    centreMap() {
-        const { lat, lon, northing, easting } = this.props.coords;
-        console.log(lat, lon, northing, easting)                            //
+    centreMap(coords) {
+        const { lat, lon, northing, easting } = coords;
         let mp;
         if (lat) {
             const { x, y } = this.convertToOsMapPoint({ lat, lon });
@@ -211,6 +209,14 @@ export default class OsMap extends Component {
     //     this.spotVectorLayer.removeAllFeatures();
     // };
 
+    centreHasChanged() {
+        const { lat, lon, northing, easting } = this.props.coords;
+        return (
+            lat !== this.state.coords.lat || lon !== this.state.coords.lon ||
+            northing !== this.state.coords.northing || easting !== this.state.coords.easting
+        );
+    }
+
     render() {
         return <div id="map-container">
             <SearchResults />
@@ -219,9 +225,17 @@ export default class OsMap extends Component {
 
     componentDidMount() {
         this.init();
+        const coords = this.props.coords;
+        this.setState({ coords });
+        this.centreMap(coords);
+        this.draw();
     }
 
     componentDidUpdate() {
+        if (this.centreHasChanged()) { 
+            this.centreMap(this.props.coords);
+            this.setState({ coords: this.props.coords});
+        }
         this.draw();
     }
 
