@@ -17,6 +17,8 @@ export default class SearchInput extends Component {
         // Autocomplete
         if (event.target.value.length > 3) {
             this.props.searchPlace(event.target.value);
+        } else {
+            this.props.clearSearchResults();
         }
     }
 

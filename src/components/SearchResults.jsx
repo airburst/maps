@@ -23,9 +23,9 @@ const resultsStyle = {
 };
 
 const ResultsList = props => {
-    if (!props.searchResults) { return <div/>; }
+    if (!props.searchResults || !props.searchResults.loc) { return <div/>; }
     return props.searchResults.loc.map((item, key) => {
-        const { name, county, type, location} = item;
+        const { name, county, location} = item;
         const { lat, lon } = location;
         return (
             <div 

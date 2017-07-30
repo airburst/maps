@@ -19,7 +19,7 @@ export default (state = initialSettings, { type, payload }) => {
       return Object.assign({}, state, { searchResults: payload });
 
     case CLEAR_SEARCH_RESULTS:
-      return Object.assign({}, state, { searchResults: null, searchText: '' });
+      return Object.assign({}, state, { searchResults: null });
 
     default:
       return state;
