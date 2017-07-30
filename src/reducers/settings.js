@@ -16,7 +16,7 @@ const initialSettings = {
     lon: null
   },
   zoom: 7,
-  showElevation: false
+  showElevation: true
 };
 
 export default (state = initialSettings, { type, payload }) => {
