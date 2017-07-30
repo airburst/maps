@@ -12,7 +12,7 @@ const initialSettings = {
   waypoints: [],
   track: [],
   elevation: [],
-  followsRoads: false
+  followsRoads: true
 };
 
 const route = (state = initialSettings, action) => {
