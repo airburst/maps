@@ -1,0 +1,52 @@
+.elevation-wrapper {
+    position: absolute;
+    height: 400px;
+    width: 100%;
+    bottom: -335px; /* 400 - 65 (infopanel) */
+    transition: all 0.2s ease-in-out;
+    z-index: 1010;
+}
+
+.elevation-wrapper.show {
+    transform: translateY(-335px);
+}
+
+.elevation-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.infopanel {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+}
+
+.left,
+.right {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+.right {
+    height: 100%;
+    align-content: center;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.info-item {
+    width: 160px;
+}
+
+.value {
+    font-size: 1.6em;
+}
+
+.toggle {
+    font-size: 1.6em;
+    align-self: center;
+}
+
+/* Media queries for mobile */

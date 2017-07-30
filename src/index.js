@@ -6,7 +6,7 @@ import configureStore from './store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import ScriptLoader from './services/ScriptLoader';
-import AppContainer from './containers/AppContainer';
+import App from './containers/App';
 import theme from './theme';
 // import registerServiceWorker from './registerServiceWorker';
 // import { searchPlace } from './actions';
@@ -34,7 +34,7 @@ injectTapEventPlugin();
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
-            <AppContainer />
+            <App />
         </MuiThemeProvider>
     </Provider>,
     document.getElementById('app')

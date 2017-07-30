@@ -3,8 +3,10 @@ export {
     GOOGLE_SCRIPT_LOADED,
     SET_COORDS,
     SET_ZOOM,
+    TOGGLE_SHOW_ELEVATION,
     setCoords,
-    setMapCentre
+    setMapCentre,
+    toggleElevation
 } from './settings';
 
 export {

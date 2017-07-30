@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Loading from './Loading';
 import Header from './Header';
 import OsMap from './OSMap';
+import ElevationProfile from '../containers/ElevationProfile';
 import './App.css';
 
 export default class App extends Component {
@@ -29,6 +30,7 @@ export default class App extends Component {
 						addTrack={this.props.addTrackAndGetElevation}
 						followsRoads={this.props.route.followsRoads} />
 				)}
+				<ElevationProfile />
 			</div>
 		);
 

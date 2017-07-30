@@ -2,7 +2,8 @@ import {
   OS_SCRIPT_LOADED,
   GOOGLE_SCRIPT_LOADED,
   SET_COORDS,
-  SET_ZOOM
+  SET_ZOOM,
+  TOGGLE_SHOW_ELEVATION
 } from '../actions';
 
 const initialSettings = {
@@ -14,7 +15,8 @@ const initialSettings = {
     lat: null,
     lon: null
   },
-	zoom: 7
+  zoom: 7,
+  showElevation: false
 };
 
 export default (state = initialSettings, { type, payload }) => {
@@ -31,6 +33,9 @@ export default (state = initialSettings, { type, payload }) => {
     
     case SET_ZOOM:
       return Object.assign({}, state, { zoom: payload });
+    
+    case TOGGLE_SHOW_ELEVATION:
+      return Object.assign({}, state, { showElevation: !state.showElevation });
 
     default:
       return state;
