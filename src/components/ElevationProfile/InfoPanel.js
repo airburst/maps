@@ -27,11 +27,11 @@ const InfoPanel = props => {
         <div className="infopanel">
             <div className="left">
                 <div className="info-item">
-                    <div className="value">359.0 km</div>
+                    <div className="value">{props.distance} km</div>
                     <div className="label">Distance</div>
                 </div>
                 <div className="info-item">
-                    <div className="value">3256 m</div>
+                    <div className="value">{props.ascent} m</div>
                     <div className="label">Height Gain</div>
                 </div>
             </div>

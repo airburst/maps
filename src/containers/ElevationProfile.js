@@ -4,8 +4,11 @@ import { toggleElevation } from '../actions';
 import ElevationProfile from '../components/ElevationProfile';
 
 const mapStateToProps = ({ route, settings }) => {
+    const { elevation, distance, ascent } = route;
     return {
-        elevation: route.elevation,
+        elevation,
+        distance,
+        ascent,
         show: settings.showElevation
     }
 };

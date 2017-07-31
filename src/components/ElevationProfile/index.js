@@ -13,8 +13,10 @@ export default class ElevationProfile extends Component {
             <div className={wrapperClass}>
                 <Paper
                     className="elevation-container"
-                    zDepth={3}>
+                    zDepth={5}>
                     <InfoPanel 
+                        distance={this.props.distance}
+                        ascent={this.props.ascent}
                         show={this.props.show}
                         toggle={this.props.toggleElevation} />
                     <Chart data={this.props.elevation} />

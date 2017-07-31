@@ -17,6 +17,7 @@ export {
     UPDATE_TRACK,
     TOGGLE_FOLLOWS_ROADS,
     ADD_ELEVATION,
+    UPDATE_DISTANCE,
     addPoint,
     removePoint,
     clearRoute,
@@ -24,7 +25,8 @@ export {
     updateTrack,
     addTrackAndGetElevation,
     toggleFollowsRoads,
-    addElevation
+    addElevation,
+    updateDistance
 } from './route';
 
 export {
