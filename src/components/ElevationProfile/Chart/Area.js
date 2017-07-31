@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
-import { scaleLinear } from 'd3-scale';
-import { interpolateLab } from 'd3-interpolate';
-import { blueGrey400 } from 'material-ui/styles/colors';
+import { area, curveCatmullRom } from 'd3-shape';
+import { blueGrey100 } from 'material-ui/styles/colors';
 
 export default class Area extends Component {
 
     render() {
-        const { scales, margins, data, svgDimensions } = this.props
-        const { xScale, yScale } = scales
-        const { height } = svgDimensions
+        const { scales, data } = this.props;
+        const { xScale, yScale } = scales;
 
-        const bars = (
-            data.map(datum =>
-                <rect
-                    key={datum[0]}
-                    x={xScale(datum[0])}
-                    y={yScale(datum[1])}
-                    height={height - margins.bottom - scales.yScale(datum[1])}
-                    width={xScale.bandwidth()}
-                    fill={blueGrey400}
-                />
-            )
-        )
+        const getArea = area()
+            .x(d => xScale(d[0]))
+            .y0(yScale(yScale.domain()[0]))
+            .y1(d => yScale(d[1]))
+            .curve(curveCatmullRom.alpha(0.5));
 
         return (
-            <g>{bars}</g>
-        )
+            <g>
+                <path
+                    className="area"
+                    d={getArea(data)}
+                    fill={blueGrey100} />
+            </g>
+        );
     }
 }

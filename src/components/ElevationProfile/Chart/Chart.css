@@ -5,15 +5,11 @@
 
 .Axis path,
 .Axis line {
-  stroke: #E0E0E0;
+  stroke: #BDBDBD;
 }
 
 .Axis text {
+  font-family: Roboto;
   font-size: 11px;
   fill: black;
 }
-
-/* .Axis-Bottom text {
-  transform: rotate(-45deg);
-  text-anchor: end;
-} */
