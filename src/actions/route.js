@@ -1,6 +1,9 @@
 import ElevationService from '../services/ElevationService';
 import DirectionsService from '../services/DirectionsService';
-import { addDistanceToTrack } from '../services/GeometryService';
+import { 
+  addDistanceToTrack, 
+  addDistanceToElevation 
+} from '../services/GeometryService';
 
 export const ADD_POINT = 'ADD_POINT';
 export const addPoint = (point) => {
@@ -56,10 +59,13 @@ export const addTrackAndGetElevation = (track, followsRoads = false) => {
       const dir = new DirectionsService();
       dir.getRouteBetween(track[0], track[1])
         .then(track => {
-          dispatch(addTrack(addDistanceToTrack(track)));
+          const t = addDistanceToTrack(track);
+          dispatch(addTrack(t));
           dispatch(updateDistance());
           ele.getElevationData(track)
-            .then(({ elevation }) => dispatch(addElevation(elevation)))
+            .then(({ elevation }) => {
+              dispatch(addElevation(addDistanceToElevation(elevation, t)))
+            })
             .catch(err => console.log('Error fetching elevation data', err));
         })
         .catch(err => console.log('Error fetching road directions', err));

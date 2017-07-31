@@ -3,19 +3,8 @@ import { scaleLinear } from 'd3-scale';
 import ResponsiveWrapper from './ResponsiveWrapper'
 import Axes from './Axes';
 import Area from './Area';
+import { flatten } from '../../../services/utils'
 import './Chart.css';
-
-const data = [
-    [0, 94],
-    [1, 100],
-    [2, 90],
-    [3, 79],
-    [4, 83],
-    [5, 89],
-    [6, 103],
-    [7, 105],
-    [8, 100]
-];
 
 class Chart extends Component {
 
@@ -25,28 +14,24 @@ class Chart extends Component {
         this.yScale = scaleLinear();
     }
 
-    // addDistanceToData() {
-    //     // let averageDistance = this.store.getState().details.distance / elevation.length,
-    //     //     chartData = [];
-    //     // elevation.forEach((ele, i) => {
-    //     //     chartData.push([averageDistance * i, ele]);
-    //     // });
-    //     // return chartData;
-    // }
-
     render() {
         const margins = { top: 0, right: 20, bottom: 40, left: 60 };
+        const data = flatten(this.props.data);
         const svgDimensions = {
             width: Math.max(this.props.parentWidth, 300),
             height: 335
         };
 
-        const maxX = Math.max(...data.map(d => d[0]));
+        const maxX = (data.length > 0) ? 
+            data[data.length - 1][0] : 0;
+            console.log(maxX)
         const xScale = this.xScale
             .domain([0, maxX])
             .range([margins.left, svgDimensions.width - margins.right])
 
-        const maxY = Math.max(...data.map(d => d[1]));
+        const maxY = (data.length > 0) ?
+            Math.max.apply(this, data.map(d => d[1])) : 0;
+            console.log(maxY)
         const yScale = this.yScale
             .domain([0, maxY])
             .range([svgDimensions.height - margins.bottom, margins.top])

@@ -7,17 +7,7 @@ const distanceBetween = (point1, point2) => {
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
-// export const distance = track => {
-//     if (!track || track.length === 0) { return 0; }
-//     return track
-//         .map((t, i) => {
-//             if (i === 0) { return 0; }
-//             return distanceBetween(track[i - 1], t);
-//         })
-//         .reduce((a, b) => a + b, 0);
-// };
-
-export const trunc = num => Math.floor(num * 10) / 10;
+export const trunc = num => Math.floor(num * 100) / 100;
 
 export const addDistanceToTrack = track => {
     if (track.length === 0) { return track; }
@@ -37,9 +27,11 @@ export const distance = track => {
 
 export const addDistanceToElevation = (elevation, track) => {
     if (elevation.length === 0) { return elevation; }
+    let dist = 0;
     return elevation
         .map((e, i) => {
             if (i === 0) { return [0, e]; }
-            return [track[i].dist, e];
+            dist += track[i].dist;
+            return [dist, e];
         });
 }
