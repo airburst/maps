@@ -67,9 +67,7 @@ export default ResponsiveWrapper(Chart);
 
 // import {flatten} from './utils/utils';
 
-// @Component({
-//     selector: 'elevation-chart',
-//     template: `
+
 //         <svg [ngClass]="{hidden: hideSVG}" attr.width="{{width}}" attr.height="{{height}}">
 //             <g attr.transform="translate({{margin.left}},{{margin.top}})">
 //                 <path class="area"></path>
@@ -97,8 +95,8 @@ export default ResponsiveWrapper(Chart);
 //                 </g>
 //             </g>
 //         </svg>
-//     `,
-//     directives: [NgClass],
+
+
 //     styles: [`
 //         .hidden {
 //             display: none;
