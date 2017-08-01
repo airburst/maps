@@ -14,9 +14,14 @@ class Chart extends Component {
         this.yScale = scaleLinear();
     }
 
+    shouldComponentUpdate(nextProps) {
+        return nextProps.data !== this.props.data;
+    }
+
     render() {
         const margins = { top: 0, right: 20, bottom: 40, left: 60 };
         const data = flatten(this.props.data);
+        console.log('Chart', data.length)
         const svgDimensions = {
             width: Math.max(this.props.parentWidth, 300),
             height: 335
