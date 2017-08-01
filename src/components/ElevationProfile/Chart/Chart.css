@@ -13,3 +13,12 @@
   font-size: 11px;
   fill: black;
 }
+
+.event-layer {
+  fill: transparent;
+}
+
+.focus-line {
+  stroke: #E53935;
+  stroke-width: 1px;
+}
