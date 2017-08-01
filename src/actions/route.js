@@ -52,6 +52,21 @@ export const updateDistance = () => {
   };
 }
 
+export const TOGGLE_FOLLOWS_ROADS = 'TOGGLE_FOLLOWS_ROADS';
+export const toggleFollowsRoads = () => {
+  return {
+    type: TOGGLE_FOLLOWS_ROADS
+  };
+}
+
+export const ADD_ELEVATION = 'ADD_ELEVATION';
+export const addElevation = (elevation) => {
+  return {
+    type: ADD_ELEVATION,
+    payload: elevation
+  };
+}
+
 export const addTrackAndGetElevation = (track, followsRoads = false) => {
   return dispatch => {
     const ele = new ElevationService(followsRoads);
@@ -78,21 +93,5 @@ export const addTrackAndGetElevation = (track, followsRoads = false) => {
         })
         .catch(err => console.log('Error fetching elevation data', err));
     }
-
   }
-}
-
-export const TOGGLE_FOLLOWS_ROADS = 'TOGGLE_FOLLOWS_ROADS';
-export const toggleFollowsRoads = () => {
-  return {
-    type: TOGGLE_FOLLOWS_ROADS
-  };
-}
-
-export const ADD_ELEVATION = 'ADD_ELEVATION';
-export const addElevation = (elevation) => {
-  return {
-    type: ADD_ELEVATION,
-    payload: elevation
-  };
 }

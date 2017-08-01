@@ -5,7 +5,6 @@ import { blueGrey100 } from 'material-ui/styles/colors';
 export default class Area extends Component {
 
     render() {
-        console.log('Area', this.props.data)
         const { scales, data } = this.props;
         const { xScale, yScale } = scales;
 

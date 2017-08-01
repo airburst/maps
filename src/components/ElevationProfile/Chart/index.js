@@ -24,14 +24,12 @@ class Chart extends Component {
 
         const maxX = (data.length > 0) ? 
             data[data.length - 1][0] : 0;
-            console.log(maxX)
         const xScale = this.xScale
             .domain([0, maxX])
             .range([margins.left, svgDimensions.width - margins.right])
 
         const maxY = (data.length > 0) ?
             Math.max.apply(this, data.map(d => d[1])) : 0;
-            console.log(maxY)
         const yScale = this.yScale
             .domain([0, maxY])
             .range([svgDimensions.height - margins.bottom, margins.top])

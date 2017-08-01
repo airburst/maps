@@ -62,8 +62,12 @@ const route = (state = initialSettings, { type, payload }) => {
       });
 
     case ADD_ELEVATION:
+      const eLen = state.elevation.length;
+      const lastDistance = (eLen === 0) ? 0 : 
+        state.elevation[eLen - 1][state.elevation[eLen - 1].length - 1][0];
+      const incrementedPayload = payload.map(e => [e[0] + lastDistance, e[1]]);
       return Object.assign({}, state, {
-        elevation: [...state.elevation, payload]
+        elevation: [...state.elevation, incrementedPayload]
       });
 
     case TOGGLE_FOLLOWS_ROADS:
