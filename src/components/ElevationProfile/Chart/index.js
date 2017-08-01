@@ -52,7 +52,8 @@ class Chart extends Component {
                         scales={{ xScale, yScale }}
                         margins={margins}
                         svgDimensions={svgDimensions}
-                        data={data} />
+                        data={data}
+                        hover={this.props.hover} />
                     <Axes
                         scales={{ xScale, yScale }}
                         margins={margins}

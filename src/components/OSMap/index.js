@@ -182,32 +182,32 @@ export default class OsMap extends Component {
     //     );
     // };
 
-    // setSpot(index) {
-    //     if (index === -1) {
-    //         this.removeSpot();
-    //     } else {
-    //         this.addSpot(this.path[index]);
-    //     }
-    // }
+    setSpot(index) {
+        if (!index) { 
+            this.removeSpot();
+        } else {
+            this.addSpot(this.convertRouteToOsFormat(this.props.route.track)[index]);
+        }
+    }
 
-    // addSpot(mapPoint) {
-    //     var spot = new this.ol.Feature.Vector(
-    //         mapPoint, {},
-    //         {
-    //             externalGraphic: 'dist/assets/images/spot.png',
-    //             graphicHeight: 32,
-    //             graphicWidth: 32,
-    //             graphicXOffset: -16,
-    //             graphicYOffset: -16
-    //         }
-    //     );
-    //     this.removeSpot();
-    //     this.spotVectorLayer.addFeatures([spot]);
-    // };
+    addSpot(point) {
+        var spot = new this.ol.Feature.Vector(
+            point, {},
+            {
+                externalGraphic: process.env.PUBLIC_URL + '/images/spot.png',
+                graphicHeight: 32,
+                graphicWidth: 32,
+                graphicXOffset: -16,
+                graphicYOffset: -16
+            }
+        );
+        this.removeSpot();
+        this.spotVectorLayer.addFeatures([spot]);
+    };
 
-    // removeSpot() {
-    //     this.spotVectorLayer.removeAllFeatures();
-    // };
+    removeSpot() {
+        this.spotVectorLayer.removeAllFeatures();
+    };
 
     centreHasChanged() {
         const { lat, lon, northing, easting } = this.props.coords;
@@ -237,6 +237,12 @@ export default class OsMap extends Component {
             this.setState({ coords: this.props.coords});
         }
         this.draw();
+        this.showPointIfHovered();
+    }
+
+    showPointIfHovered() {
+        const { showPoint } = this.props.route;
+        this.setSpot(showPoint);
     }
 
 }

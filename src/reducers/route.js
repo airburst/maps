@@ -6,7 +6,8 @@ import {
   UPDATE_TRACK,
   UPDATE_DISTANCE,
   ADD_ELEVATION,
-  TOGGLE_FOLLOWS_ROADS
+  TOGGLE_FOLLOWS_ROADS,
+  SHOW_POINT
 } from '../actions';
 import { distance, trunc } from '../services/GeometryService';
 import { flatten } from '../services/utils';
@@ -17,7 +18,8 @@ const initialSettings = {
   elevation: [],
   distance: 0,
   ascent: 0,
-  followsRoads: true
+  followsRoads: true,
+  showPoint: null
 };
 
 const route = (state = initialSettings, { type, payload }) => {
@@ -72,6 +74,9 @@ const route = (state = initialSettings, { type, payload }) => {
 
     case TOGGLE_FOLLOWS_ROADS:
       return Object.assign({}, state, { followsRoads: !state.followsRoads });
+
+    case SHOW_POINT:
+      return Object.assign({}, state, { showPoint: payload });
 
     default:
       return state;

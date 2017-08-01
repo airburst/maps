@@ -1,6 +1,10 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toggleElevation, hideElevation } from '../actions';
+import {
+    toggleElevation,
+    hideElevation,
+    showPoint
+} from '../actions';
 import ElevationProfile from '../components/ElevationProfile';
 
 const mapStateToProps = ({ route, settings }) => {
@@ -14,7 +18,11 @@ const mapStateToProps = ({ route, settings }) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ toggleElevation, hideElevation }, dispatch);
+    return bindActionCreators({
+        toggleElevation,
+        hideElevation,
+        showPoint
+    }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ElevationProfile);

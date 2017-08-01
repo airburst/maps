@@ -6,7 +6,7 @@ import {
 } from '../services/GeometryService';
 
 export const ADD_POINT = 'ADD_POINT';
-export const addPoint = (point) => {
+export const addPoint = point => {
   return {
     type: ADD_POINT,
     payload: point
@@ -30,7 +30,7 @@ export const clearRoute = () => {
 }
 
 export const ADD_TRACK = 'ADD_TRACK';
-export const addTrack = (track) => {
+export const addTrack = track => {
   return {
     type: ADD_TRACK,
     payload: track
@@ -38,7 +38,7 @@ export const addTrack = (track) => {
 }
 
 export const UPDATE_TRACK = 'UPDATE_TRACK';
-export const updateTrack = (track) => {
+export const updateTrack = track => {
   return {
     type: UPDATE_TRACK,
     payload: track
@@ -60,13 +60,22 @@ export const toggleFollowsRoads = () => {
 }
 
 export const ADD_ELEVATION = 'ADD_ELEVATION';
-export const addElevation = (elevation) => {
+export const addElevation = elevation => {
   return {
     type: ADD_ELEVATION,
     payload: elevation
   };
 }
 
+export const SHOW_POINT = 'SHOW_POINT';
+export const showPoint = point => {
+  return {
+    type: SHOW_POINT,
+    payload: point
+  };
+}
+
+// TODO - apply same elevation tricks to walk mode
 export const addTrackAndGetElevation = (track, followsRoads = false) => {
   return dispatch => {
     const ele = new ElevationService(followsRoads);

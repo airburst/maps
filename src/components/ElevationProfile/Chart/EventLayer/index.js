@@ -12,18 +12,20 @@ export default class EventLayer extends Component {
     }
 
     handleMouseOver = e => {
-        this.setState({ x: e.clientX });
-        // this.props.hover(e.clientX);
+        const x = e.clientX;
+        this.setState({ x });
+        this.props.hover(this.getIndex(x));
     }
 
     handleMouseMove = e => {
+        const x = e.clientX;
         this.setState({ x: e.clientX });
-        // this.props.hover(e.clientX);
+        this.props.hover(this.getIndex(x));
     }
 
     handleMouseOut = e => {
         this.setState({ x: null });
-        // this.props.hover(null);
+        this.props.hover(null);
     }
 
     getIndex = (x) => {

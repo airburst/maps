@@ -27,7 +27,9 @@ export default class ElevationProfile extends Component {
                         noData={noData}
                         show={this.props.show}
                         toggle={this.props.toggleElevation} />
-                    <Chart data={this.props.elevation} />
+                    <Chart 
+                        data={this.props.elevation}
+                        hover={this.props.showPoint} />
                 </Paper>
             </div>
         );
