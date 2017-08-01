@@ -22,3 +22,9 @@
   stroke: #E53935;
   stroke-width: 1px;
 }
+
+.focus-point {
+  stroke: #E53935;
+  stroke-width: 2px;
+  fill: #EF5350;
+}

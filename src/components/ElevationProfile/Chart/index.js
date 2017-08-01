@@ -49,8 +49,10 @@ class Chart extends Component {
                         data={data}
                     />
                     <EventLayer
+                        scales={{ xScale, yScale }}
                         margins={margins}
-                        svgDimensions={svgDimensions} />
+                        svgDimensions={svgDimensions}
+                        data={data} />
                     <Axes
                         scales={{ xScale, yScale }}
                         margins={margins}
