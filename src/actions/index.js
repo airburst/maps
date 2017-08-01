@@ -4,9 +4,11 @@ export {
     SET_COORDS,
     SET_ZOOM,
     TOGGLE_SHOW_ELEVATION,
+    HIDE_ELEVATION,
     setCoords,
     setMapCentre,
-    toggleElevation
+    toggleElevation,
+    hideElevation
 } from './settings';
 
 export {

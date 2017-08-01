@@ -3,7 +3,8 @@ import {
   GOOGLE_SCRIPT_LOADED,
   SET_COORDS,
   SET_ZOOM,
-  TOGGLE_SHOW_ELEVATION
+  TOGGLE_SHOW_ELEVATION,
+  HIDE_ELEVATION
 } from '../actions';
 
 const initialSettings = {
@@ -16,7 +17,7 @@ const initialSettings = {
     lon: null
   },
   zoom: 7,
-  showElevation: true
+  showElevation: false
 };
 
 export default (state = initialSettings, { type, payload }) => {
@@ -36,6 +37,9 @@ export default (state = initialSettings, { type, payload }) => {
     
     case TOGGLE_SHOW_ELEVATION:
       return Object.assign({}, state, { showElevation: !state.showElevation });
+    
+    case HIDE_ELEVATION:
+      return Object.assign({}, state, { showElevation: false });
 
     default:
       return state;

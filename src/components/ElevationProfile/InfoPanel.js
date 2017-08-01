@@ -36,6 +36,7 @@ const InfoPanel = props => {
                 </div>
             </div>
             {
+                props.noData ? <div /> :
                 props.show ?
                     <HideLink action={props.toggle} /> :
                     <ShowLink action={props.toggle} />
