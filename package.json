@@ -8,7 +8,6 @@
     "d3-axis": "^1.0.8",
     "d3-interpolate": "^1.1.5",
     "d3-scale": "^1.0.6",
-    "d3-selection": "^1.1.0",
     "google-geocoder": "^0.2.1",
     "linkref": "^1.0.1",
     "material-ui": "^0.18.7",

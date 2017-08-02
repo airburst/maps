@@ -94,11 +94,18 @@ export const addTrackAndGetElevation = (track, followsRoads = false) => {
         })
         .catch(err => console.log('Error fetching road directions', err));
     } else {
-      dispatch(addTrack(track));
+      let t = addDistanceToTrack(track);
+      dispatch(addTrack(t));
+      dispatch(updateDistance());
       ele.getElevationData(track)
         .then(({ elevation, track }) => {
-          dispatch(addElevation(elevation));
-          if (track) { dispatch(updateTrack(track)); }
+          if (track) { 
+            t = addDistanceToTrack(track);
+            dispatch(updateTrack(t)); 
+            dispatch(addElevation(addDistanceToElevation(elevation, t)))
+          } else {
+            dispatch(addElevation(addDistanceToElevation(elevation, track)))
+          }
         })
         .catch(err => console.log('Error fetching elevation data', err));
     }
