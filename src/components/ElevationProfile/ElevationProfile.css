@@ -1,26 +1,26 @@
 .elevation-wrapper {
     position: absolute;
-    height: 400px;
+    height: 300px;
     width: 100%;
-    bottom: -335px; /* 400 - 65 (infopanel) */
+    bottom: -252px; /* 400 - 48 (infopanel) */
     transition: all 0.2s ease-in-out;
     z-index: 1010;
 }
 
 .elevation-wrapper.show {
-    transform: translateY(-335px);
+    transform: translateY(-252px);
 }
 
 .elevation-container {
     position: relative;
     width: 100%;
     height: 100%;
+    border-top: 1px solid #546E7A;
 }
 
 .infopanel {
     display: flex;
     flex-direction: row;
-    padding: 8px;
 }
 
 .left,
@@ -37,15 +37,20 @@
 }
 
 .info-item {
-    width: 160px;
+    width: 140px;
+    padding: 6px 8px;
 }
 
 .value {
-    font-size: 1.6em;
+    font-size: 1.2em;
+}
+
+.label {
+    font-size: 12px;
 }
 
 .toggle {
-    font-size: 1.6em;
+    font-size: 1.2em;
     align-self: center;
 }
 

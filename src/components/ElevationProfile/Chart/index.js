@@ -21,12 +21,12 @@ class Chart extends Component {
     }
 
     render() {
-        const margins = { top: 0, right: 20, bottom: 40, left: 60 };
+        const margins = { top: 0, right: 20, bottom: 40, left: 40 };
         const data = flatten(this.props.data);
         // console.log('Chart', data.length)                               //
         const svgDimensions = {
             width: Math.max(this.props.parentWidth, 300),
-            height: 335
+            height: 252
         };
 
         const maxX = (data.length > 0) ?

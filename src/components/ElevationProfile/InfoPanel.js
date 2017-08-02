@@ -8,7 +8,7 @@ const ShowLink = props => {
     return (
         <div className="right" onClick={props.action}>
             <div className="toggle">Show Elevation</div>
-            <IconButton><UpIcon /></IconButton>
+            <IconButton className="toggle-button"><UpIcon /></IconButton>
         </div>
     );
 }
