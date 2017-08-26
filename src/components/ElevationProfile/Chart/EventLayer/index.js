@@ -49,7 +49,7 @@ export default class EventLayer extends Component {
         const { margins, svgDimensions, scales } = this.props;
         const { height, width } = svgDimensions;
         const { yScale } = scales;
-        const { dist, ele } = this.getData(this.state.x);
+        const { /*dist,*/ ele } = this.getData(this.state.x);
         const y = (ele > 0) ? yScale(ele) : null;
 
         return (

@@ -147,8 +147,6 @@ export default class OsMap extends Component {
         this.pointVectorLayer.addFeatures(waypointsFeature);
         this.lineVectorLayer.destroyFeatures();
         this.lineVectorLayer.addFeatures([routeFeature]);
-        // this.markerVectorLayer.destroyFeatures();
-        // this.markerVectorLayer.addFeatures([markersFeature]);
     };
 
     convertRouteToOsFormat(track) {
@@ -164,29 +162,8 @@ export default class OsMap extends Component {
         return new this.ol.Geometry.Point(mapPoint.lon, mapPoint.lat);
     };
 
-    // addMarker(marker, image) {
-    //     return new this.ol.Feature.Vector(
-    //         this.convertToOsMapPoint(marker.point),   /* Geometry */
-    //         { description: marker.name },             /* Attributes */
-    //         {                                         /* Style */
-    //             label: marker.name,
-    //             labelAlign: 'l',
-    //             labelXOffset: 16,
-    //             labelYOffset: 32,
-    //             fontFamily: 'Arial',
-    //             fontColor: 'black',
-    //             fontSize: '0.7em',
-    //             externalGraphic: image,
-    //             graphicHeight: 32,
-    //             graphicWidth: 32,
-    //             graphicXOffset: -16,
-    //             graphicYOffset: -32
-    //         }
-    //     );
-    // };
-
     setSpot(index) {
-        if (!index) { 
+        if (!index) {
             this.removeSpot();
         } else {
             this.addSpot(this.convertRouteToOsFormat(this.props.route.track)[index]);
@@ -221,23 +198,25 @@ export default class OsMap extends Component {
     }
 
     render() {
-        return <div id="map-container">
-            <SearchResults />
-        </div>;
+        return (
+            <div id="map-container">
+                <SearchResults />
+            </div>
+        );
     }
 
     componentDidMount() {
         this.init();
         const coords = this.props.coords;
-        this.setState({ coords });
         this.centreMap(coords);
+        this.setState({ coords });
         this.draw();
     }
 
     componentDidUpdate() {
-        if (this.centreHasChanged()) { 
+        if (this.centreHasChanged()) {
             this.centreMap(this.props.coords);
-            this.setState({ coords: this.props.coords});
+            this.setState({ coords: this.props.coords });
         }
         this.draw();
         this.showPointIfHovered();
