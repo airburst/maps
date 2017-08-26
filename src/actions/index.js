@@ -6,6 +6,7 @@ export {
     TOGGLE_SHOW_ELEVATION,
     HIDE_ELEVATION,
     setCoords,
+    setZoom,
     setMapCentre,
     toggleElevation,
     hideElevation

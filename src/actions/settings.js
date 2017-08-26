@@ -13,6 +13,13 @@ export const setCoords = coords => {
     };
 }
 
+export const setZoom = zoom => {
+    return {
+        type: SET_ZOOM,
+        payload: zoom
+    };
+}
+
 export const toggleElevation = () => {
     return {
         type: TOGGLE_SHOW_ELEVATION
@@ -25,7 +32,8 @@ export const hideElevation = () => {
     };
 }
 
-export const setMapCentre = coords => dispatch => {
+export const setMapCentre = (coords, zoom = 7) => dispatch => {
     dispatch(setCoords(coords));
+    dispatch(setZoom(zoom));
     dispatch(resetSearch());
 }

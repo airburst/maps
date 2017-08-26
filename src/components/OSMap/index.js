@@ -8,6 +8,12 @@ export default class OsMap extends Component {
         super(props);
         this.osMap = {};
         this.state = { isMoving: false };
+        this.ol = {};
+        this.os = {};
+        this.gridProjection = {};
+        this.lineVectorLayer = {};
+        this.pointVectorLayer = {};
+        this.spotVectorLayer = {};
     }
 
     init = () => {
@@ -37,8 +43,8 @@ export default class OsMap extends Component {
         this.osMap.addLayer(this.lineVectorLayer);
         this.pointVectorLayer = new this.ol.Layer.Vector('Point Vector Layer');
         this.osMap.addLayer(this.pointVectorLayer);
-        this.markerVectorLayer = new this.ol.Layer.Vector('Point Vector Layer');
-        this.osMap.addLayer(this.markerVectorLayer);
+        // this.markerVectorLayer = new this.ol.Layer.Vector('Point Vector Layer');
+        // this.osMap.addLayer(this.markerVectorLayer);
         this.spotVectorLayer = new this.ol.Layer.Vector('Point Vector Layer');
         this.osMap.addLayer(this.spotVectorLayer);
 
@@ -55,7 +61,6 @@ export default class OsMap extends Component {
     };
 
     addMapEvents = () => {
-        // this.centreMap();
         let evt = this.osMap.events;
         evt.remove('dblclick');
         evt.register('touchmove', this.osMap, () => {
@@ -138,14 +143,12 @@ export default class OsMap extends Component {
         const waypointsFeature = waypoints.map(w => {
             return new this.ol.Feature.Vector(this.convertToOsMapPoint(w));
         });
-        // Plot route markers layer
-        // let markersFeature = [];
         this.pointVectorLayer.destroyFeatures();
         this.pointVectorLayer.addFeatures(waypointsFeature);
         this.lineVectorLayer.destroyFeatures();
         this.lineVectorLayer.addFeatures([routeFeature]);
         // this.markerVectorLayer.destroyFeatures();
-        // this.markerVectorLayer.addFeatures(markersFeature);
+        // this.markerVectorLayer.addFeatures([markersFeature]);
     };
 
     convertRouteToOsFormat(track) {
