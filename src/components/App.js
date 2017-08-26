@@ -9,6 +9,7 @@ import './App.css';
 export default class App extends Component {
 
 	render() {
+// console.log(this.props.auth.isAuthenticated())
 		const { osScriptLoaded } = this.props.settings;
 		const { coords, zoom } = this.props.settings;
 		const hasTrack = this.props.route.waypoints.length > 0;
