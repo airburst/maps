@@ -1,5 +1,5 @@
 import auth0 from 'auth0-js';
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
 import { AUTH_CONFIG } from './Auth.config';
 
 const history = createHistory();
@@ -24,7 +24,6 @@ export default class Auth {
     handleAuthentication = () => {
         this.auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
-console.log(authResult);
                 this.setSession(authResult);
                 history.replace('/');
             } else if (err) {
@@ -35,9 +34,10 @@ console.log(authResult);
     }
 
     setSession(authResult) {
-        let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-        localStorage.setItem('access_token', authResult.accessToken);
-        localStorage.setItem('id_token', authResult.idToken);
+        const { accessToken, idToken, expiresIn } = authResult;
+        const expiresAt = JSON.stringify((expiresIn * 1000) + new Date().getTime());
+        localStorage.setItem('access_token', accessToken);
+        localStorage.setItem('id_token', idToken);
         localStorage.setItem('expires_at', expiresAt);
         history.replace('/');
     }
@@ -46,7 +46,7 @@ console.log(authResult);
         localStorage.removeItem('access_token');
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
-        history.replace('/');
+        history.push('/');
     }
 
     isAuthenticated = () => {

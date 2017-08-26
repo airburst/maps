@@ -8,12 +8,10 @@ const logger = createLogger({
   collapsed: true,
 });
 
-// const router = routerMiddleware(hashHistory);
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancers = composeEnhancers(
-    applyMiddleware(thunk, logger)
+  applyMiddleware(thunk, logger)
 );
 
 export default (initialState = {}) => {

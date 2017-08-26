@@ -4,7 +4,6 @@ import createHistory from 'history/createBrowserHistory';
 import Auth from './services/Auth';
 import App from './containers/App';
 // import Login from './components/Auth/Login';
-import Callback from './components/Auth/Callback';
 
 const history = createHistory();
 const auth = new Auth();
@@ -19,12 +18,11 @@ const Routes = () => {
     return (
         <Router history={history} component={App}>
             <Switch>
-                <Route exact path="/login" render={() => (auth.login())} />
-                <Route exact path="/callback" render={(props) => {
+                <Route path="/login" render={() => (auth.login())} />
+                <Route path="/" render={(props) => {
                     handleAuthentication(props);
-                    return <Callback {...props} />
+                    return <App auth={auth} {...props} />
                 }} />
-                <Route path="/" render={(props) => <App auth={auth} {...props} />} />
             </Switch>
         </Router>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
 import UploadIcon from 'material-ui/svg-icons/file/file-upload';
@@ -15,11 +16,23 @@ const tooltipStyle = {
     fontSize: '16px'
 };
 
+const loginButtonStyle = {
+    color: white,
+    margin: 0,
+    marginRight: -24,
+    minWidth: 0
+};
+
 const handleClick = (text, e) => {
     alert('Need to handle ' + text);
 }
 
 export default class Header extends Component {
+
+    logout = () => {
+        this.props.auth.logout();
+        this.forceUpdate();
+    }
 
     render() {
         return (
@@ -63,13 +76,15 @@ export default class Header extends Component {
                                             onClick={this.props.removePoint}
                                             color={white} />
                                     </IconButton>
-                                    <IconButton
-                                        tooltip="Save"
-                                        tooltipStyles={tooltipStyle}>
-                                        <SaveIcon
-                                            onClick={handleClick.bind(this, 'save')}
-                                            color={white} />
-                                    </IconButton>
+                                    {this.props.auth.isAuthenticated() && (
+                                        <IconButton
+                                            tooltip="Save"
+                                            tooltipStyles={tooltipStyle}>
+                                            <SaveIcon
+                                                onClick={handleClick.bind(this, 'save')}
+                                                color={white} />
+                                        </IconButton>
+                                    )}
                                     <IconButton
                                         tooltip="Import"
                                         tooltipStyles={tooltipStyle}>
@@ -88,6 +103,20 @@ export default class Header extends Component {
                                 onClick={handleClick.bind(this, 'upload')}
                                 color={white} />
                         </IconButton>
+                        {!this.props.auth.isAuthenticated() && (
+                            <FlatButton
+                                label="Sign In"
+                                style={loginButtonStyle}
+                                labelStyle={{ padding: 12 }}
+                                onClick={() => this.props.auth.login()} />
+                        )}
+                        {this.props.auth.isAuthenticated() && (
+                            <FlatButton
+                                label="Sign Out"
+                                style={loginButtonStyle}
+                                labelStyle={{ padding: 12 }}
+                                onClick={this.logout} />
+                        )}
                     </ToolbarGroup>
                 </Toolbar>
             </header>
