@@ -12,13 +12,6 @@ export {
 } from './settings';
 
 export {
-    SET_TOKEN,
-    setToken,
-    CLEAR_TOKEN,
-    clearToken
-} from './user';
-
-export {
     ADD_POINT,
     REMOVE_POINT,
     CLEAR_ROUTE,

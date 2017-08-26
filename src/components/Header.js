@@ -31,6 +31,7 @@ export default class Header extends Component {
 
     logout = () => {
         this.props.auth.logout();
+        this.props.clearRoute();
         this.forceUpdate();
     }
 
@@ -86,21 +87,22 @@ export default class Header extends Component {
                                         </IconButton>
                                     )}
                                     <IconButton
-                                        tooltip="Import"
+                                        tooltip="Export"
                                         tooltipStyles={tooltipStyle}>
                                         <DownloadIcon
-                                            onClick={handleClick.bind(this, 'download')}
+                                            onClick={handleClick.bind(this, 'export')}
                                             color={white} />
                                     </IconButton>
+
                                 </div>
                             ) : <div />
                         }
 
                         <IconButton
-                            tooltip="Export"
+                            tooltip="Import"
                             tooltipStyles={tooltipStyle}>
                             <UploadIcon
-                                onClick={handleClick.bind(this, 'upload')}
+                                onClick={handleClick.bind(this, 'import')}
                                 color={white} />
                         </IconButton>
                         {!this.props.auth.isAuthenticated() && (

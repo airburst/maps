@@ -33,24 +33,24 @@ export default class Auth {
         });
     }
 
-    setSession(authResult) {
+    setSession = (authResult) => {
         const { accessToken, idToken, expiresIn } = authResult;
         const expiresAt = JSON.stringify((expiresIn * 1000) + new Date().getTime());
-        localStorage.setItem('access_token', accessToken);
-        localStorage.setItem('id_token', idToken);
-        localStorage.setItem('expires_at', expiresAt);
+        localStorage.setItem('maps:accessToken', accessToken);
+        localStorage.setItem('maps:idToken', idToken);
+        localStorage.setItem('maps:expiresAt', expiresAt);
         history.replace('/');
     }
 
     logout = () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('id_token');
-        localStorage.removeItem('expires_at');
+        localStorage.removeItem('maps:accessToken');
+        localStorage.removeItem('maps:idToken');
+        localStorage.removeItem('maps:expiresAt');
         history.push('/');
     }
 
     isAuthenticated = () => {
-        let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+        const expiresAt = localStorage.getItem('maps:expiresAt');
         return new Date().getTime() < expiresAt;
     }
 }

@@ -1,15 +1,16 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-// import { hashHistory } from 'react-router';
-// import { routerMiddleware } from 'react-router-redux';
+import localForage from 'localforage';
+import {persistStore, autoRehydrate} from 'redux-persist';
 import reducer from '../reducers';
 
-// const router = routerMiddleware(hashHistory);
-// const enhancer = applyMiddleware(thunk, router);
+const persistConfig = {
+  storage: localForage
+};
 const enhancer = applyMiddleware(thunk);
 
 export default function configureStore(initialState = {}) {
-  return createStore(reducer, initialState, enhancer);
+  const store = createStore(reducer, initialState, enhancers);
+  persistStore(store, persistConfig);
+  return store;
 }
-
-// Need to add redux-persist
