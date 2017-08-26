@@ -11,3 +11,5 @@ const enhancer = applyMiddleware(thunk);
 export default function configureStore(initialState = {}) {
   return createStore(reducer, initialState, enhancer);
 }
+
+// Need to add redux-persist
