@@ -1,5 +1,6 @@
 import ElevationService from '../services/ElevationService';
 import DirectionsService from '../services/DirectionsService';
+import FileService from '../services/FileService';
 import { 
   addDistanceToTrack, 
   addDistanceToElevation 
@@ -110,4 +111,12 @@ export const addTrackAndGetElevation = (track, followsRoads = false) => {
         .catch(err => console.log('Error fetching elevation data', err));
     }
   }
+}
+
+export const exportRoute = () => (dispatch, getState) => {
+  const { track, elevation } = getState().route;
+  console.log(track, elevation);
+  // Create GPX format and filename
+  const file = new FileService();
+  file.save(JSON.stringify(track));
 }

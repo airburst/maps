@@ -8,3 +8,5 @@ export const chunk = (collection, chunkSize) => {
         })
     );
 };
+
+export const replaceAll = (text, find, replace) => (text.split(find).join(replace));

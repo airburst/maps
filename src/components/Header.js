@@ -90,7 +90,7 @@ export default class Header extends Component {
                                         tooltip="Export"
                                         tooltipStyles={tooltipStyle}>
                                         <DownloadIcon
-                                            onClick={handleClick.bind(this, 'export')}
+                                            onClick={this.props.export}
                                             color={white} />
                                     </IconButton>
 

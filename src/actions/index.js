@@ -31,7 +31,8 @@ export {
     toggleFollowsRoads,
     addElevation,
     updateDistance,
-    showPoint
+    showPoint,
+    exportRoute
 } from './route';
 
 export {
