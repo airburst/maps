@@ -87,11 +87,7 @@ export default class GpxService {
                 lat: truncate(t.getElementsByTagName('LatitudeDegrees')[0].textContent, 6),
                 lon: truncate(t.getElementsByTagName('LongitudeDegrees')[0].textContent, 6)
             });
-            this.elevation.push(
-                (t.getElementsByTagName('ele').length > 0)
-                    ? truncate((t.getElementsByTagName('AltitudeMeters')[0].textContent), 1)
-                    : 0
-            );
+            this.elevation.push(truncate((t.getElementsByTagName('AltitudeMeters')[0].textContent), 1));
         }
 
         return {
