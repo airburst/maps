@@ -36,10 +36,10 @@ export const addDistanceToElevation = (elevation, track) => {
         });
 }
 
-const initialBounds = {
+const INITIAL_BOUNDS = {
     minLat: 1000000,
-    minLon: 1000000,
     maxLat: -1000000,
+    minLon: 1000000,
     maxLon: -1000000
 }
 
@@ -73,8 +73,8 @@ const getZoomLevel = (point1, point2) => {
 }
 
 // Only run on a pre-flattened track, after import or embed
-export const boundingRectangle = ({ waypoints, track }) => {
-    let b = Object.assign({}, initialBounds);
+export const getBounds = ({ waypoints, track }) => {
+    let b = Object.assign({}, INITIAL_BOUNDS);
     const points = waypoints ? waypoints : track;
     points.forEach(point => {
         b.minLat = Math.min(b.minLat, point.lat);
@@ -82,7 +82,9 @@ export const boundingRectangle = ({ waypoints, track }) => {
         b.minLon = Math.min(b.minLon, point.lon);
         b.maxLon = Math.max(b.maxLon, point.lon);
     });
-    const { lat, lon } = centre(b.minLat, b.minLon, b.maxLat, b.maxLon);
-    const zoom = getZoomLevel(b.minLat, b.minLon, b.maxLat, b.maxLon);
+    const point1 = { lat: b.minLat, lon: b.minLon };
+    const point2 = { lat: b.maxLat, lon: b.maxLon };
+    const { lat, lon } = centre(point1, point2);
+    const zoom = getZoomLevel(point1, point2);
     return { lat, lon, zoom };
 }

@@ -11,7 +11,7 @@ import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
 import SearchInput from '../containers/SearchInput';
-import UploadRouteDialog from './UploadRouteDialog';
+// import UploadRouteDialog from './UploadRouteDialog';
 
 const tooltipStyle = {
     fontSize: '16px'
@@ -24,6 +24,27 @@ const loginButtonStyle = {
     minWidth: 0
 };
 
+const importButtonStyles = {
+    color: white,
+    margin: 0,
+    marginTop: -2,
+    paddingLeft: 4,
+    paddingRight: 4,
+    minWidth: 0
+};
+
+const inputStyles = {
+    color: white,
+    cursor: 'pointer',
+    position: 'absolute',
+    top: '0',
+    bottom: '0',
+    right: '0',
+    left: '0',
+    width: '100%',
+    opacity: '0'
+};
+
 const handleClick = (text, e) => {
     alert('Need to handle ' + text);
 }
@@ -34,6 +55,11 @@ export default class Header extends Component {
         this.props.auth.logout();
         this.props.clearRoute();
         this.forceUpdate();
+    }
+
+    handleChange = (e) => {
+        e.preventDefault();
+        this.props.import(e);
     }
 
     render() {
@@ -94,17 +120,21 @@ export default class Header extends Component {
                                             onClick={this.props.export}
                                             color={white} />
                                     </IconButton>
-
                                 </div>
                             ) : <div />
                         }
-                        <IconButton
-                            tooltip="Import"
-                            tooltipStyles={tooltipStyle}>
-                            <UploadIcon
-                                onClick={this.props.showImportModal}
-                                color={white} />
-                        </IconButton>
+                        <FlatButton
+                            icon={<UploadIcon />}
+                            style={importButtonStyles}>
+                            <form>
+                                <input
+                                    style={inputStyles}
+                                    id="file-import"
+                                    type="file"
+                                    accept=".gpx, .tcx"
+                                    onChange={this.handleChange} />
+                            </form>
+                        </FlatButton>
                         {!this.props.auth.isAuthenticated() && (
                             <FlatButton
                                 label="Sign In"
@@ -121,11 +151,19 @@ export default class Header extends Component {
                         )}
                     </ToolbarGroup>
                 </Toolbar>
-                <UploadRouteDialog 
+                {/* <UploadRouteDialog
                     show={this.props.importModalShown}
                     import={this.props.import}
-                    cancel={this.props.hideImportModal} />
+                    cancel={this.props.hideImportModal} /> */}
             </header>
         );
     }
 }
+
+/* <IconButton
+    tooltip="Import"
+    tooltipStyles={tooltipStyle}>
+    <UploadIcon
+        onClick={this.props.showImportModal}
+        color={white} />
+</IconButton> */

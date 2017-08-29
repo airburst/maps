@@ -2,11 +2,12 @@ import ElevationService from '../services/ElevationService';
 import DirectionsService from '../services/DirectionsService';
 import FileService from '../services/FileService';
 import GpxService from '../services/GpxService';
+import { getBounds } from '../services/GeometryService';
 import {
   addDistanceToTrack,
   addDistanceToElevation
 } from '../services/GeometryService';
-import { hideImportModal } from './settings';
+import { hideImportModal, setMapCentre } from './settings';
 
 export const ADD_POINT = 'ADD_POINT';
 export const addPoint = point => {
@@ -94,7 +95,6 @@ export const setRouteName = name => {
   };
 }
 
-// TODO - apply same elevation tricks to walk mode
 export const addTrackAndGetElevation = (track, followsRoads = false) => {
   return dispatch => {
     const ele = new ElevationService(followsRoads);
@@ -144,10 +144,17 @@ export const importRoute = (e) => dispatch => {
   const gpxService = new GpxService();
   fileService.readTextFile(e.target)
     .then(data => {
-      const route = gpxService.read(data);
-      // this.makeRouteNonEditable();
-      dispatch(setRoute(route));
+      const { name, track, elevation } = gpxService.read(data);
+      const { lat, lon, zoom } = getBounds({ track });
+      const t = addDistanceToTrack(track);
+      dispatch(clearRoute());
+      dispatch(addTrack(t));
+      dispatch(updateDistance());
+      dispatch(addElevation(addDistanceToElevation(elevation, t)));
+      dispatch(setRoute({ name }));
+      dispatch(setMapCentre({ lat, lon }, zoom));
       dispatch(hideImportModal());
+      // this.makeRouteNonEditable();
     })
     .catch(err => console.log(err));
 }

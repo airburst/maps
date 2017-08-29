@@ -62,8 +62,7 @@ export default class GpxService {
                     : 0
             );
         }
-        // this.appStore.details.isEditable = true;
-        // this.appStore.details.hasNewElevation = false;
+
         return {
             name: this.name,
             track: this.track,
@@ -78,18 +77,22 @@ export default class GpxService {
         // Course Name (Course/Name)
         const course = xml.getElementsByTagName('Course')[0];
         this.name = (course.getElementsByTagName('Name').length > 0)
-            ? course.getElementsByTagName('Name')[0].textContent : '';
+            ? course.getElementsByTagName('Name')[0].textContent 
+            : 'Imported Route';
 
         // Track Points (Track/Trackpoint[Position/LatitudeDegrees, Position/LongitudeDegrees, AltitudeMeters])
         const trackPoints = xml.getElementsByTagName('Trackpoint');
-        trackPoints.map(trackPoint => {
+        for (let t of trackPoints) {
             this.track.push({
-                lat: parseFloat(trackPoint.getElementsByTagName('LatitudeDegrees')[0].textContent, 10),
-                lon: parseFloat(trackPoint.getElementsByTagName('LongitudeDegrees')[0].textContent, 10)
+                lat: truncate(t.getElementsByTagName('LatitudeDegrees')[0].textContent, 6),
+                lon: truncate(t.getElementsByTagName('LongitudeDegrees')[0].textContent, 6)
             });
-            this.elevation.push(parseFloat(trackPoint.getElementsByTagName('AltitudeMeters')[0].textContent, 10));
-            return true;
-        });
+            this.elevation.push(
+                (t.getElementsByTagName('ele').length > 0)
+                    ? truncate((t.getElementsByTagName('AltitudeMeters')[0].textContent), 1)
+                    : 0
+            );
+        }
 
         return {
             name: this.name,
