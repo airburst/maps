@@ -1,24 +1,23 @@
 import { replaceAll, flatten } from './utils';
 
 const TEMPLATE = {
-    header: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="maps.fairhursts.net">',
-    title: '<metadata><name>{name}</name></metadata><rte><name>{name}</name>',
-    point: '<rtept lon="{lon}" lat="{lat}"><ele>{ele}</ele></rtept>',
+    header: '<?xml version="1.0" encoding="utf-8"?><gpx creator="maps.fairhursts.net" standalone="yes" version="1.1" xmlns="http://www.topografix.com/GPX/1/1"><rte><name>{name}</name>',
+    point: '<rtept lon="{lon}" lat="{lat}"></rtept>',
     end: '</rte></gpx>'
 }
 
 export default class GpxService {
 
-    constructor(store) {
+    constructor() {
         this.name = 'Unnamed Route';
         this.route = [];
         this.elevation = [];
     }
 
     read(gpxData) {
-        if (!gpxData) { throw 'Error reading GPX file: no data'; }
+        if (!gpxData) { console.log('Error reading GPX file: no data'); }
         const route = gpxData[0];   // Use spread syntax
-        const name = gpxData[1];
+        // const name = gpxData[1];
         const ext = gpxData[2];
 
         try {
@@ -64,6 +63,7 @@ export default class GpxService {
             this.elevation.push(
                 parseFloat(trackPoint.getElementsByTagName('ele')[0].textContent)
                 , 10);
+            return true;
         });
         // this.appStore.details.isEditable = true;
         // this.appStore.details.hasNewElevation = false;
@@ -89,35 +89,48 @@ export default class GpxService {
                 lat: parseFloat(trackPoint.getElementsByTagName('LatitudeDegrees')[0].textContent, 10),
                 lon: parseFloat(trackPoint.getElementsByTagName('LongitudeDegrees')[0].textContent, 10)
             });
-            elevation.push(parseFloat(trackPoint.getElementsByTagName('AltitudeMeters')[0].textContent, 10));
+            this.elevation.push(parseFloat(trackPoint.getElementsByTagName('AltitudeMeters')[0].textContent, 10));
+            return true;
         });
-        // this.appStore.track.push({id: 'imported', track: track, waypoint: null, hasElevationData: true });
-        // Markers - add start and finish points
-        // TODO: find out whether courses support waypoints
-        // this.appStore.markers.push({name: 'Start', point: this.route[0] });
-        // this.appStore.markers.push({name: 'Finish', point: this.route[this.route.length - 1] });
-        // this.appStore.details.isEditable = true;
-        // this.appStore.details.hasNewElevation = false;
+
         return {
             route: this.route,
             elevation: this.elevation
         }
     }
 
-    write(name = 'Route') {
-        let gpxContent = TEMPLATE.header + replaceAll('{name}', name, TEMPLATE.title);
-        const flatRoute = flatten(this.route);
-        const e = flatten(this.elevation);
-
-        flatRoute.map(point => {
-            gpxContent += TEMPLATE.point
+    write({ name = 'Unnamed Route', track }) {
+        let gpxContent = replaceAll(TEMPLATE.header, '{name}', name);
+        const flatTrack = flatten(track);
+        gpxContent += flatTrack.map(point => {
+            return TEMPLATE.point
                 .replace('{lat}', point.lat.toFixed(7))
                 .replace('{lon}', point.lon.toFixed(7));
-            // .replace('{ele}', e[eIndex++].toFixed(1));
-        });
-
+        }).join('');
         gpxContent += TEMPLATE.end;
         return gpxContent;
     }
 
 }
+
+// GPX Route Waypoint
+// <wpt lat="51.321804039180279" lon="-1.764520034193993">
+// <ele>183.29816600000001</ele>
+// <time>2012-11-29T15:19:53Z</time>
+// <name>Start Pewsey Hill</name>
+// <cmt>Pewsey Hill</cmt>
+// <desc>Pewsey Hill</desc>
+// <sym>Flag, Blue</sym>
+// <type>user</type>
+// <extensions>
+//   <gpxx:WaypointExtension>
+//     <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+//   </gpxx:WaypointExtension>
+//   <wptx1:WaypointExtension>
+//     <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
+//   </wptx1:WaypointExtension>
+//   <ctx:CreationTimeExtension>
+//     <ctx:CreationTime>2012-11-29T15:19:53Z</ctx:CreationTime>
+//   </ctx:CreationTimeExtension>
+// </extensions>
+// </wpt>
