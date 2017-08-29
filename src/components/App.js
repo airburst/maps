@@ -21,7 +21,11 @@ export default class App extends Component {
 					toggleFollowsRoads={this.props.toggleFollowsRoads}
 					removePoint={this.props.removePoint}
 					clearRoute={this.props.clearRoute}
-					export={this.props.exportRoute} />
+					export={this.props.exportRoute}
+					import={this.props.importRoute}
+					importModalShown={this.props.settings.showImportModal}
+					showImportModal={this.props.showImportModal}
+					hideImportModal={this.props.hideImportModal} />
 
 				{!osScriptLoaded ? <Loading /> : (
 					<OsMap
@@ -38,22 +42,3 @@ export default class App extends Component {
 
 	}
 }
-
-
-// importFile(ev) {
-// 	if (this.fileService.supports(ev.target)) {
-// 		this.fileService.readTextFile(ev.target, (...data) => {
-// 			this.gpxService.read(data);
-// 			this.osmap.centreAndSetMapEvents();
-// 			this.osmap.removeMapEvents();
-// 			ev.target.value = null;  // Empty the file input so that it can detect changes
-// 			this.makeRouteNonEditable();
-// 		});
-// 	}
-// }
-
-// exportFile() {
-// 	let name = this.store.getState().details.name + '.gpx',
-// 		gpx = this.gpxService.write();
-// 	this.fileService.save(gpx, name);
-// }

@@ -2,17 +2,20 @@ import {
   ADD_POINT,
   REMOVE_POINT,
   CLEAR_ROUTE,
+  SET_ROUTE,
   ADD_TRACK,
   UPDATE_TRACK,
   UPDATE_DISTANCE,
   ADD_ELEVATION,
   TOGGLE_FOLLOWS_ROADS,
-  SHOW_POINT
+  SHOW_POINT,
+  SET_NAME
 } from '../actions';
 import { distance, trunc } from '../services/GeometryService';
 import { flatten } from '../services/utils';
 
 const initialSettings = {
+  name: 'New Route',
   waypoints: [],
   track: [],
   elevation: [],
@@ -39,13 +42,10 @@ const route = (state = initialSettings, { type, payload }) => {
       });
 
     case CLEAR_ROUTE:
-      return Object.assign({}, state, {
-        waypoints: [],
-        track: [],
-        elevation: [],
-        distance: 0,
-        ascent: 0
-      });
+      return Object.assign({}, state, initialSettings);
+
+    case SET_ROUTE:
+      return Object.assign({}, state, payload, { waypoints: [] });    //
 
     case ADD_TRACK:
       return Object.assign({}, state, {
@@ -65,7 +65,7 @@ const route = (state = initialSettings, { type, payload }) => {
 
     case ADD_ELEVATION:
       const eLen = state.elevation.length;
-      const lastDistance = (eLen === 0) ? 0 : 
+      const lastDistance = (eLen === 0) ? 0 :
         state.elevation[eLen - 1][state.elevation[eLen - 1].length - 1][0];
       const incrementedPayload = payload.map(e => [e[0] + lastDistance, e[1]]);
       return Object.assign({}, state, {
@@ -77,6 +77,9 @@ const route = (state = initialSettings, { type, payload }) => {
 
     case SHOW_POINT:
       return Object.assign({}, state, { showPoint: payload });
+
+    case SET_NAME:
+      return Object.assign({}, state, { name: payload });
 
     default:
       return state;

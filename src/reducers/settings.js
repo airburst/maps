@@ -5,7 +5,9 @@ import {
   SET_COORDS,
   SET_ZOOM,
   TOGGLE_SHOW_ELEVATION,
-  HIDE_ELEVATION
+  HIDE_ELEVATION,
+  SHOW_IMPORT_MODAL,
+  HIDE_IMPORT_MODAL
 } from '../actions';
 
 const initialSettings = {
@@ -18,7 +20,8 @@ const initialSettings = {
     lon: null
   },
   zoom: 7,
-  showElevation: false
+  showElevation: false,
+  showImportModal: false
 };
 
 export default (state = initialSettings, { type, payload }) => {
@@ -47,6 +50,12 @@ export default (state = initialSettings, { type, payload }) => {
 
     case HIDE_ELEVATION:
       return Object.assign({}, state, { showElevation: false });
+
+    case SHOW_IMPORT_MODAL:
+      return Object.assign({}, state, { showImportModal: true });
+
+    case HIDE_IMPORT_MODAL:
+      return Object.assign({}, state, { showImportModal: false });
 
     default:
       return state;

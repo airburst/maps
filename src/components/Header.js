@@ -11,6 +11,7 @@ import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
 import SearchInput from '../containers/SearchInput';
+import UploadRouteDialog from './UploadRouteDialog';
 
 const tooltipStyle = {
     fontSize: '16px'
@@ -97,12 +98,11 @@ export default class Header extends Component {
                                 </div>
                             ) : <div />
                         }
-
                         <IconButton
                             tooltip="Import"
                             tooltipStyles={tooltipStyle}>
                             <UploadIcon
-                                onClick={handleClick.bind(this, 'import')}
+                                onClick={this.props.showImportModal}
                                 color={white} />
                         </IconButton>
                         {!this.props.auth.isAuthenticated() && (
@@ -121,6 +121,10 @@ export default class Header extends Component {
                         )}
                     </ToolbarGroup>
                 </Toolbar>
+                <UploadRouteDialog 
+                    show={this.props.importModalShown}
+                    import={this.props.import}
+                    cancel={this.props.hideImportModal} />
             </header>
         );
     }

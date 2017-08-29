@@ -5,26 +5,33 @@ export {
     SET_ZOOM,
     TOGGLE_SHOW_ELEVATION,
     HIDE_ELEVATION,
+    SHOW_IMPORT_MODAL,
+    HIDE_IMPORT_MODAL,
     setCoords,
     setZoom,
     setMapCentre,
     toggleElevation,
-    hideElevation
+    hideElevation,
+    showImportModal,
+    hideImportModal
 } from './settings';
 
 export {
     ADD_POINT,
     REMOVE_POINT,
     CLEAR_ROUTE,
+    SET_ROUTE,
     ADD_TRACK,
     UPDATE_TRACK,
     TOGGLE_FOLLOWS_ROADS,
     ADD_ELEVATION,
     UPDATE_DISTANCE,
     SHOW_POINT,
+    SET_NAME,
     addPoint,
     removePoint,
     clearRoute,
+    setRoute,
     addTrack,
     updateTrack,
     addTrackAndGetElevation,
@@ -32,7 +39,9 @@ export {
     addElevation,
     updateDistance,
     showPoint,
-    exportRoute
+    setRouteName,
+    exportRoute,
+    importRoute
 } from './route';
 
 export {

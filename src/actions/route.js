@@ -2,10 +2,11 @@ import ElevationService from '../services/ElevationService';
 import DirectionsService from '../services/DirectionsService';
 import FileService from '../services/FileService';
 import GpxService from '../services/GpxService';
-import { 
-  addDistanceToTrack, 
-  addDistanceToElevation 
+import {
+  addDistanceToTrack,
+  addDistanceToElevation
 } from '../services/GeometryService';
+import { hideImportModal } from './settings';
 
 export const ADD_POINT = 'ADD_POINT';
 export const addPoint = point => {
@@ -28,6 +29,14 @@ export const CLEAR_ROUTE = 'CLEAR_ROUTE';
 export const clearRoute = () => {
   return {
     type: CLEAR_ROUTE
+  };
+}
+
+export const SET_ROUTE = 'SET_ROUTE';
+export const setRoute = route => {
+  return {
+    type: SET_ROUTE,
+    payload: route
   };
 }
 
@@ -77,6 +86,14 @@ export const showPoint = point => {
   };
 }
 
+export const SET_NAME = 'SET_NAME';
+export const setRouteName = name => {
+  return {
+    type: SET_NAME,
+    payload: name
+  };
+}
+
 // TODO - apply same elevation tricks to walk mode
 export const addTrackAndGetElevation = (track, followsRoads = false) => {
   return dispatch => {
@@ -101,9 +118,9 @@ export const addTrackAndGetElevation = (track, followsRoads = false) => {
       dispatch(updateDistance());
       ele.getElevationData(track)
         .then(({ elevation, track }) => {
-          if (track) { 
+          if (track) {
             t = addDistanceToTrack(track);
-            dispatch(updateTrack(t)); 
+            dispatch(updateTrack(t));
             dispatch(addElevation(addDistanceToElevation(elevation, t)))
           } else {
             dispatch(addElevation(addDistanceToElevation(elevation, track)))
@@ -120,4 +137,17 @@ export const exportRoute = () => (dispatch, getState) => {
   const gpxData = gpxService.write({ name, track, elevation })
   const file = new FileService();
   file.save(gpxData);
+}
+
+export const importRoute = (e) => dispatch => {
+  const fileService = new FileService();
+  const gpxService = new GpxService();
+  fileService.readTextFile(e.target)
+    .then(data => {
+      const route = gpxService.read(data);
+      // this.makeRouteNonEditable();
+      dispatch(setRoute(route));
+      dispatch(hideImportModal());
+    })
+    .catch(err => console.log(err));
 }

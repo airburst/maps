@@ -5,6 +5,8 @@ export const SET_ZOOM = 'SET_ZOOM';
 export const SET_COORDS = 'SET_COORDS';
 export const TOGGLE_SHOW_ELEVATION = 'TOGGLE_SHOW_ELEVATION';
 export const HIDE_ELEVATION = 'HIDE_ELEVATION';
+export const SHOW_IMPORT_MODAL = 'SHOW_IMPORT_MODAL';
+export const HIDE_IMPORT_MODAL = 'HIDE_IMPORT_MODAL';
 
 export const setCoords = coords => {
     return {
@@ -29,6 +31,18 @@ export const toggleElevation = () => {
 export const hideElevation = () => {
     return {
         type: HIDE_ELEVATION
+    };
+}
+
+export const showImportModal = () => {
+    return {
+        type: SHOW_IMPORT_MODAL
+    };
+}
+
+export const hideImportModal = () => {
+    return {
+        type: HIDE_IMPORT_MODAL
     };
 }
 
