@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import UploadIcon from 'material-ui/svg-icons/file/file-upload';
 import './Dialogs.css';
 
 const dialogContentStyle = {
@@ -10,7 +9,7 @@ const dialogContentStyle = {
     maxWidth: 480,
 };
 
-export default class UploadRouteDialog extends Component {
+export default class ImportRouteDialog extends Component {
 
     handleChange = (e) => {
         e.preventDefault();

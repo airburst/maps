@@ -11,7 +11,7 @@ import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
 import SearchInput from '../containers/SearchInput';
-import UploadRouteDialog from './Dialogs/UploadRouteDialog';
+import ImportRouteDialog from './Dialogs/ImportRouteDialog';
 
 const tooltipStyle = {
     fontSize: '16px'
@@ -125,7 +125,7 @@ export default class Header extends Component {
                         )}
                     </ToolbarGroup>
                 </Toolbar>
-                <UploadRouteDialog
+                <ImportRouteDialog
                     show={this.props.importModalShown}
                     import={this.props.import}
                     cancel={this.props.hideImportModal} />
