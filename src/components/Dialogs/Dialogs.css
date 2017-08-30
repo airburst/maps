@@ -1,0 +1,9 @@
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-content > label {
+    margin-bottom: 15px;
+}
+
