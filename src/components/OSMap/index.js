@@ -4,8 +4,8 @@ import { flatten } from '../../services/utils';
 
 export default class OsMap extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.osMap = {};
         this.state = { isMoving: false };
         this.ol = {};
@@ -118,7 +118,7 @@ export default class OsMap extends Component {
         return new window.google.maps.LatLng(point.lat, point.lon);
     };
 
-    centreMap(coords) {
+    centreMap(coords, zoom) {
         const { lat, lon, northing, easting } = coords;
         let mp;
         if (lat) {
@@ -127,7 +127,7 @@ export default class OsMap extends Component {
         } else {
             mp = new this.os.MapPoint(easting, northing);
         }
-        this.osMap.setCenter(mp, this.props.zoom);
+        this.osMap.setCenter(mp, zoom);
     };
 
     draw() {
@@ -190,10 +190,14 @@ export default class OsMap extends Component {
     };
 
     centreHasChanged() {
-        const { lat, lon, northing, easting } = this.props.coords;
+        const { coords, zoom } = this.props;
+        const { lat, lon, northing, easting } = coords;
         return (
-            lat !== this.state.coords.lat || lon !== this.state.coords.lon ||
-            northing !== this.state.coords.northing || easting !== this.state.coords.easting
+            lat !== this.state.coords.lat
+            || lon !== this.state.coords.lon
+            || northing !== this.state.coords.northing
+            || easting !== this.state.coords.easting
+            || zoom !== this.state.zoom
         );
     }
 
@@ -207,19 +211,20 @@ export default class OsMap extends Component {
 
     componentDidMount() {
         this.init();
-        const coords = this.props.coords;
-        this.centreMap(coords);
-        this.setState({ coords });
+        this.recentre();
         this.draw();
     }
 
     componentDidUpdate() {
-        if (this.centreHasChanged()) {
-            this.centreMap(this.props.coords);
-            this.setState({ coords: this.props.coords });
-        }
+        if (this.centreHasChanged()) { this.recentre(); }
         this.draw();
         this.showPointIfHovered();
+    }
+
+    recentre() {
+        const { coords, zoom } = this.props;
+        this.centreMap(coords, zoom);
+        this.setState({ coords, zoom });
     }
 
     showPointIfHovered() {
