@@ -132,8 +132,10 @@ export const addTrackAndGetElevation = (track, followsRoads = false) => {
             t = addDistanceToTrack(track);
             dispatch(updateTrack(t));
             dispatch(addElevation(addDistanceToElevation(elevation, t)))
+            dispatch(updateAscent());     //
           } else {
             dispatch(addElevation(addDistanceToElevation(elevation, track)))
+            dispatch(updateAscent());     //
           }
         })
         .catch(err => console.log('Error fetching elevation data', err));
@@ -161,6 +163,7 @@ export const importRoute = (e) => dispatch => {
       dispatch(addTrack(t));
       dispatch(updateDistance());
       dispatch(addElevation(addDistanceToElevation(elevation, t)));
+      dispatch(updateAscent());     //
       dispatch(setRoute({ name }));
       dispatch(setMapCentre({ lat, lon }, zoom));
       dispatch(hideImportModal());

@@ -7,7 +7,10 @@ const distanceBetween = (point1, point2) => {
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
-export const trunc = num => Math.floor(num * 100) / 100;
+export const trunc = (num, dp = 2) => {
+    const factor = Math.pow(10, dp);
+    return Math.floor(num * factor) / factor;
+}
 
 export const addDistanceToTrack = track => {
     if (track.length === 0) { return track; }

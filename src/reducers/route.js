@@ -66,7 +66,7 @@ const route = (state = initialSettings, { type, payload }) => {
 
     case UPDATE_ASCENT:
       return Object.assign({}, state, {
-        ascent: totalAscent(flatten(state.elevation))
+        ascent: trunc(totalAscent(flatten(state.elevation)), 0)
       });
 
     case ADD_ELEVATION:
