@@ -17,7 +17,7 @@ export const addDistanceToTrack = track => {
     return track.map((t, i) => {
         if (i === 0) { return Object.assign({}, t, { dist: 0 }); }
         return Object.assign({}, t, {
-            dist: distanceBetween(track[i - 1], t)
+            dist: trunc(distanceBetween(track[i - 1], t), 3)
         });
     });
 };
@@ -56,7 +56,7 @@ export const addDistanceToElevation = (elevation, track) => {
         .map((e, i) => {
             if (i === 0) { return [0, e]; }
             dist += track[i].dist;
-            return [dist, e];
+            return [trunc(dist, 2), e];
         });
 }
 

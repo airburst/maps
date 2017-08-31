@@ -116,7 +116,6 @@ export const addTrackAndGetElevation = (track, followsRoads = false) => {
           ele.getElevationData(track)
             .then(({ elevation }) => {
               dispatch(addElevation(addDistanceToElevation(elevation, t)));
-
               dispatch(updateAscent());     //
             })
             .catch(err => console.log('Error fetching elevation data', err));

@@ -1,3 +1,5 @@
+import { trunc } from './GeometryService';
+
 export default class DirectionsService {
 
     constructor() {
@@ -14,21 +16,24 @@ export default class DirectionsService {
                 if (status === window.google.maps.DirectionsStatus.OK) {
                     const googleMapPath = result.routes[0].overview_path;
                     const points = googleMapPath.map(p => {
-                        return { lat: p.lat(), lon: p.lng() };
-                    });
-                    resolve(points);
-                }
-                reject({
-                    message: 'There was a problem getting directions data.',
-                    status: status,
-                    type: 'Directions Service Error'
+                        return {
+                            lat: trunc(p.lat(), 6),
+                            lon: trunc(p.lng(), 6)
+                    };
                 });
+            resolve(points);
+        }
+                reject({
+                message: 'There was a problem getting directions data.',
+                status: status,
+                type: 'Directions Service Error'
             });
-        });
+    });
+});
     }
 
-    convertToGoogleMapPoint(point) {
-        return new window.google.maps.LatLng(point.lat, point.lon);
-    }
+convertToGoogleMapPoint(point) {
+    return new window.google.maps.LatLng(point.lat, point.lon);
+}
 
 }

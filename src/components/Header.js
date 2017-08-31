@@ -88,7 +88,7 @@ export default class Header extends Component {
                                             tooltip="Save"
                                             tooltipStyles={tooltipStyle}>
                                             <SaveIcon
-                                                onClick={handleClick.bind(this, 'save')}
+                                                onClick={this.props.save}
                                                 color={white} />
                                         </IconButton>
                                     )}
