@@ -5,13 +5,14 @@ import {
   SET_ROUTE,
   ADD_TRACK,
   UPDATE_TRACK,
+  UPDATE_ASCENT,
   UPDATE_DISTANCE,
   ADD_ELEVATION,
   TOGGLE_FOLLOWS_ROADS,
   SHOW_POINT,
   SET_NAME
 } from '../actions';
-import { distance, trunc } from '../services/GeometryService';
+import { distance, totalAscent, trunc } from '../services/GeometryService';
 import { flatten } from '../services/utils';
 
 const initialSettings = {
@@ -61,6 +62,11 @@ const route = (state = initialSettings, { type, payload }) => {
     case UPDATE_DISTANCE:
       return Object.assign({}, state, {
         distance: trunc(distance(flatten(state.track)))
+      });
+
+    case UPDATE_ASCENT:
+      return Object.assign({}, state, {
+        ascent: totalAscent(flatten(state.elevation))
       });
 
     case ADD_ELEVATION:

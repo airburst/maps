@@ -25,6 +25,27 @@ export const distance = track => {
         .reduce((a, b) => a + b, 0);
 }
 
+export const totalAscent = elevation => {
+    if (!elevation || elevation.length === 0) { return 0; }
+    let ascent = 0;
+    let i = 0;
+    for (i = 0; i < elevation.length; i++) {
+        if (i > 0 && elevation[i][1] > elevation[i - 1][1]) {
+            ascent += elevation[i][1] - elevation[i - 1][1];
+        }
+    }
+    return ascent;
+}
+
+// export const unique = (values) => {                  // Use variant to smooth track
+//     return values.reduce(function (prev, cur) {
+//         if (prev.indexOf(cur) == -1) {
+//             prev.push(cur);
+//         }
+//         return prev;
+//     }, []);
+// }
+
 export const addDistanceToElevation = (elevation, track) => {
     if (elevation.length === 0) { return elevation; }
     let dist = 0;

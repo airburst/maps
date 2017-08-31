@@ -24,6 +24,7 @@ export const removePoint = point => dispatch => {
     payload: point
   });
   dispatch(updateDistance());
+  dispatch(updateAscent());   // Join these two
 }
 
 export const CLEAR_ROUTE = 'CLEAR_ROUTE';
@@ -61,6 +62,13 @@ export const UPDATE_DISTANCE = 'UPDATE_DISTANCE';
 export const updateDistance = () => {
   return {
     type: UPDATE_DISTANCE
+  };
+}
+
+export const UPDATE_ASCENT = 'UPDATE_ASCENT';
+export const updateAscent = () => {
+  return {
+    type: UPDATE_ASCENT
   };
 }
 
@@ -107,7 +115,9 @@ export const addTrackAndGetElevation = (track, followsRoads = false) => {
           dispatch(updateDistance());
           ele.getElevationData(track)
             .then(({ elevation }) => {
-              dispatch(addElevation(addDistanceToElevation(elevation, t)))
+              dispatch(addElevation(addDistanceToElevation(elevation, t)));
+
+              dispatch(updateAscent());     //
             })
             .catch(err => console.log('Error fetching elevation data', err));
         })
