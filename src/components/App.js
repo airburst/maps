@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Loading from './Loading';
 import Header from './Header';
 import OsMap from './OSMap';
+import LoginDialog from './Dialogs/LoginDialog';
 import ElevationProfile from '../containers/ElevationProfile';
 import './App.css';
 
@@ -20,7 +21,9 @@ export default class App extends Component {
 		return (
 			<div role="main" id="main">
 				<Header
-					auth={this.props.auth}
+					user={this.props.user}
+					login={this.props.showLoginModal}
+					logout={this.props.logout}
 					hasTrack={hasTrack}
 					followsRoads={this.props.route.followsRoads}
 					toggleFollowsRoads={this.props.toggleFollowsRoads}
@@ -29,7 +32,7 @@ export default class App extends Component {
 					export={this.props.exportRoute}
 					import={this.props.importRoute}
 					save={this.handleSave}
-					importModalShown={this.props.settings.showImportModal}
+					importModalShown={this.props.settings.showImport}
 					showImportModal={this.props.showImportModal}
 					hideImportModal={this.props.hideImportModal} />
 
@@ -43,6 +46,10 @@ export default class App extends Component {
 						followsRoads={this.props.route.followsRoads} />
 				)}
 				<ElevationProfile />
+				<LoginDialog
+                    show={this.props.settings.showLogin}
+                    cancel={this.props.hideLoginModal}
+					loginAction={this.props.login} />
 			</div>
 		);
 

@@ -2,12 +2,15 @@ import ElevationService from '../services/ElevationService';
 import DirectionsService from '../services/DirectionsService';
 import FileService from '../services/FileService';
 import GpxService from '../services/GpxService';
+import Firebase from '../services/Firebase';
 import { getBounds } from '../services/GeometryService';
 import {
   addDistanceToTrack,
   addDistanceToElevation
 } from '../services/GeometryService';
 import { hideImportModal, setMapCentre } from './settings';
+
+const firebase = new Firebase();
 
 export const ADD_POINT = 'ADD_POINT';
 export const addPoint = point => {
@@ -169,4 +172,11 @@ export const importRoute = (e) => dispatch => {
       // this.makeRouteNonEditable();
     })
     .catch(err => console.log(err));
+}
+
+export const SAVE_ROUTE = 'SAVE_ROUTE';
+export const saveRoute = () => (dispatch, getState) => {
+  const { route } = getState();
+  const newRouteId = firebase.saveRoute(route);
+  console.log('New route id', newRouteId);
 }

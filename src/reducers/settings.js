@@ -7,7 +7,11 @@ import {
   TOGGLE_SHOW_ELEVATION,
   HIDE_ELEVATION,
   SHOW_IMPORT_MODAL,
-  HIDE_IMPORT_MODAL
+  HIDE_IMPORT_MODAL,
+  SHOW_LOGIN_MODAL,
+  HIDE_LOGIN_MODAL,
+  SET_ERROR,
+  CLEAR_ERROR
 } from '../actions';
 
 const initialSettings = {
@@ -21,7 +25,9 @@ const initialSettings = {
   },
   zoom: 7,
   showElevation: false,
-  showImportModal: false
+  showImport: false,
+  showLogin: false,
+  error: null
 };
 
 export default (state = initialSettings, { type, payload }) => {
@@ -52,10 +58,22 @@ export default (state = initialSettings, { type, payload }) => {
       return Object.assign({}, state, { showElevation: false });
 
     case SHOW_IMPORT_MODAL:
-      return Object.assign({}, state, { showImportModal: true });
+      return Object.assign({}, state, { showImport: true });
 
     case HIDE_IMPORT_MODAL:
-      return Object.assign({}, state, { showImportModal: false });
+      return Object.assign({}, state, { showImport: false });
+
+    case SHOW_LOGIN_MODAL:
+      return Object.assign({}, state, { showLogin: true });
+
+    case HIDE_LOGIN_MODAL:
+      return Object.assign({}, state, { showLogin: false });
+
+    case SET_ERROR:
+      return Object.assign({}, state, { error: payload });
+
+    case CLEAR_ERROR:
+      return Object.assign({}, state, { error: null });
 
     default:
       return state;

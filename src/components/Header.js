@@ -24,16 +24,12 @@ const loginButtonStyle = {
     minWidth: 0
 };
 
-const handleClick = (text, e) => {
-    alert('Need to handle ' + text);
-}
-
 export default class Header extends Component {
 
     logout = () => {
-        this.props.auth.logout();
+        this.props.logout();
         this.props.clearRoute();
-        this.forceUpdate();
+        this.forceUpdate(); // Re-centre map
     }
 
     handleChange = (e) => {
@@ -42,6 +38,8 @@ export default class Header extends Component {
     }
 
     render() {
+        const { isAuthenticated } = this.props.user;        
+        // display name and profile button
         return (
             <header className="header">
                 <Toolbar>
@@ -83,7 +81,7 @@ export default class Header extends Component {
                                             onClick={this.props.removePoint}
                                             color={white} />
                                     </IconButton>
-                                    {this.props.auth.isAuthenticated() && (
+                                    {isAuthenticated && (
                                         <IconButton
                                             tooltip="Save"
                                             tooltipStyles={tooltipStyle}>
@@ -109,14 +107,14 @@ export default class Header extends Component {
                                 onClick={this.props.showImportModal}
                                 color={white} />
                         </IconButton>
-                        {!this.props.auth.isAuthenticated() && (
+                        {!isAuthenticated && (
                             <FlatButton
                                 label="Sign In"
                                 style={loginButtonStyle}
                                 labelStyle={{ padding: 12 }}
-                                onClick={() => this.props.auth.login()} />
+                                onClick={() => this.props.login('mark@fairhursts.net', 'audiolab')} />
                         )}
-                        {this.props.auth.isAuthenticated() && (
+                        {isAuthenticated && (
                             <FlatButton
                                 label="Sign Out"
                                 style={loginButtonStyle}
