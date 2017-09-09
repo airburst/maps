@@ -5,10 +5,8 @@ export const SET_ZOOM = 'SET_ZOOM';
 export const SET_COORDS = 'SET_COORDS';
 export const TOGGLE_SHOW_ELEVATION = 'TOGGLE_SHOW_ELEVATION';
 export const HIDE_ELEVATION = 'HIDE_ELEVATION';
-export const SHOW_IMPORT_MODAL = 'SHOW_IMPORT_MODAL';
-export const HIDE_IMPORT_MODAL = 'HIDE_IMPORT_MODAL';
-export const SHOW_LOGIN_MODAL = 'SHOW_LOGIN_MODAL';
-export const HIDE_LOGIN_MODAL = 'HIDE_LOGIN_MODAL';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';
 export const SET_ERROR = 'SET_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
@@ -38,27 +36,17 @@ export const hideElevation = () => {
     };
 }
 
-export const showImportModal = () => {
+export const showModal = type => {
     return {
-        type: SHOW_IMPORT_MODAL
+        type: SHOW_MODAL,
+        payload: type
     };
 }
 
-export const hideImportModal = () => {
+export const hideModal = type => {
     return {
-        type: HIDE_IMPORT_MODAL
-    };
-}
-
-export const showLoginModal = () => {
-    return {
-        type: SHOW_LOGIN_MODAL
-    };
-}
-
-export const hideLoginModal = () => {
-    return {
-        type: HIDE_LOGIN_MODAL
+        type: HIDE_MODAL,
+        payload: type
     };
 }
 

@@ -3,26 +3,35 @@ import React, { Component } from 'react';
 import Loading from './Loading';
 import Header from './Header';
 import OsMap from './OSMap';
-import LoginDialog from './Dialogs/LoginDialog';
+import { LoginDialog, SaveDialog } from './Dialogs';
 import ElevationProfile from '../containers/ElevationProfile';
 import './App.css';
 
 export default class App extends Component {
 
-	// handleSave = () => {
-	// 	const { name, waypoints, track, elevation } = this.props.route;
-	// 	console.log(JSON.stringify({ name, waypoints, track, elevation }));
-	// }
+	showLoginModal = () => this.props.showModal('login');
+	hideLoginModal = () => this.props.hideModal('login');
+	showImportModal = () => this.props.showModal('import');
+	hideImportModal = () => this.props.hideModal('import');
+	showSaveModal = () => this.props.showModal('save');
+	hideSaveModal = () => this.props.hideModal('save');
+	handleSave = () => {
+		if (this.props.route.id) { 
+			this.props.saveRoute(); 
+		} else {
+			this.showSaveModal();
+		}
+	}
 
 	render() {
-		const { osScriptLoaded } = this.props.settings;
+		const { osScriptLoaded, showDialogs } = this.props.settings;
 		const { coords, zoom } = this.props.settings;
 		const hasTrack = this.props.route.track.length > 0;
 		return (
 			<div role="main" id="main">
 				<Header
 					user={this.props.user}
-					login={this.props.showLoginModal}
+					login={this.showLoginModal}
 					logout={this.props.logout}
 					hasTrack={hasTrack}
 					followsRoads={this.props.route.followsRoads}
@@ -31,10 +40,10 @@ export default class App extends Component {
 					clearRoute={this.props.clearRoute}
 					export={this.props.exportRoute}
 					import={this.props.importRoute}
-					save={this.props.saveRoute}
-					importModalShown={this.props.settings.showImport}
-					showImportModal={this.props.showImportModal}
-					hideImportModal={this.props.hideImportModal} />
+					save={this.handleSave}
+					importModalShown={showDialogs.import}
+					showImportModal={this.showImportModal}
+					hideImportModal={this.hideImportModal} />
 
 				{!osScriptLoaded ? <Loading /> : (
 					<OsMap
@@ -46,10 +55,15 @@ export default class App extends Component {
 						followsRoads={this.props.route.followsRoads} />
 				)}
 				<ElevationProfile />
+
 				<LoginDialog
-                    show={this.props.settings.showLogin}
-                    cancel={this.props.hideLoginModal}
+                    show={showDialogs.login}
+                    cancel={this.hideLoginModal}
 					loginAction={this.props.login} />
+				<SaveDialog
+                    show={showDialogs.save}
+                    cancel={this.hideSaveModal}
+					action={this.props.saveRoute} />
 			</div>
 		);
 

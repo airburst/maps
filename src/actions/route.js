@@ -8,7 +8,7 @@ import {
   addDistanceToTrack,
   addDistanceToElevation
 } from '../services/GeometryService';
-import { hideImportModal, setMapCentre } from './settings';
+import { hideModal, setMapCentre } from './settings';
 
 const firebase = new Firebase();
 
@@ -176,7 +176,7 @@ export const importRoute = (e) => dispatch => {
       dispatch(updateAscent());     //
       dispatch(setRoute({ name }));
       dispatch(setMapCentre({ lat, lon }, zoom));
-      dispatch(hideImportModal());
+      dispatch(hideModal('import'));
       // this.makeRouteNonEditable();
     })
     .catch(err => console.log(err));

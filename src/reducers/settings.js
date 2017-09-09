@@ -6,10 +6,8 @@ import {
   SET_ZOOM,
   TOGGLE_SHOW_ELEVATION,
   HIDE_ELEVATION,
-  SHOW_IMPORT_MODAL,
-  HIDE_IMPORT_MODAL,
-  SHOW_LOGIN_MODAL,
-  HIDE_LOGIN_MODAL,
+  SHOW_MODAL,
+  HIDE_MODAL,
   SET_ERROR,
   CLEAR_ERROR
 } from '../actions';
@@ -25,10 +23,15 @@ const initialSettings = {
   },
   zoom: 7,
   showElevation: false,
-  showImport: false,
-  showLogin: false,
+  showDialogs: {
+    import: false,
+    login: false,
+    save: false
+  },
   error: null
 };
+
+let showDialogs;
 
 export default (state = initialSettings, { type, payload }) => {
   switch (type) {
@@ -57,17 +60,13 @@ export default (state = initialSettings, { type, payload }) => {
     case HIDE_ELEVATION:
       return Object.assign({}, state, { showElevation: false });
 
-    case SHOW_IMPORT_MODAL:
-      return Object.assign({}, state, { showImport: true });
+    case SHOW_MODAL:
+      showDialogs = Object.assign({}, state.showDialogs, { [payload]: true });
+      return Object.assign({}, state, { showDialogs });
 
-    case HIDE_IMPORT_MODAL:
-      return Object.assign({}, state, { showImport: false });
-
-    case SHOW_LOGIN_MODAL:
-      return Object.assign({}, state, { showLogin: true });
-
-    case HIDE_LOGIN_MODAL:
-      return Object.assign({}, state, { showLogin: false });
+    case HIDE_MODAL:
+      showDialogs = Object.assign({}, state.showDialogs, { [payload]: false });
+      return Object.assign({}, state, { showDialogs });
 
     case SET_ERROR:
       return Object.assign({}, state, { error: payload });
