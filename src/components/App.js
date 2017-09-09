@@ -9,10 +9,10 @@ import './App.css';
 
 export default class App extends Component {
 
-	handleSave = () => {
-		const { name, waypoints, track, elevation } = this.props.route;
-		console.log(JSON.stringify({ name, waypoints, track, elevation }));
-	}
+	// handleSave = () => {
+	// 	const { name, waypoints, track, elevation } = this.props.route;
+	// 	console.log(JSON.stringify({ name, waypoints, track, elevation }));
+	// }
 
 	render() {
 		const { osScriptLoaded } = this.props.settings;
@@ -31,7 +31,7 @@ export default class App extends Component {
 					clearRoute={this.props.clearRoute}
 					export={this.props.exportRoute}
 					import={this.props.importRoute}
-					save={this.handleSave}
+					save={this.props.saveRoute}
 					importModalShown={this.props.settings.showImport}
 					showImportModal={this.props.showImportModal}
 					hideImportModal={this.props.hideImportModal} />

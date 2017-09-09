@@ -45,6 +45,7 @@ export {
     UPDATE_ASCENT,
     SHOW_POINT,
     SET_NAME,
+    SET_ID,
     addPoint,
     removePoint,
     clearRoute,
@@ -58,8 +59,10 @@ export {
     updateAscent,
     showPoint,
     setRouteName,
+    setRouteId,
     exportRoute,
-    importRoute
+    importRoute,
+    saveRoute
 } from './route';
 
 export {

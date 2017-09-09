@@ -2,7 +2,7 @@ import ElevationService from '../services/ElevationService';
 import DirectionsService from '../services/DirectionsService';
 import FileService from '../services/FileService';
 import GpxService from '../services/GpxService';
-import Firebase from '../services/Firebase';
+import Firebase from '../services/Firebase/Database';
 import { getBounds } from '../services/GeometryService';
 import {
   addDistanceToTrack,
@@ -13,10 +13,10 @@ import { hideImportModal, setMapCentre } from './settings';
 const firebase = new Firebase();
 
 export const ADD_POINT = 'ADD_POINT';
-export const addPoint = point => {
+export const addPoint = ({ lat, lon }) => {
   return {
     type: ADD_POINT,
-    payload: point
+    payload: { lat, lon }
   };
 }
 
@@ -106,6 +106,14 @@ export const setRouteName = name => {
   };
 }
 
+export const SET_ID = 'SET_ID';
+export const setRouteId = id => {
+  return {
+    type: SET_ID,
+    payload: id
+  };
+}
+
 export const addTrackAndGetElevation = (track, followsRoads = false) => {
   return dispatch => {
     const ele = new ElevationService(followsRoads);
@@ -176,7 +184,15 @@ export const importRoute = (e) => dispatch => {
 
 export const SAVE_ROUTE = 'SAVE_ROUTE';
 export const saveRoute = () => (dispatch, getState) => {
-  const { route } = getState();
-  const newRouteId = firebase.saveRoute(route);
-  console.log('New route id', newRouteId);
+  return new Promise((resolve, reject) => {
+    const { route, user } = getState();
+    const { uid } = user;
+    if (!uid) { reject('You are not signed in'); }
+    firebase.saveRoute(uid, route)
+      .then(id => {
+        dispatch(setRouteId(id));
+        resolve();
+      })
+      .catch(err => reject(err));
+  });
 }

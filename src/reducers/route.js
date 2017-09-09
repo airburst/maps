@@ -10,12 +10,14 @@ import {
   ADD_ELEVATION,
   TOGGLE_FOLLOWS_ROADS,
   SHOW_POINT,
-  SET_NAME
+  SET_NAME,
+  SET_ID
 } from '../actions';
 import { distance, totalAscent, trunc } from '../services/GeometryService';
 import { flatten } from '../services/utils';
 
 const initialSettings = {
+  id: null,
   name: 'New Route',
   waypoints: [],
   track: [],
@@ -46,7 +48,7 @@ const route = (state = initialSettings, { type, payload }) => {
       return Object.assign({}, state, initialSettings);
 
     case SET_ROUTE:
-      return Object.assign({}, state, payload, { waypoints: [] });    //
+      return Object.assign({}, state, payload);
 
     case ADD_TRACK:
       return Object.assign({}, state, {
@@ -86,6 +88,13 @@ const route = (state = initialSettings, { type, payload }) => {
 
     case SET_NAME:
       return Object.assign({}, state, { name: payload });
+
+    case SET_ID:
+      return Object.assign({}, state, { id: payload });
+
+    // Make this non-editable
+    // case IMPORT_ROUTE:
+    //   return Object.assign({}, state, payload);
 
     default:
       return state;
