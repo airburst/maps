@@ -197,6 +197,17 @@ export const saveRoute = () => (dispatch, getState) => {
   });
 }
 
+export const getRouteList = () => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    const { user } = getState();
+    const { uid } = user;
+    if (!uid) { reject('You are not signed in'); }
+    firebase.getRouteList(uid)
+      .then(routes => resolve(routes))
+      .catch(err => reject(err));
+  });
+}
+
 export const getRoute = routeId => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
     const { user } = getState();

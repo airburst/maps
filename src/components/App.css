@@ -3,6 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Roboto;
+    background-color: #ECEFF1;
 }
 
 #main {
@@ -29,6 +30,10 @@ html, body {
     padding-top: 56px;
 }
 
+.content-wrapper {
+    padding: 20px 40px;
+}
+
 #map {
     height: 100%;
     width: 100%;
@@ -40,4 +45,14 @@ html, body {
 
 #OpenSpaceControlPoweredBy {
     bottom: 60px !important;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.route-item {
+    max-width: 300px;
 }

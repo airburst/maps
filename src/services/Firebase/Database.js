@@ -8,6 +8,14 @@ export default class FirebaseService {
     this.db = fire.database().ref();
   }
 
+  getRouteList(uid) {
+    return new Promise((resolve, reject) => {
+      if (!uid) { reject(AUTH_ERROR) }
+      const route = this.db.child(uid);
+      route.once('value', snapshot => resolve(snapshot.val()));
+    });
+  }
+
   getRoute(uid, routeId) {
     return new Promise((resolve, reject) => {
       if (!uid || !routeId) { reject(AUTH_ERROR) }

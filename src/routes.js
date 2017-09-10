@@ -4,16 +4,19 @@ import createHistory from 'history/createBrowserHistory';
 import RouteList from './containers/RouteList';
 import Map from './containers/Map';
 
-const history = createHistory();
+export const history = createHistory();
 
 const Routes = () => {
     return (
         <Router history={history}>
             <Switch>
-                <Route exact path="/routes" component={RouteList} />
-                <Route path="/" render={(props) => {
-                    return <Map {...props} />
-                }} />
+                <Route
+                    exact
+                    path="/routes"
+                    render={(props) => <RouteList {...props} />} />
+                <Route
+                    path="/"
+                    render={(props) => <Map {...props} />} />
             </Switch>
         </Router>
     );

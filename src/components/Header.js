@@ -13,6 +13,7 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
 import SearchInput from '../containers/SearchInput';
 import ImportRouteDialog from './Dialogs/ImportRouteDialog';
+import { history } from '../routes';
 
 const tooltipStyle = {
     fontSize: '16px'
@@ -36,6 +37,10 @@ export default class Header extends Component {
     handleChange = (e) => {
         e.preventDefault();
         this.props.import(e);
+    }
+
+    goToRoutes = () => {
+        history.push('/routes');
     }
 
     render() {
@@ -120,7 +125,7 @@ export default class Header extends Component {
                                 tooltip="My Routes"
                                 tooltipStyles={tooltipStyle}>
                                 <RoutesIcon
-                                    onClick={this.props.goToRoutes}
+                                    onClick={this.goToRoutes}
                                     color={white} />
                             </IconButton>
                         )}
@@ -133,6 +138,7 @@ export default class Header extends Component {
                         )}
                     </ToolbarGroup>
                 </Toolbar>
+
                 <ImportRouteDialog
                     show={this.props.importModalShown}
                     import={this.props.import}

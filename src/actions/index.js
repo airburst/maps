@@ -58,7 +58,10 @@ export {
     setRouteId,
     exportRoute,
     importRoute,
-    saveRoute
+    saveRoute,
+    getRoute,
+    getRouteList,
+    deleteRoute
 } from './route';
 
 export {
