@@ -62,8 +62,9 @@ export default class App extends Component {
 					loginAction={this.props.login} />
 				<SaveDialog
                     show={showDialogs.save}
-                    cancel={this.hideSaveModal}
-					action={this.props.saveRoute} />
+					save={this.props.saveRoute}
+					setRouteName={this.props.setRouteName}
+                    cancel={this.hideSaveModal} />
 			</div>
 		);
 

@@ -39,7 +39,8 @@ export default class SaveDialog extends Component {
             this.setState({ errors: { name: 'A route name is required' } })
             return;
         }
-        this.props.action()
+        this.props.setRouteName(name);
+        this.props.save()
             .then(() => this.props.cancel())
             .catch(error => {
                 this.setState({ errors: { auth: error.message } });
