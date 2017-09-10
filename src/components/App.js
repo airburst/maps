@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-// import MapContainer from './GoogleMap/Container';
-import Loading from './Loading';
+import Routes from '../routes';
 import Header from './Header';
-import OsMap from './OSMap';
 import { LoginDialog, SaveDialog } from './Dialogs';
-import ElevationProfile from '../containers/ElevationProfile';
 import './App.css';
 
 export default class App extends Component {
@@ -24,8 +21,7 @@ export default class App extends Component {
 	}
 
 	render() {
-		const { osScriptLoaded, showDialogs } = this.props.settings;
-		const { coords, zoom } = this.props.settings;
+		const { showDialogs } = this.props.settings;
 		const hasTrack = this.props.route.track.length > 0;
 		return (
 			<div role="main" id="main">
@@ -45,16 +41,7 @@ export default class App extends Component {
 					showImportModal={this.showImportModal}
 					hideImportModal={this.hideImportModal} />
 
-				{!osScriptLoaded ? <Loading /> : (
-					<OsMap
-						coords={coords}
-						zoom={zoom}
-						route={this.props.route}
-						addPoint={this.props.addPoint}
-						addTrack={this.props.addTrackAndGetElevation}
-						followsRoads={this.props.route.followsRoads} />
-				)}
-				<ElevationProfile />
+				<Routes />
 
 				<LoginDialog
                     show={showDialogs.login}

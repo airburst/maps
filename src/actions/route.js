@@ -196,3 +196,26 @@ export const saveRoute = () => (dispatch, getState) => {
       .catch(err => reject(err));
   });
 }
+
+export const getRoute = routeId => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    const { user } = getState();
+    const { uid } = user;
+    if (!uid) { reject('You are not signed in'); }
+    firebase.getRoute(uid, routeId)
+      .then(route => {
+        dispatch(setRoute(route));
+        resolve();
+      })
+      .catch(err => reject(err));
+  });
+}
+
+export const deleteRoute = routeId => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    const { user } = getState();
+    const { uid } = user;
+    if (!uid) { reject('You are not signed in'); }
+    resolve(firebase.deleteRoute(uid, routeId));
+  });
+}

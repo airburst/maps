@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import ClearIcon from 'material-ui/svg-icons/content/clear';
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
 import UploadIcon from 'material-ui/svg-icons/file/file-upload';
 import SaveIcon from 'material-ui/svg-icons/content/save';
 import UndoIcon from 'material-ui/svg-icons/content/undo';
 import BikeIcon from 'material-ui/svg-icons/maps/directions-bike';
 import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
+import RoutesIcon from 'material-ui/svg-icons/maps/map';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { white } from 'material-ui/styles/colors';
 import SearchInput from '../containers/SearchInput';
@@ -38,7 +39,7 @@ export default class Header extends Component {
     }
 
     render() {
-        const { isAuthenticated } = this.props.user;        
+        const { isAuthenticated } = this.props.user;
         // display name and profile button
         return (
             <header className="header">
@@ -70,7 +71,7 @@ export default class Header extends Component {
                                     <IconButton
                                         tooltip="Clear route"
                                         tooltipStyles={tooltipStyle}>
-                                        <CloseIcon
+                                        <ClearIcon
                                             onClick={this.props.clearRoute}
                                             color={white} />
                                     </IconButton>
@@ -112,7 +113,16 @@ export default class Header extends Component {
                                 label="Sign In"
                                 style={loginButtonStyle}
                                 labelStyle={{ padding: 12 }}
-                                onClick={() => this.props.login('mark@fairhursts.net', 'audiolab')} />
+                                onClick={this.props.login} />
+                        )}
+                        {isAuthenticated && (
+                            <IconButton
+                                tooltip="My Routes"
+                                tooltipStyles={tooltipStyle}>
+                                <RoutesIcon
+                                    onClick={this.props.goToRoutes}
+                                    color={white} />
+                            </IconButton>
                         )}
                         {isAuthenticated && (
                             <FlatButton
