@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+// import { blueGrey100 } from 'material-ui/styles/colors';
 import './Dialogs.css';
+
+// const dialogContainerStyle = {
+//     backgroundColor: blueGrey100
+// };
 
 const dialogContentStyle = {
     width: 480,
-    maxWidth: 480,
+    maxWidth: 480
 };
 
 export default class ImportRouteDialog extends Component {
@@ -59,3 +64,6 @@ export default class ImportRouteDialog extends Component {
     }
 
 }
+
+// actionsContainerStyle={dialogContainerStyle}
+// bodyStyle={dialogContainerStyle}
