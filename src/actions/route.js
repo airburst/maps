@@ -9,6 +9,7 @@ import {
   addDistanceToElevation
 } from '../services/GeometryService';
 import { hideModal, setMapCentre } from './settings';
+import { history } from '../routes';
 
 const firebase = new Firebase();
 
@@ -213,9 +214,10 @@ export const getRoute = routeId => (dispatch, getState) => {
     const { user } = getState();
     const { uid } = user;
     if (!uid) { reject('You are not signed in'); }
-    firebase.getRoute(uid, routeId)
+    firebase.getRoute(uid, routeId) // error trap for routeid not found
       .then(route => {
         dispatch(setRoute(route));
+        history.push('/route');
         resolve();
       })
       .catch(err => reject(err));

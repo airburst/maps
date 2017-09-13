@@ -2,7 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Roboto;
+    font-family: 'Roboto', sans-serif;
     background-color: #ECEFF1;
 }
 
@@ -39,10 +39,6 @@ html, body {
     width: 100%;
 }
 
-.elevation-wrapper {
-    z-index: 2000;
-}
-
 #OpenSpaceControlPoweredBy {
     bottom: 60px !important;
 }
@@ -55,4 +51,9 @@ html, body {
 
 .route-item {
     max-width: 300px;
+    margin-right: 20px;
+}
+
+.route-item:last-child {
+    margin-right: 0;
 }

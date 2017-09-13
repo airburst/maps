@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-// import { LoginDialog, SaveDialog } from './Dialogs';
+import { red500 } from 'material-ui/styles/colors';
 import './App.css';
+import MapPlaceholder from '../images/map-placeholder.png';
+
+const styles = {
+	red: {
+		color: red500,
+	}
+}
 
 export default class RouteList extends Component {
 
@@ -11,6 +18,22 @@ export default class RouteList extends Component {
 		this.state = {
 			routes: {}
 		};
+	}
+
+	showRoute = (id) => {
+		this.props.getRoute(id)
+			.then(() => false)
+			.catch(err => console.log('Error getting route', err));
+	}
+
+	deleteRoute = (id) => {
+		this.props.deleteRoute(id)
+			.then(() => {
+				let newRoutes = Object.assign({}, this.state.routes);
+				delete newRoutes[id];
+				this.setState({ routes: newRoutes });
+			})
+			.catch(err => console.log('Error deleting route', err));
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
@@ -37,8 +60,9 @@ export default class RouteList extends Component {
 	}
 
 	render() {
-		const routeList = Object.values(this.state.routes);
-		const Routes = routeList.map((route, key) => {
+		const routeList = Object.entries(this.state.routes);
+		const Routes = routeList.map(r=> {
+			const [key, route] = r;
 			return (
 				<div className="route-item" key={key}>
 					<Card>
@@ -46,10 +70,18 @@ export default class RouteList extends Component {
 							title={route.name}
 							subtitle={route.date} />
 						<CardMedia>
-							<img src="http://via.placeholder.com/300x200" alt="Screenshot" />
+							<img 
+								src={MapPlaceholder} 
+								alt={'Map of ' + route.name} />
 						</CardMedia>
 						<CardActions>
-							<FlatButton label="View Route" />
+							<FlatButton 
+								label="View" 
+								onClick={() => this.showRoute(key)}/>
+							<FlatButton 
+								label="Delete"
+								style={styles.red}
+								onClick={() => this.deleteRoute(key)}/>
 						</CardActions>
 					</Card>
 				</div>
@@ -59,7 +91,7 @@ export default class RouteList extends Component {
 		return (
 			<div className="content">
 				<div className="content-wrapper">
-					<h2>Saved Routes</h2>
+					<h2 className="title">Saved Routes</h2>
 					<div className="grid">
 						{Routes}
 					</div>

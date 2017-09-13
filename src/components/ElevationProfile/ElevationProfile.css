@@ -4,7 +4,7 @@
     width: 100%;
     bottom: -252px; /* 300 - 48 (infopanel) */
     transition: all 0.2s ease-in-out;
-    z-index: 1010;
+    z-index: 2000;
 }
 
 .elevation-wrapper.show {
