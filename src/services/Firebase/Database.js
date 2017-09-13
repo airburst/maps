@@ -41,6 +41,7 @@ export default class FirebaseService {
       if (waypoints) { update['waypoints'] = waypoints; }
       if (track) { update['track'] = track; }
       if (elevation) { update['elevation'] = elevation; }
+      update['lastModified'] = new Date().toISOString();
       this.db.child(uid).child(routeId).update(update);
       resolve(routeId);
     });
