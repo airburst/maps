@@ -140,11 +140,13 @@ export default class OsMap extends Component {
                 strokeOpacity: 0.7
             }
         );
-        const waypointsFeature = waypoints.map(w => {
-            return new this.ol.Feature.Vector(this.convertToOsMapPoint(w));
-        });
-        this.pointVectorLayer.destroyFeatures();
-        this.pointVectorLayer.addFeatures(waypointsFeature);
+        if (waypoints) {
+            const waypointsFeature = waypoints.map(w => {
+                return new this.ol.Feature.Vector(this.convertToOsMapPoint(w));
+            });
+            this.pointVectorLayer.destroyFeatures();
+            this.pointVectorLayer.addFeatures(waypointsFeature);
+        }
         this.lineVectorLayer.destroyFeatures();
         this.lineVectorLayer.addFeatures([routeFeature]);
     };

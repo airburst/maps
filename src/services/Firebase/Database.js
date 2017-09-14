@@ -1,3 +1,12 @@
+/* 
+    Firebase schema:
+
+      routes:   stores a keyed set of route data (track, elevation, waypoints)
+                Only fetched directly, by id, to minimise read data
+     
+      user id:  uses the same key as route to hold metadata.
+                This is traversed, per user, to render route cards.
+*/
 import fire from './config';
 
 const AUTH_ERROR = 'You are not signed in';
@@ -12,44 +21,64 @@ export default class FirebaseService {
     return new Promise((resolve, reject) => {
       if (!uid) { reject(AUTH_ERROR) }
       const route = this.db.child(uid);
-      route.once('value', snapshot => resolve(snapshot.val()));
-    });
-  }
-
-  getRoute(uid, routeId) {
-    return new Promise((resolve, reject) => {
-      if (!uid || !routeId) { reject(AUTH_ERROR) }
-      const route = this.db.child(uid).child(routeId);
       route.on('value', snapshot => resolve(snapshot.val()));
     });
   }
 
-  saveRoute = (uid, route) => {
+  getRoute(uid, id) {
     return new Promise((resolve, reject) => {
-      if (!uid || uid === undefined) { reject(AUTH_ERROR) }
-      const routeId = route.id ? route.id : this.db.child(uid).push().key;
-      resolve(this.updateRoute(uid, routeId, route));
+      if (!uid || !id) { reject(AUTH_ERROR) }
+      const route = this.db.child('routes').child(id);
+      route.on('value', snapshot => {
+        const { waypoints, track, elevation } = snapshot.val();
+        const meta = this.db.child(uid).child(id);
+        meta.on('value', metashot => {
+          const { name, lastModified } = metashot.val();
+          resolve({ id, name, waypoints, track, elevation, lastModified });
+        });
+      });
     });
   }
 
-  updateRoute = (uid, routeId, route) => {
+  saveRoute = (uid, routeData) => {
     return new Promise((resolve, reject) => {
-      if (!uid || uid === undefined) { reject(AUTH_ERROR) }
-      const { name, waypoints, track, elevation } = route;
-      let update = {};
-      if (name) { update['name'] = name; }
-      if (waypoints) { update['waypoints'] = waypoints; }
-      if (track) { update['track'] = track; }
-      if (elevation) { update['elevation'] = elevation; }
-      update['lastModified'] = new Date().toISOString();
-      this.db.child(uid).child(routeId).update(update);
-      resolve(routeId);
+      if (!uid) { reject(AUTH_ERROR) }
+      const { id, route, meta } = this.getRouteData(routeData);
+      if (!id) {
+        const routeId = this.db.child('routes').push().key;
+        this.db.child('routes').child(routeId).update(route);
+        this.db.child(uid).child(routeId).set(meta);
+        resolve(routeId);
+      } else {
+        resolve(this.updateRoute(uid, routeData));
+      }
+    });
+  }
+
+  updateRoute = (uid, routeData) => {
+    return new Promise((resolve, reject) => {
+      const { id, route, meta } = this.getRouteData(routeData);
+      this.db.child('routes').child(id).update(route);
+      this.db.child(uid).child(id).update(meta);
+      resolve(id);
     });
   }
 
   deleteRoute(uid, routeId) {
     if (!uid) { return null; }
-    return this.db.child(uid).child(routeId).remove();
+    this.db.child('routes').child(routeId).remove();
+    this.db.child(uid).child(routeId).remove();
+    return;
+  }
+
+  getRouteData(data) {
+    const { id, name, waypoints, track, elevation } = data;
+    const lastModified = new Date().toISOString();
+    return {
+      id,
+      route: { waypoints, track, elevation },
+      meta: { name, lastModified }
+    };
   }
 
 }

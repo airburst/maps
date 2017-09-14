@@ -162,6 +162,7 @@ export const exportRoute = () => (dispatch, getState) => {
   file.save(gpxData);
 }
 
+// TODO: Remove the shit out of this number of dispatches...!!
 export const importRoute = (e) => dispatch => {
   const fileService = new FileService();
   const gpxService = new GpxService();
@@ -209,14 +210,17 @@ export const getRouteList = () => (dispatch, getState) => {
   });
 }
 
-export const getRoute = routeId => (dispatch, getState) => {
+export const getRoute = id => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
     const { user } = getState();
     const { uid } = user;
     if (!uid) { reject('You are not signed in'); }
-    firebase.getRoute(uid, routeId) // error trap for routeid not found
+    firebase.getRoute(uid, id) // error trap for routeid not found
       .then(route => {
+        const { lat, lon, zoom } = getBounds(route);
+        dispatch(clearRoute());
         dispatch(setRoute(route));
+        dispatch(setMapCentre({ lat, lon }, zoom));
         history.push('/route');
         resolve();
       })

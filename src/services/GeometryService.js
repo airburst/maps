@@ -1,3 +1,5 @@
+import { flatten } from './utils';
+
 const distanceBetween = (point1, point2) => {
     const p = 0.017453292519943295;    // Math.PI / 180
     let c = Math.cos;
@@ -40,7 +42,8 @@ export const totalAscent = elevation => {
     return ascent;
 }
 
-// export const unique = (values) => {                  // Use variant to smooth track
+// Use variant to smooth track
+// export const unique = (values) => {                  
 //     return values.reduce(function (prev, cur) {
 //         if (prev.indexOf(cur) == -1) {
 //             prev.push(cur);
@@ -96,11 +99,10 @@ const getZoomLevel = (point1, point2) => {
     return z;
 }
 
-// Only run on a pre-flattened track, after import or embed
 export const getBounds = ({ waypoints, track }) => {
     let b = Object.assign({}, INITIAL_BOUNDS);
     const points = waypoints ? waypoints : track;
-    points.forEach(point => {
+    flatten(points).forEach(point => {
         b.minLat = Math.min(b.minLat, point.lat);
         b.maxLat = Math.max(b.maxLat, point.lat);
         b.minLon = Math.min(b.minLon, point.lon);
