@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { red500 } from 'material-ui/styles/colors';
+import ConfirmDeleteDialog from '../components/Dialogs/ConfirmDeleteDialog';
 import './App.css';
 import MapPlaceholder from '../images/map-placeholder.png';
 
@@ -13,11 +14,29 @@ const styles = {
 
 export default class RouteList extends Component {
 
-	constructor() {
-		super();
-		this.state = {
-			routes: {}
-		};
+	state = {
+		routes: {},
+		showConfirm: false,
+		selectedRoute: null
+	};
+
+	showConfirm = (selectedRoute) => {
+		this.setState({
+			showConfirm: true,
+			selectedRoute
+		})
+	}
+
+	hideConfirm = () => {
+		this.setState({
+			showConfirm: false,
+			selectedRoute: null
+		})
+	}
+
+	handleDelete = () => {
+		this.deleteRoute(this.state.selectedRoute);
+		this.hideConfirm();
 	}
 
 	showRoute = (id) => {
@@ -39,7 +58,8 @@ export default class RouteList extends Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		return (
 			nextProps.user.uid !== this.props.user.uid ||
-			Object.keys(nextState.routes).length !== Object.keys(this.state.routes).length
+			Object.keys(nextState.routes).length !== Object.keys(this.state.routes).length ||
+			nextState.showConfirm !== this.state.showConfirm
 		);
 	}
 
@@ -60,28 +80,29 @@ export default class RouteList extends Component {
 	}
 
 	render() {
-		const routeList = Object.entries(this.state.routes);
-		const Routes = routeList.map(r=> {
+		const { routes, showConfirm } = this.state;
+		const routeList = Object.entries(routes);
+		const Routes = routeList.map(r => {
 			const [key, route] = r;
+			const { name } = route;
 			return (
 				<div className="route-item" key={key}>
 					<Card>
 						<CardTitle
-							title={route.name}
-							subtitle={route.date} />
+							title={name} />
 						<CardMedia>
-							<img 
-								src={MapPlaceholder} 
-								alt={'Map of ' + route.name} />
+							<img
+								src={MapPlaceholder}
+								alt={'Map of ' + name} />
 						</CardMedia>
 						<CardActions>
-							<FlatButton 
-								label="View" 
-								onClick={() => this.showRoute(key)}/>
-							<FlatButton 
+							<FlatButton
+								label="View"
+								onClick={() => this.showRoute(key)} />
+							<FlatButton
 								label="Delete"
 								style={styles.red}
-								onClick={() => this.deleteRoute(key)}/>
+								onClick={() => this.showConfirm(key)} />
 						</CardActions>
 					</Card>
 				</div>
@@ -89,13 +110,19 @@ export default class RouteList extends Component {
 		});
 
 		return (
-			<div className="content">
-				<div className="content-wrapper">
-					<h2 className="title">Saved Routes</h2>
-					<div className="grid">
-						{Routes}
+			<div>
+				<div className="content">
+					<div className="content-wrapper">
+						<h2 className="title">Saved Routes</h2>
+						<div className="grid">
+							{Routes}
+						</div>
 					</div>
 				</div>
+				<ConfirmDeleteDialog
+					show={showConfirm}
+					remove={this.handleDelete}
+					cancel={this.hideConfirm} />
 			</div>
 		);
 	}

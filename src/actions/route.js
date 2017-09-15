@@ -205,7 +205,10 @@ export const getRouteList = () => (dispatch, getState) => {
     const { uid } = user;
     if (!uid) { reject('You are not signed in'); }
     firebase.getRouteList(uid)
-      .then(routes => resolve(routes))
+      .then(routes => {
+        // console.log('received routes', routes);  Make this reactive!
+        resolve(routes)
+      })
       .catch(err => reject(err));
   });
 }
