@@ -5,6 +5,9 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import HelpIcon from 'material-ui/svg-icons/action/help-outline';
+import RoutesIcon from 'material-ui/svg-icons/action/bookmark-border';
+import SignOutIcon from 'material-ui/svg-icons/action/lock-open';
 import { history } from '../routes';
 
 const SIGN_OUT = 'Sign out';
@@ -30,9 +33,9 @@ const Logged = (props) => (
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
-        <MenuItem primaryText={HELP} />
-        <MenuItem primaryText={PLANNER} />
-        <MenuItem primaryText={SIGN_OUT} />
+        <MenuItem primaryText={HELP} leftIcon={<HelpIcon />} />
+        <MenuItem primaryText={PLANNER} leftIcon={<RoutesIcon />}/>
+        <MenuItem primaryText={SIGN_OUT} leftIcon={<SignOutIcon />}/>
     </IconMenu>
 );
 
