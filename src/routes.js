@@ -23,3 +23,16 @@ const Routes = () => {
 }
 
 export default Routes;
+
+const goToRouteList = () => {
+    history.push('/routes');
+};
+
+const goToPlanner = () => {
+    history.push('/route');
+};
+
+export {
+    goToRouteList,
+    goToPlanner
+};

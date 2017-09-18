@@ -5,6 +5,11 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { history } from '../routes';
+
+const SIGN_OUT = 'Sign out';
+const PLANNER = 'My Routes';
+const HELP = 'Help';
 
 class Login extends Component {
     static muiName = 'FlatButton';
@@ -25,8 +30,9 @@ const Logged = (props) => (
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
-        <MenuItem primaryText="Help" />
-        <MenuItem primaryText="Sign out" />
+        <MenuItem primaryText={HELP} />
+        <MenuItem primaryText={PLANNER} />
+        <MenuItem primaryText={SIGN_OUT} />
     </IconMenu>
 );
 
@@ -40,10 +46,15 @@ export default class Header extends Component {
         this.forceUpdate(); // Re-centre map
     }
 
+    goToRouteList = () => {
+        history.push('/routes');
+    }
+
     handleChange = (event, { props }) => {
         const { primaryText } = props;
-        if (primaryText === 'Sign out') { this.logout(); }
-        if (primaryText === 'Help') { console.log('Create a help page') }
+        if (primaryText === SIGN_OUT) { this.logout(); }
+        if (primaryText === PLANNER) { this.goToRouteList(); }
+        if (primaryText === HELP) { console.log('Create a help page') }
     };
 
     render() {

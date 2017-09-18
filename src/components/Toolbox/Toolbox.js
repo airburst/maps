@@ -11,8 +11,10 @@ import SaveIcon from 'material-ui/svg-icons/content/save';
 import UndoIcon from 'material-ui/svg-icons/content/undo';
 import BikeIcon from 'material-ui/svg-icons/maps/directions-bike';
 import WalkIcon from 'material-ui/svg-icons/maps/directions-walk';
-import RoutesIcon from 'material-ui/svg-icons/maps/map';
+import MapIcon from 'material-ui/svg-icons/maps/map';
+import RoutesIcon from 'material-ui/svg-icons/action/bookmark-border';
 import { white, blueGrey800 } from 'material-ui/styles/colors';
+import { goToPlanner, goToRouteList } from '../../routes';
 
 const styles = {
     toolbox: {
@@ -81,7 +83,10 @@ export default class Toolbox extends Component {
                     <Divider />
                     <List>
                         <IconButton>
-                            <RoutesIcon onClick={this.props.goToRouteList} />
+                            <MapIcon onClick={goToPlanner} />
+                        </IconButton>
+                        <IconButton>
+                            <RoutesIcon onClick={goToRouteList} />
                         </IconButton>
                     </List>
                 </Paper>
