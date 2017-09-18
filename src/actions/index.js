@@ -61,7 +61,8 @@ export {
     saveRoute,
     getRoute,
     getRouteList,
-    deleteRoute
+    deleteRoute,
+    goToRouteList
 } from './route';
 
 export {

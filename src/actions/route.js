@@ -239,3 +239,7 @@ export const deleteRoute = routeId => (dispatch, getState) => {
     resolve(firebase.deleteRoute(uid, routeId));
   });
 }
+
+export const goToRouteList = () => {
+  history.push('/routes');
+}
