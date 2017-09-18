@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as Actions from '../actions/route';
-import Map from '../components/Map';
+import * as Actions from '../../actions/route';
+import Map from './Map';
 
 const mapStateToProps = ({ settings, route }) => {
     return {

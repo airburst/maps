@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Routes from '../routes';
-import Header from './Header';
-import Toolbox from './Toolbox';
-import { LoginDialog, SaveDialog, ImportRouteDialog } from './Dialogs';
-import './App.css';
+import Routes from '../../routes';
+import Header from '../Header';
+import Toolbox from '../Toolbox';
+import ElevationProfile from '../ElevationProfile';
+import { LoginDialog, SaveDialog, ImportRouteDialog } from '../Dialogs';
+import '../App.css';
 
 export default class App extends Component {
 
@@ -27,7 +28,7 @@ export default class App extends Component {
 
 	render() {
 		const { showDialogs } = this.props.settings;
-		
+
 		return (
 			<div role="main" id="main">
 				<Header
@@ -40,7 +41,11 @@ export default class App extends Component {
 					showImportModal={this.showImportModal}
 					showSaveModal={this.showSaveModal} />
 
-				<Routes />
+				<div className="main-content">
+					<Routes />
+				</div>
+
+				<ElevationProfile />
 
 				<LoginDialog
 					show={showDialogs.login}

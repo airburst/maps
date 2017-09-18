@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Loading from './Loading';
-import OsMap from './OSMap';
+import OsMap from '../OSMap';
 // import MapContainer from './GoogleMap/Container';
-import ElevationProfile from '../containers/ElevationProfile';
-import './App.css';
+import '../App.css';
 
 export default class RouteList extends Component {
 
@@ -22,7 +21,6 @@ export default class RouteList extends Component {
                         addTrack={addTrackAndGetElevation}
                         followsRoads={route.followsRoads} />
                 )}
-                <ElevationProfile />
             </div>
         );
     }

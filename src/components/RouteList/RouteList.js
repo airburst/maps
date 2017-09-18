@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { red500 } from 'material-ui/styles/colors';
-import ConfirmDeleteDialog from '../components/Dialogs/ConfirmDeleteDialog';
-import './App.css';
-import MapPlaceholder from '../images/map-placeholder.png';
+import ConfirmDeleteDialog from '../Dialogs/ConfirmDeleteDialog';
+import MapPlaceholder from '../../images/map-placeholder.png';
+import '../App.css';
 
 const styles = {
 	red: {

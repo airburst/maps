@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import ScriptLoader from './services/ScriptLoader';
 // import Routes from './routes';
-import App from './containers/App';
+import App from './components/App';
 import theme from './theme';
 // import registerServiceWorker from './registerServiceWorker';
 

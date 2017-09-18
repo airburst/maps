@@ -19,16 +19,22 @@ html, body {
     z-index: 1000;
 }
 
+.main-content {
+    margin-left: 48px;
+}
+
 #map-container,
 .content {
     flex: 1;
     height: 100vh; 
     width: 100%;
     transition: all 0.2s;
+    padding-left: 48px;
 }
 
 .content {
     padding-top: 56px;
+    margin-left: 48px;
 }
 
 .content-wrapper {

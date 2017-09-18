@@ -1,38 +1,28 @@
-import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
-import InfoPanel from './InfoPanel';
-import Chart from './Chart';
-import './ElevationProfile.css';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+    toggleElevation,
+    hideElevation,
+    showPoint
+} from '../../actions';
+import ElevationProfile from './ElevationProfile';
 
-export default class ElevationProfile extends Component {
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.elevation.length === 0) {
-            this.props.hideElevation();
-        }
+const mapStateToProps = ({ route, settings }) => {
+    const { elevation, distance, ascent } = route;
+    return {
+        elevation,
+        distance,
+        ascent,
+        show: settings.showElevation
     }
+};
 
-    render() {
-        const wrapperClass = 'elevation-wrapper' + (this.props.show ? ' show' : '');
-        const noData = (this.props.elevation.length === 0);
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        toggleElevation,
+        hideElevation,
+        showPoint
+    }, dispatch);
+};
 
-        return (
-            <div className={wrapperClass}>
-                <Paper
-                    className="elevation-container"
-                    zDepth={5}>
-                    <InfoPanel
-                        distance={this.props.distance}
-                        ascent={this.props.ascent}
-                        noData={noData}
-                        show={this.props.show}
-                        toggle={this.props.toggleElevation} />
-                    <Chart 
-                        data={this.props.elevation}
-                        hover={this.props.showPoint} />
-                </Paper>
-            </div>
-        );
-    }
-
-}
+export default connect(mapStateToProps, mapDispatchToProps)(ElevationProfile);
