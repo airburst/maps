@@ -34,7 +34,8 @@ export default class App extends Component {
 				<Header
 					user={this.props.user}
 					login={this.showLoginModal}
-					logout={this.props.logout} />
+					logout={this.props.logout}
+					clearRoute={this.props.clearRoute} />
 				<Toolbox
 					export={this.props.exportRoute}
 					showSearchPanel={this.showSearchPanel}

@@ -17,7 +17,7 @@ import { white, blueGrey800 } from 'material-ui/styles/colors';
 const styles = {
     toolbox: {
         position: 'absolute',
-        top: 56,
+        top: 64,
         left: 0,
         width: 48,
         height: '100%',

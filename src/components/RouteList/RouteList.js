@@ -110,8 +110,8 @@ export default class RouteList extends Component {
 		});
 
 		return (
-			<div>
-				<div className="content">
+			<div className="content">
+				<div>
 					<div className="content-wrapper">
 						<h2 className="title">Saved Routes</h2>
 						<div className="grid">
@@ -119,6 +119,7 @@ export default class RouteList extends Component {
 						</div>
 					</div>
 				</div>
+
 				<ConfirmDeleteDialog
 					show={showConfirm}
 					remove={this.handleDelete}
