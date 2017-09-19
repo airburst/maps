@@ -36,7 +36,7 @@ export default class ElevationService {
                     track: this.followsRoads ? null : this.extractTrack(data)
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error));        // Trap if no elevation data
     }
 
     convertToGoogleRoute(points) {

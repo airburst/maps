@@ -30,11 +30,11 @@ export default class FirebaseService {
       if (!uid || !id) { reject(AUTH_ERROR) }
       const route = this.db.child('routes').child(id);
       route.on('value', snapshot => {
-        const { waypoints, track, elevation } = snapshot.val();
+        const { waypoints, track, elevation, distance, ascent } = snapshot.val();
         const meta = this.db.child(uid).child(id);
         meta.on('value', metashot => {
-          const { name, lastModified } = metashot.val();
-          resolve({ id, name, waypoints, track, elevation, lastModified });
+          const { name, lastModified, editable } = metashot.val();
+          resolve({ id, name, waypoints, track, elevation, distance, ascent, lastModified, editable });
         });
       });
     });
@@ -72,12 +72,12 @@ export default class FirebaseService {
   }
 
   getRouteData(data) {
-    const { id, name, waypoints, track, elevation } = data;
+    const { id, name, waypoints, track, elevation, distance, ascent, editable } = data;
     const lastModified = new Date().toISOString();
     return {
       id,
-      route: { waypoints, track, elevation },
-      meta: { name, lastModified }
+      route: { waypoints, track, elevation, distance, ascent },
+      meta: { name, lastModified, editable }
     };
   }
 

@@ -40,7 +40,7 @@ export default class Toolbox extends Component {
 
     render() {
         const hasTrack = this.props.route.track.length > 0;
-        const follow = this.props.route.followsRoads;
+        const { editable, followsRoads } = this.props.route;
 
         return (
             <div id="toolbox" style={styles.toolbox}>
@@ -52,17 +52,20 @@ export default class Toolbox extends Component {
                         <IconButton>
                             <ClearIcon onClick={this.props.clearRoute} />
                         </IconButton>
-                        <IconButton>
-                            <UndoIcon onClick={this.props.removePoint} />
-                        </IconButton>
-                        {follow ?
+                        {editable && (
+                            <IconButton>
+                                <UndoIcon onClick={this.props.removePoint} />
+                            </IconButton>
+                        )}
+                        {editable && (
+                            followsRoads ?
                             <IconButton>
                                 <BikeIcon onClick={this.props.toggleFollowsRoads} />
                             </IconButton> :
                             <IconButton>
                                 <WalkIcon onClick={this.props.toggleFollowsRoads} />
                             </IconButton>
-                        }
+                        )}
                     </List>
                     <Divider />
                     <List>

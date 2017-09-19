@@ -83,6 +83,12 @@ export const toggleFollowsRoads = () => {
   };
 }
 
+
+export const DISABLE_EDIT = 'DISABLE_EDIT';
+export const disableEdit = () => {
+  return { type: DISABLE_EDIT };
+}
+
 export const ADD_ELEVATION = 'ADD_ELEVATION';
 export const addElevation = elevation => {
   return {
@@ -176,7 +182,7 @@ export const importRoute = (e) => dispatch => {
       dispatch(updateDistance());
       dispatch(addElevation(addDistanceToElevation(elevation, t)));
       dispatch(updateAscent());     //
-      dispatch(setRoute({ name }));
+      dispatch(setRoute({ name, editable: false }));
       dispatch(setMapCentre({ lat, lon }, zoom));
       dispatch(hideModal('import'));
       // this.makeRouteNonEditable();

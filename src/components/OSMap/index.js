@@ -63,11 +63,13 @@ export default class OsMap extends Component {
     addMapEvents = () => {
         let evt = this.osMap.events;
         evt.remove('dblclick');
-        evt.register('touchmove', this.osMap, () => {
-            this.setState({ isMoving: true });
-        });
-        evt.register('touchend', this.osMap, this.touchPoint);
-        evt.register('click', this.osMap, this.clickPoint);
+        if (this.props.route.editable) {
+            evt.register('touchmove', this.osMap, () => {
+                this.setState({ isMoving: true });
+            });
+            evt.register('touchend', this.osMap, this.touchPoint);
+            evt.register('click', this.osMap, this.clickPoint);
+        }
     }
 
     removeMapEvents = () => {

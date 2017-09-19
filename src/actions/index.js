@@ -42,6 +42,7 @@ export {
     SHOW_POINT,
     SET_NAME,
     SET_ID,
+    DISABLE_EDIT,
     addPoint,
     removePoint,
     clearRoute,
@@ -62,7 +63,8 @@ export {
     getRoute,
     getRouteList,
     deleteRoute,
-    goToRouteList
+    goToRouteList,
+    disableEdit
 } from './route';
 
 export {

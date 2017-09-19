@@ -11,7 +11,8 @@ import {
   TOGGLE_FOLLOWS_ROADS,
   SHOW_POINT,
   SET_NAME,
-  SET_ID
+  SET_ID,
+  DISABLE_EDIT
 } from '../actions';
 import { distance, totalAscent, trunc } from '../services/GeometryService';
 import { flatten } from '../services/utils';
@@ -25,6 +26,7 @@ const initialSettings = {
   distance: 0,
   ascent: 0,
   followsRoads: true,
+  editable: true,
   showPoint: null
 };
 
@@ -79,6 +81,9 @@ const route = (state = initialSettings, { type, payload }) => {
       return Object.assign({}, state, {
         elevation: [...state.elevation, incrementedPayload]
       });
+
+    case DISABLE_EDIT:
+      return Object.assign({}, state, { editable: false });
 
     case TOGGLE_FOLLOWS_ROADS:
       return Object.assign({}, state, { followsRoads: !state.followsRoads });
