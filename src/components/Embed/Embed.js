@@ -7,9 +7,9 @@ import './Embed.css';
 
 export default class RouteList extends Component {
 
-    componentWillReceiveProps() {
-        const { params } = this.props.match;
-        console.log(params.id);
+    componentDidMount() {
+        const { match, getEmbedRoute } = this.props;
+        getEmbedRoute(match.params.id);
     }
 
     render() {

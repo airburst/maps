@@ -40,6 +40,17 @@ export default class FirebaseService {
     });
   }
 
+  getEmbedRoute(id) {
+    return new Promise((resolve, reject) => {
+      if (!id) { reject(AUTH_ERROR) }
+      const route = this.db.child('routes').child(id);
+      route.on('value', snapshot => {
+        const { waypoints, track, elevation, distance, ascent } = snapshot.val();
+        resolve({ id, waypoints, track, elevation, distance, ascent, editable: false });
+      });
+    });
+  }
+
   saveRoute = (uid, routeData) => {
     return new Promise((resolve, reject) => {
       if (!uid) { reject(AUTH_ERROR) }

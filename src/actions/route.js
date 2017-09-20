@@ -219,7 +219,7 @@ export const getRouteList = () => (dispatch, getState) => {
   });
 }
 
-export const getRoute = id => (dispatch, getState) => {
+export const getRoute = (id) => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
     const { user } = getState();
     const { uid } = user;
@@ -227,10 +227,24 @@ export const getRoute = id => (dispatch, getState) => {
     firebase.getRoute(uid, id) // error trap for routeid not found
       .then(route => {
         const { lat, lon, zoom } = getBounds(route);
-        dispatch(clearRoute());
+        // dispatch(clearRoute());
         dispatch(setRoute(route));
         dispatch(setMapCentre({ lat, lon }, zoom));
         history.push('/route');
+        resolve();
+      })
+      .catch(err => reject(err));
+  });
+}
+
+export const getEmbedRoute = (id) => (dispatch, getState) => {
+  return new Promise((resolve, reject) => {
+    firebase.getEmbedRoute(id) // error trap for routeid not found
+      .then(route => {
+        const { lat, lon, zoom } = getBounds(route);
+        // dispatch(clearRoute());
+        dispatch(setRoute(route));
+        dispatch(setMapCentre({ lat, lon }, zoom));
         resolve();
       })
       .catch(err => reject(err));

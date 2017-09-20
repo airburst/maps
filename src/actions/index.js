@@ -62,6 +62,7 @@ export {
     saveRoute,
     getRoute,
     getRouteList,
+    getEmbedRoute,
     deleteRoute,
     goToRouteList,
     disableEdit

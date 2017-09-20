@@ -1,5 +1,6 @@
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { } from '../../actions/route';
+import { getEmbedRoute } from '../../actions/route';
 import Embed from './Embed';
 
 const mapStateToProps = ({ settings, route }) => {
@@ -9,4 +10,10 @@ const mapStateToProps = ({ settings, route }) => {
     };
 };
 
-export default connect(mapStateToProps, {})(Embed);
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        getEmbedRoute
+    }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Embed);
