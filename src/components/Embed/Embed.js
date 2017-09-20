@@ -5,7 +5,7 @@ import ElevationProfile from '../ElevationProfile';
 // import MapContainer from './GoogleMap/Container';
 import './Embed.css';
 
-export default class RouteList extends Component {
+export default class Embed extends Component {
 
     componentDidMount() {
         const { match, getEmbedRoute } = this.props;
