@@ -21,7 +21,14 @@ export default class FirebaseService {
     return new Promise((resolve, reject) => {
       if (!uid) { reject(AUTH_ERROR) }
       const route = this.db.child(uid);
-      route.on('value', snapshot => resolve(snapshot.val()));
+      route.on('value', snapshot => {
+        const data = snapshot.val();
+        if (!data) { 
+          reject('No route list found for user'); 
+        } else {
+          resolve(data);
+        }
+      });
     });
   }
 
@@ -30,12 +37,17 @@ export default class FirebaseService {
       if (!uid || !id) { reject(AUTH_ERROR) }
       const route = this.db.child('routes').child(id);
       route.on('value', snapshot => {
-        const { waypoints, track, elevation, distance, ascent } = snapshot.val();
-        const meta = this.db.child(uid).child(id);
-        meta.on('value', metashot => {
-          const { name, lastModified, editable } = metashot.val();
-          resolve({ id, name, waypoints, track, elevation, distance, ascent, lastModified, editable });
-        });
+        const data = snapshot.val();
+        if (!data) {
+          reject('No route found');
+        } else {
+          const { waypoints, track, elevation, distance, ascent } = data;
+          const meta = this.db.child(uid).child(id);
+          meta.on('value', metashot => {
+            const { name, lastModified, editable } = metashot.val();
+            resolve({ id, name, waypoints, track, elevation, distance, ascent, lastModified, editable });
+          });
+        }
       });
     });
   }
@@ -45,8 +57,13 @@ export default class FirebaseService {
       if (!id) { reject(AUTH_ERROR) }
       const route = this.db.child('routes').child(id);
       route.on('value', snapshot => {
-        const { waypoints, track, elevation, distance, ascent } = snapshot.val();
-        resolve({ id, waypoints, track, elevation, distance, ascent, editable: false });
+        const data = snapshot.val();
+        if (!data) {
+          reject('No route found');
+        } else {
+          const { waypoints, track, elevation, distance, ascent } = data;
+          resolve({ id, waypoints, track, elevation, distance, ascent, editable: false });
+        }
       });
     });
   }
@@ -69,6 +86,7 @@ export default class FirebaseService {
   updateRoute = (uid, routeData) => {
     return new Promise((resolve, reject) => {
       const { id, route, meta } = this.getRouteData(routeData);
+      // Trap errors!
       this.db.child('routes').child(id).update(route);
       this.db.child(uid).child(id).update(meta);
       resolve(id);

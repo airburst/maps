@@ -9,7 +9,9 @@ export default class Embed extends Component {
 
     componentDidMount() {
         const { match, getEmbedRoute } = this.props;
-        getEmbedRoute(match.params.id);
+        getEmbedRoute(match.params.id)
+            .then(() => console.log('OK'))
+            .catch(err => console.log(err));
     }
 
     render() {

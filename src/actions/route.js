@@ -215,7 +215,7 @@ export const getRouteList = () => (dispatch, getState) => {
         // console.log('received routes', routes);  Make this reactive!
         resolve(routes)
       })
-      .catch(err => reject(err));
+      .catch(err => reject(err)); // Dispatch error snackbar
   });
 }
 
@@ -224,30 +224,28 @@ export const getRoute = (id) => (dispatch, getState) => {
     const { user } = getState();
     const { uid } = user;
     if (!uid) { reject('You are not signed in'); }
-    firebase.getRoute(uid, id) // error trap for routeid not found
+    firebase.getRoute(uid, id)
       .then(route => {
         const { lat, lon, zoom } = getBounds(route);
-        // dispatch(clearRoute());
         dispatch(setRoute(route));
         dispatch(setMapCentre({ lat, lon }, zoom));
         history.push('/route');
         resolve();
       })
-      .catch(err => reject(err));
+      .catch(err => reject(err)); // Dispatch error snackbar
   });
 }
 
 export const getEmbedRoute = (id) => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
-    firebase.getEmbedRoute(id) // error trap for routeid not found
+    firebase.getEmbedRoute(id)
       .then(route => {
         const { lat, lon, zoom } = getBounds(route);
-        // dispatch(clearRoute());
         dispatch(setRoute(route));
         dispatch(setMapCentre({ lat, lon }, zoom));
         resolve();
       })
-      .catch(err => reject(err));
+      .catch(err => reject(err)); // Dispatch error snackbar
   });
 }
 
