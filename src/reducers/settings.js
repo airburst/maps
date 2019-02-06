@@ -1,15 +1,15 @@
-import { REHYDRATE } from 'redux-persist/constants';
+// import { REHYDRATE } from 'redux-persist/constants';
 import {
-  OS_SCRIPT_LOADED,
+  CLEAR_ERROR,
   GOOGLE_SCRIPT_LOADED,
-  SET_COORDS,
-  SET_ZOOM,
-  TOGGLE_SHOW_ELEVATION,
   HIDE_ELEVATION,
-  SHOW_MODAL,
   HIDE_MODAL,
+  OS_SCRIPT_LOADED,
+  SET_COORDS,
   SET_ERROR,
-  CLEAR_ERROR
+  SET_ZOOM,
+  SHOW_MODAL,
+  TOGGLE_SHOW_ELEVATION
 } from '../actions';
 
 const initialSettings = {
@@ -35,12 +35,11 @@ let showDialogs;
 
 export default (state = initialSettings, { type, payload }) => {
   switch (type) {
-
-    case REHYDRATE:
-      return Object.assign({}, state, {
-        osScriptLoaded: false,
-        googleScriptLoaded: false
-      });
+    // case REHYDRATE:
+    //   return Object.assign({}, state, {
+    //     osScriptLoaded: false,
+    //     googleScriptLoaded: false
+    //   });
 
     case OS_SCRIPT_LOADED:
       return Object.assign({}, state, { osScriptLoaded: true });
@@ -77,4 +76,4 @@ export default (state = initialSettings, { type, payload }) => {
     default:
       return state;
   }
-}
+};
